@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.js": "/static/js/bundle.js",
+    "main.css": "/static/css/main.f853315d.css",
+    "static/js/787.bundle.js": "/static/js/787.bundle.js",
+    "static/media/ask-guru-logo.svg": "/static/media/ask-guru-logo.89a17d69a71441bd480a040cbbead8e4.svg",
+    "index.html": "/index.html",
+    "bundle.js.map": "/static/js/bundle.js.map",
+    "main.f853315d.css.map": "/static/css/main.f853315d.css.map",
+    "787.bundle.js.map": "/static/js/787.bundle.js.map"
+  },
+  "entrypoints": [
+    "static/js/bundle.js",
+    "static/css/main.f853315d.css"
+  ]
+}
