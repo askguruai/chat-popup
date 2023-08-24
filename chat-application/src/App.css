@@ -171,7 +171,8 @@
   border-radius: 8px;
   max-width: 80%;
   width: fit-content;
-
+  margin-left: 8px;
+  margin-right: 8px;
   background-color: #000;
   color: white;
   padding: 8px 12px;
@@ -189,4 +190,8 @@
 
 .askguru-message p{
   margin: 0;
+}
+
+#askguru-scroll-anchor{
+  margin-top: -8px;
 }
