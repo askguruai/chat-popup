@@ -73,6 +73,10 @@ function App() {
   const handleUserMessage = async (event) => {
     event.preventDefault();
 
+    if (isLoading) {
+      return;
+    }
+
     if (composeValue === undefined || composeValue === null) {
       return;
     }
