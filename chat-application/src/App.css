@@ -80,8 +80,48 @@
 }
 
 .askguru-ai-close svg{
-  width: 22px;
-  height :22px;
+  width: 22px !important;
+  height :22px !important;
+}
+
+
+
+.askguru-ai-clear{
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 22px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.askguru-small-btn{
+  position: relative;
+}
+
+.askguru-small-btn:hover .askguru-tooltip{
+  display: block;
+  opacity: 1;
+}
+
+.askguru-tooltip{
+  background-color: #000;
+  color: white;
+  font-size: 12px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  padding: 6px 9px;
+  opacity: 0;
+  position: absolute;
+  bottom: -12px;
+  left: -20%;
+  white-space: nowrap;
+  transition: 0.1s;
+}
+
+.askguru-ai-clear svg{
+  width: 16px !important;
+  height :16px;
 }
 
 .ask-guru-footer{
@@ -194,4 +234,9 @@
 
 #askguru-scroll-anchor{
   margin-top: -8px;
+}
+
+.askguru-header-buttons{
+  display: flex;
+  gap: 8px;
 }

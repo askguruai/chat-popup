@@ -204,11 +204,27 @@ function App() {
           </svg>
           Chat with AI Assistant
         </div>
-        <button className="askguru-ai-close" onClick={handleClose}>
-          <svg stroke="white" fill="white" stroke-width="0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-            <path d="M289.94 256l95-95A24 24 0 00351 127l-95 95-95-95a24 24 0 00-34 34l95 95-95 95a24 24 0 1034 34l95-95 95 95a24 24 0 0034-34z"></path>
-          </svg>
-        </button>
+        <div className="askguru-header-buttons">
+          <button className="askguru-small-btn askguru-ai-clear">
+            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
+              <path
+                d="M463.5 224H472c13.3 0 24-10.7 24-24V72c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1c-87.5 87.5-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H463.5z"
+                fill="#FFF"
+              />
+            </svg>
+            <div className="askguru-tooltip">Clear</div>
+          </button>
+          <button className="askguru-small-btn askguru-ai-close" onClick={handleClose}>
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M14.1836 20.4805C14.4766 20.4805 14.7695 20.3633 14.9688 20.1406L24.0391 10.8477C24.2383 10.6484 24.3555 10.3906 24.3555 10.0977C24.3555 9.48828 23.8984 9.01953 23.2891 9.01953C22.9961 9.01953 22.7266 9.13672 22.5273 9.32422L13.5508 18.5H14.8047L5.82812 9.32422C5.64062 9.13672 5.37109 9.01953 5.06641 9.01953C4.45703 9.01953 4 9.48828 4 10.0977C4 10.3906 4.11719 10.6484 4.31641 10.8594L13.3867 20.1406C13.6094 20.3633 13.8789 20.4805 14.1836 20.4805Z"
+                fill="white"
+              />
+            </svg>
+
+            <div className="askguru-tooltip">Collapse</div>
+          </button>
+        </div>
       </div>
       <div className="askguru-content">
         {messages.map((message, index) => {
