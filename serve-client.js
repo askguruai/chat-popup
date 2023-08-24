@@ -53,7 +53,7 @@ const getButtonInitFile = (token, color) => {
     async function loadReactStyles() {
       const scriptElement = document.createElement('script');
 
-      scriptElement.src = 'http://data.askguru.ai/remote-script';
+      scriptElement.src = 'https://data.askguru.ai/remote-script';
   
       scriptElement.addEventListener('load', () => {
         document.getElementById(config.wrapper_id).style.opacity = '1';
@@ -64,7 +64,7 @@ const getButtonInitFile = (token, color) => {
     async function loadReactClient() {
       const linkElement = document.createElement('link');
       linkElement.rel = 'stylesheet';
-      linkElement.href = 'http://data.askguru.ai/remote-style';
+      linkElement.href = 'https://data.askguru.ai/remote-style';
       document.head.appendChild(linkElement);
     }
   
