@@ -68,7 +68,7 @@ const getButtonInitFile = (token, color) => {
     async function loadReactClient() {
       const linkElement = document.createElement('link');
       linkElement.rel = 'stylesheet';
-      // linkElement.href = 'https://data.askguru.ai/remote-style';
+      linkElement.href = 'https://data.askguru.ai/remote-style';
       document.head.appendChild(linkElement);
     }
   
