@@ -26,6 +26,10 @@ function App() {
     localStorage.setItem('askguru-history', currentHistory);
   };
 
+  useEffect(() => {
+    updateScroll();
+  }, [messages]);
+
   const applyChatHistory = () => {
     const chatHistoryRaw = localStorage.getItem('askguru-history');
 
@@ -34,6 +38,11 @@ function App() {
       messagesRef.current = savedHistory;
       setMessages(savedHistory);
     }
+  };
+
+  const updateScroll = (behavior = 'smooth') => {
+    const anchor = document.getElementById('askguru-scroll-anchor');
+    anchor.scrollIntoView({ behavior: behavior });
   };
 
   const resizeContainer = () => {
@@ -203,6 +212,7 @@ function App() {
         {messages.map((message, index) => {
           return <Message data={message} />;
         })}
+        <div id="askguru-scroll-anchor"></div>
       </div>
       <div className="askguru-compose">
         <button className="askguru-resize" onClick={resizeContainer}>
