@@ -118,6 +118,7 @@ const getButtonInitFile = (token, color) => {
       btn.style.transition = '0.25s ease-in-out';
       btn.style.opacity = '1';
   
+      btn.style.cursor = 'pointer';
       btn.style.backgroundColor = '#${color}';
   
       btn.onclick = handleStaticButtonClick;
