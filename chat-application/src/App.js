@@ -50,8 +50,8 @@ function App() {
       const wrapper = document.getElementById('ask-guru-wrapper');
       console.log({ value: wrapper.style.maxWidth });
       if (wrapper.style.maxWidth === 'calc(100vw - 32px)') {
-        wrapper.style.maxWidth = '350px';
-        wrapper.style.maxHeight = '500px';
+        wrapper.style.maxWidth = '450px';
+        wrapper.style.maxHeight = '650px';
       } else {
         wrapper.style.maxWidth = 'calc(100vw - 32px)';
         wrapper.style.maxHeight = 'calc(100vh - 32px)';
