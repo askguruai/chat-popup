@@ -3,8 +3,7 @@
   flex-direction: column;
   gap: 0px;
   width: 100%;
-  /* min-height: 0px; */
-  min-height: 300px;
+  height: 100%;
   background-color: #181b21;
 }
 
@@ -44,7 +43,7 @@
   background-image: linear-gradient(to right, #151816, #04100a);
 }
 
-.askguru-header img{
+.askguru-header svg{
   height: 12px;
 }
 
@@ -70,6 +69,14 @@
   border-radius: 50px;
   font-size: 16px;
   gap: 8px;
+}
+
+.askguru-resize{
+  width: 44px;
+  height: 44px;
+  background-color: transparent;
+  border :none;
+  cursor: pointer;
 }
 
 .askguru-submit-btn{

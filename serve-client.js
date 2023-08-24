@@ -13,6 +13,7 @@ app.options('*', cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'remote-app', 'build')));
+app.use(express.static(__dirname));
 
 app.get('/remote-script', async (req, res) => {
   try {
@@ -24,7 +25,15 @@ app.get('/remote-script', async (req, res) => {
 
 app.get('/remote-style', async (req, res) => {
   try {
-    res.sendFile(path.join(__dirname, 'chat-application', 'build', 'static', 'css', 'main.0f38262c.css'));
+    res.sendFile(path.join(__dirname, 'chat-application', 'build', 'static', 'css', 'main.97b04878.css'));
+  } catch (error) {
+    res.json({ error });
+  }
+});
+
+app.get('/i', async (req, res) => {
+  try {
+    res.sendFile(path.join(__dirname, 'button-init.js'));
   } catch (error) {
     res.json({ error });
   }

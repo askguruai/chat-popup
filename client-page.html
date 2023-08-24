@@ -10,68 +10,20 @@
 
 <body>
 
-    <!-- MOVE THIS TO REMOTE SCRIPT AND GIVE <SCRIPT SRC URL> -->
     <style>
-        #loadButton {
-            width: 50px;
-            height: 50px;
-            background-color: red;
-            color: white;
-            border-radius: 50px;
-            overflow: hidden;
-            position: fixed;
-            bottom: 16px;
-            right: 16px;
-        }
-
-        #askguru-askguru {
-            max-height: 90vh;
-            max-width: 300px;
-            background-color: red;
-            position: fixed;
-            bottom: 16px;
-            right: 16px;
-            display: none;
-        }
-
         html,
         body {
             min-height: 100vh;
+            background-color: grey;
+            width: 100%;
+            padding: 0;
+            overflow-x: hidden;
+            margin: 0;
         }
     </style>
 
+    <script src="http://localhost:8088/i"></script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <!-- <div id="root"></div> -->
-
-    <div id="askguru-askguru"></div>
-
-
-    <button id="loadButton">Ask</button>
-
-    <script>
-        function loadRemoteScript() {
-            var scriptElement = document.createElement('script');
-            scriptElement.src = 'http://localhost:8088/remote-script';
-            document.head.appendChild(scriptElement);
-        }
-
-        function loadRemoteStyles() {
-            var linkElement = document.createElement('link');
-            linkElement.rel = 'stylesheet';
-            linkElement.href = 'http://localhost:8088/remote-style';
-            document.head.appendChild(linkElement);
-        }
-
-        function loadAll() {
-            document.getElementById('askguru-askguru').style.display = 'block'
-            document.getElementById('loadButton').style.display = 'none'
-            loadRemoteScript()
-            loadRemoteStyles()
-        }
-
-        var loadButton = document.getElementById('loadButton');
-        loadButton.onclick = loadAll;
-    </script>
 </body>
 
 </html>

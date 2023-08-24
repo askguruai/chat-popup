@@ -17,6 +17,22 @@ function App() {
 
   const regexPattern = new RegExp('{ *doc_idx *: *([^}]*)}');
 
+  const resizeContainer = () => {
+    try {
+      const wrapper = document.getElementById('ask-guru-wrapper');
+      console.log({ value: wrapper.style.maxWidth });
+      if (wrapper.style.maxWidth === 'calc(100vw - 32px)') {
+        wrapper.style.maxWidth = '350px';
+        wrapper.style.maxHeight = '500px';
+      } else {
+        wrapper.style.maxWidth = 'calc(100vw - 32px)';
+        wrapper.style.maxHeight = 'calc(100vh - 32px)';
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const createNewMessage = (role, content) => {
     const newMessage = {
       role: role,
@@ -27,6 +43,14 @@ function App() {
 
   const handleUserMessage = async (event) => {
     event.preventDefault();
+
+    if (composeValue === undefined || composeValue === null) {
+      return;
+    }
+
+    if (composeValue.length === 0) {
+      return;
+    }
 
     const newMessage = createNewMessage('user', composeValue);
 
@@ -84,7 +108,6 @@ function App() {
         const refIndex = messagesRef.current.length - 1;
         let tempArray = messagesRef.current;
         tempArray[refIndex].content = initialAnswer;
-        console.log(initialAnswer);
         setMessages([...tempArray]);
         messagesRef.current = tempArray;
       }
@@ -149,37 +172,48 @@ function App() {
           return <Message data={message} />;
         })}
       </div>
-      <form className="askguru-compose" onSubmit={handleUserMessage}>
-        <svg className="askguru-scale-btn" stroke="currentColor" fill="white" stroke-width="0" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <g>
-            <path fill="none" d="M0 0h24v24H0z"></path>
-            <path d="M16 3h6v6h-2V5h-4V3zM2 3h6v2H4v4H2V3zm18 16v-4h2v6h-6v-2h4zM4 19h4v2H2v-6h2v4z"></path>
-          </g>
-        </svg>
-        <input
-          type="text"
-          value={composeValue}
-          onChange={(e) => setComposeValue(e.target.value)}
-          disabled={isLoading}
-          placeholder="What's your question?"
-        ></input>
-        <button disabled={isLoading} className="askguru-submit-btn">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#clip0_2124_88365)">
-              <path
-                d="M16.6719 26.9102C17.5156 26.9102 18.1133 26.1836 18.5469 25.0586L26.2227 5.00781C26.4336 4.46875 26.5508 3.98827 26.5508 3.58983C26.5508 2.82811 26.082 2.35938 25.3203 2.35938C24.9219 2.35938 24.4414 2.47655 23.9023 2.68749L3.74609 10.4102C2.76172 10.7852 2 11.3828 2 12.2383C2 13.3164 2.82031 13.6797 3.94531 14.0195L12.4062 16.5039L14.8672 24.8594C15.2188 26.043 15.582 26.9102 16.6719 26.9102ZM12.9336 14.7227L4.84766 12.25C4.66016 12.1914 4.60156 12.1445 4.60156 12.0625C4.60156 11.9805 4.64844 11.9219 4.82422 11.8516L20.668 5.85156C21.6055 5.5 22.5078 5.03125 23.375 4.63281C22.6016 5.26561 21.6406 6.01562 20.9961 6.66016L12.9336 14.7227ZM16.8594 24.332C16.7656 24.332 16.7188 24.25 16.6602 24.0625L14.1875 15.9766L22.25 7.91405C22.8828 7.28124 23.668 6.29688 24.2891 5.49999C23.8906 6.39061 23.4102 7.29296 23.0586 8.24218L17.0586 24.0859C16.9883 24.2617 16.9414 24.332 16.8594 24.332Z"
-                fill="black"
-                fill-opacity="0.85"
-              />
+      <div className="askguru-compose">
+        <button className="askguru-resize" onClick={resizeContainer}>
+          <svg
+            className="askguru-scale-btn"
+            stroke="currentColor"
+            fill="white"
+            stroke-width="0"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g>
+              <path fill="none" d="M0 0h24v24H0z"></path>
+              <path d="M16 3h6v6h-2V5h-4V3zM2 3h6v2H4v4H2V3zm18 16v-4h2v6h-6v-2h4zM4 19h4v2H2v-6h2v4z"></path>
             </g>
-            <defs>
-              <clipPath id="clip0_2124_88365">
-                <rect width="24.5508" height="25.9102" fill="white" transform="translate(2 1)" />
-              </clipPath>
-            </defs>
           </svg>
         </button>
-      </form>
+        <form style={{ display: 'flex', gap: '8px', width: '100%' }} onSubmit={handleUserMessage}>
+          <input
+            type="text"
+            value={composeValue}
+            onChange={(e) => setComposeValue(e.target.value)}
+            disabled={isLoading}
+            placeholder="What's your question?"
+          ></input>
+          <button type="submit" disabled={isLoading} className="askguru-submit-btn">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_2124_88365)">
+                <path
+                  d="M16.6719 26.9102C17.5156 26.9102 18.1133 26.1836 18.5469 25.0586L26.2227 5.00781C26.4336 4.46875 26.5508 3.98827 26.5508 3.58983C26.5508 2.82811 26.082 2.35938 25.3203 2.35938C24.9219 2.35938 24.4414 2.47655 23.9023 2.68749L3.74609 10.4102C2.76172 10.7852 2 11.3828 2 12.2383C2 13.3164 2.82031 13.6797 3.94531 14.0195L12.4062 16.5039L14.8672 24.8594C15.2188 26.043 15.582 26.9102 16.6719 26.9102ZM12.9336 14.7227L4.84766 12.25C4.66016 12.1914 4.60156 12.1445 4.60156 12.0625C4.60156 11.9805 4.64844 11.9219 4.82422 11.8516L20.668 5.85156C21.6055 5.5 22.5078 5.03125 23.375 4.63281C22.6016 5.26561 21.6406 6.01562 20.9961 6.66016L12.9336 14.7227ZM16.8594 24.332C16.7656 24.332 16.7188 24.25 16.6602 24.0625L14.1875 15.9766L22.25 7.91405C22.8828 7.28124 23.668 6.29688 24.2891 5.49999C23.8906 6.39061 23.4102 7.29296 23.0586 8.24218L17.0586 24.0859C16.9883 24.2617 16.9414 24.332 16.8594 24.332Z"
+                  fill="black"
+                  fill-opacity="0.85"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_2124_88365">
+                  <rect width="24.5508" height="25.9102" fill="white" transform="translate(2 1)" />
+                </clipPath>
+              </defs>
+            </svg>
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
