@@ -124,7 +124,15 @@ app.get('/remote-script', async (req, res) => {
 
 app.get('/remote-style', async (req, res) => {
   try {
-    res.sendFile(path.join(__dirname, 'chat-application', 'build', 'static', 'css', 'main.12e3ecf4.css'));
+    const files = await fs.readdir(path.join(__dirname, 'chat-application', 'build', 'static', 'css'));
+    const requestedFile = files.find((file) => /^main\..+\.css$/.test(file));
+
+    if (requestedFile) {
+      const filePath = path.join(__dirname, 'chat-application', 'build', 'static', 'css', requestedFile);
+      res.sendFile(filePath);
+    } else {
+      res.status(404).json({ error: 'Main CSS file not found' });
+    }
   } catch (error) {
     res.json({ error });
   }
