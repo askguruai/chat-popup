@@ -34,7 +34,7 @@
 
   async function loadReactStyles() {
     const scriptElement = document.createElement('script');
-    scriptElement.src = 'http://localhost:8088/remote-script';
+    scriptElement.src = 'https://data.askguru.ai/remote-script';
 
     scriptElement.addEventListener('load', () => {
       document.getElementById(config.wrapper_id).style.opacity = '1';
@@ -45,7 +45,7 @@
   async function loadReactClient() {
     const linkElement = document.createElement('link');
     linkElement.rel = 'stylesheet';
-    linkElement.href = 'http://localhost:8088/remote-style';
+    linkElement.href = 'https://data.askguru.ai/remote-style';
 
     document.head.appendChild(linkElement);
   }
