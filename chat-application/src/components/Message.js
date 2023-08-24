@@ -14,7 +14,8 @@ export default function Message({ data }) {
   return (
     <div className={data.role === 'assistant' ? 'askguru-message-container' : 'askguru-message-container from-user'}>
       <div className="askguru-message" ref={markdownRef}>
-        {compileMarkdown(data.content)}
+        <div>{compileMarkdown(data.content)}</div>
+        <div className="askguru-message-rating"></div>
       </div>
     </div>
   );

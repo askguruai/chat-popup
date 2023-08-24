@@ -19,3 +19,10 @@ This project is a demo to make light-weight chat system for AskGuru startup usin
 3. React Application itself
 
     With some tweaks with bundling and other stuff
+
+
+
+### Requirments
+
+Enchance docs design.
+White-labeling / customize

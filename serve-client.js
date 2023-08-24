@@ -25,7 +25,7 @@ app.get('/remote-script', async (req, res) => {
 
 app.get('/remote-style', async (req, res) => {
   try {
-    res.sendFile(path.join(__dirname, 'chat-application', 'build', 'static', 'css', 'main.97b04878.css'));
+    res.sendFile(path.join(__dirname, 'chat-application', 'build', 'static', 'css', 'main.1b164006.css'));
   } catch (error) {
     res.json({ error });
   }

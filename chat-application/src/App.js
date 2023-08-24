@@ -1,8 +1,12 @@
 import './App.css';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Message from './components/Message';
 import { getAnswer } from './AskGuru.js';
 function App() {
+  useEffect(() => {
+    applyChatHistory();
+  }, []);
+
   const chatInitialState = [
     {
       role: 'assistant',
@@ -16,6 +20,21 @@ function App() {
   const messagesRef = useRef(chatInitialState);
 
   const regexPattern = new RegExp('{ *doc_idx *: *([^}]*)}');
+
+  const saveChatHistory = () => {
+    const currentHistory = JSON.stringify(messagesRef.current);
+    localStorage.setItem('askguru-history', currentHistory);
+  };
+
+  const applyChatHistory = () => {
+    const chatHistoryRaw = localStorage.getItem('askguru-history');
+
+    if (chatHistoryRaw !== null && chatHistoryRaw !== undefined) {
+      const savedHistory = JSON.parse(chatHistoryRaw);
+      messagesRef.current = savedHistory;
+      setMessages(savedHistory);
+    }
+  };
 
   const resizeContainer = () => {
     try {
@@ -37,6 +56,7 @@ function App() {
     const newMessage = {
       role: role,
       content: content,
+      id: null,
     };
     return newMessage;
   };
@@ -64,58 +84,70 @@ function App() {
     setMessages(newMessages);
     messagesRef.current = newMessages;
     setLoading(true);
-
-    console.log({ requestData });
     const answerStream = getAnswer(requestData);
-    console.log({ answerStream });
 
     let initialAnswer = '';
     let generated_sources = [];
+    let message_id = null;
 
     answerStream.addEventListener('open', (event) => {
-      const newAssistantMessage = createNewMessage('assistant', initialAnswer);
-      const updatedMessagesV = [...messagesRef.current, newAssistantMessage];
-      setMessages(updatedMessagesV);
-      messagesRef.current = updatedMessagesV;
-      console.log({ updatedMessagesV });
+      try {
+        const newAssistantMessage = createNewMessage('assistant', initialAnswer);
+        const updatedMessagesV = [...messagesRef.current, newAssistantMessage];
+        setMessages(updatedMessagesV);
+        messagesRef.current = updatedMessagesV;
+        console.log({ updatedMessagesV });
+      } catch (e) {
+        console.log({ open: e });
+      }
     });
     answerStream.addEventListener('message', (event) => {
       console.log('MESSAGE');
-      const messageData = JSON.parse(event.data);
-      if (messageData.answer) {
-        const { request_id, sources, answer } = messageData;
+      try {
+        const messageData = JSON.parse(event.data);
+        if (messageData.answer) {
+          const { request_id, sources, answer } = messageData;
 
-        initialAnswer += answer;
+          message_id = request_id;
 
-        const match = initialAnswer.match(regexPattern);
-        if (match) {
-          const docIdx = match[1];
-          const source = sources[docIdx];
+          initialAnswer += answer;
 
-          const link = source.id;
-          source.link = link;
+          const match = initialAnswer.match(regexPattern);
+          if (match) {
+            const docIdx = match[1];
+            const source = sources[docIdx];
 
-          var idx =
-            generated_sources.findIndex((existingSource) => existingSource.id === source.id && existingSource.collection === source.collection) + 1;
-          if (idx === 0) {
-            generated_sources.push(source);
-            idx = generated_sources.length;
+            const link = source.id;
+            source.link = link;
+
+            var idx =
+              generated_sources.findIndex((existingSource) => existingSource.id === source.id && existingSource.collection === source.collection) + 1;
+            if (idx === 0) {
+              generated_sources.push(source);
+              idx = generated_sources.length;
+            }
+
+            initialAnswer = initialAnswer.replace(regexPattern, `[[${idx}]](${link})`);
           }
 
-          initialAnswer = initialAnswer.replace(regexPattern, `[[${idx}]](${link})`);
+          const refIndex = messagesRef.current.length - 1;
+          let tempArray = messagesRef.current;
+          tempArray[refIndex].content = initialAnswer;
+          if (message_id) {
+            tempArray[refIndex].id = message_id;
+          }
+          setMessages([...tempArray]);
+          messagesRef.current = tempArray;
         }
-
-        const refIndex = messagesRef.current.length - 1;
-        let tempArray = messagesRef.current;
-        tempArray[refIndex].content = initialAnswer;
-        setMessages([...tempArray]);
-        messagesRef.current = tempArray;
+      } catch (e) {
+        console.log(e);
       }
     });
     answerStream.addEventListener('error', (event) => {
       console.log('EVENT CLOSED');
       setLoading(false);
       answerStream.close();
+      saveChatHistory();
     });
   };
 

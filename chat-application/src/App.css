@@ -44,7 +44,8 @@
 }
 
 .askguru-header svg{
-  height: 12px;
+  width: 60px;
+  object-fit: contain;
 }
 
 .askguru-compose{
@@ -107,6 +108,15 @@
   color: white;
   padding: 8px 12px;
   font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.askguru-message a{
+  color: white;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .askguru-message p{
