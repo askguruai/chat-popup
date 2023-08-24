@@ -1,8 +1,7 @@
 import { EventSourcePolyfill } from 'event-source-polyfill';
 import qs from 'qs';
 
-const TEST_TOKEN =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZW5kb3IiOiJhc2tndXJ1cHVibGljIiwib3JnYW5pemF0aW9uIjoiYXNrZ3VydSIsInNlY3VyaXR5X2dyb3VwcyI6W119.bR2GxUtV3zeER-s95AsV3UBrssa_ufP7Q1EalkBO5Kw';
+const CLIENT_TOKEN = localStorage.getItem('askguru-token');
 
 const config = {
   askguruAPI: 'https://api.askguru.ai',
@@ -40,7 +39,7 @@ const getAnswer = ({ chat, query, document = '', documentCollection = '' }) => {
     url: config.askguruAPI,
     version: config.askguruApiVersion,
     route: `/collections/answer`,
-    accessToken: TEST_TOKEN,
+    accessToken: CLIENT_TOKEN,
     params: {
       collections: config.collections,
       chat: chat,

@@ -15,8 +15,6 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'remote-app', 'build')));
 app.use(express.static(__dirname));
 
-<<<<<<< Updated upstream
-=======
 const getButtonInitFile = (token, color) => {
   return `(function () {
     const config = {
@@ -54,6 +52,7 @@ const getButtonInitFile = (token, color) => {
   
     async function loadReactStyles() {
       const scriptElement = document.createElement('script');
+
       scriptElement.src = 'http://data.askguru.ai/remote-script';
   
       scriptElement.addEventListener('load', () => {
@@ -66,7 +65,6 @@ const getButtonInitFile = (token, color) => {
       const linkElement = document.createElement('link');
       linkElement.rel = 'stylesheet';
       linkElement.href = 'http://data.askguru.ai/remote-style';
-  
       document.head.appendChild(linkElement);
     }
   
@@ -116,7 +114,6 @@ const getButtonInitFile = (token, color) => {
   `;
 };
 
->>>>>>> Stashed changes
 app.get('/remote-script', async (req, res) => {
   try {
     res.sendFile(path.join(__dirname, 'chat-application', 'build', 'static', 'js', 'bundle.js'));
@@ -135,7 +132,23 @@ app.get('/remote-style', async (req, res) => {
 
 app.get('/i', async (req, res) => {
   try {
-    res.sendFile(path.join(__dirname, 'button-init.js'));
+    // color required to be HEX without #
+    // token is token
+
+    const { token, color } = req.query;
+
+    if (token === null || token === undefined) {
+      throw new Error('No token received');
+    }
+
+    if (color === null || color === undefined) {
+      color = '#FFFFFF';
+    }
+
+    const clientScript = getButtonInitFile(token, color);
+
+    res.setHeader('Content-Type', 'application/javascript');
+    res.send(clientScript);
   } catch (error) {
     res.json({ error });
   }
