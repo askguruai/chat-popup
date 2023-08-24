@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
+
+import { readdir } from 'fs/promises';
 import { fileURLToPath } from 'url';
 
 const app = express();
@@ -46,7 +48,7 @@ const getButtonInitFile = (token, color) => {
   
       wrapper.style.borderRadius = '16px';
       wrapper.style.overflow = 'hidden';
-  
+
       document.body.appendChild(wrapper);
     }
   
@@ -57,23 +59,34 @@ const getButtonInitFile = (token, color) => {
   
       scriptElement.addEventListener('load', () => {
         document.getElementById(config.wrapper_id).style.opacity = '1';
+        document.getElementById(config.wrapper_id).style.display = 'block'
         document.getElementById(config.button_id).style.opacity = '0';
+        document.getElementById(config.button_id).style.display = 'none';
       });
       document.head.appendChild(scriptElement);
     }
     async function loadReactClient() {
       const linkElement = document.createElement('link');
       linkElement.rel = 'stylesheet';
-      linkElement.href = 'https://data.askguru.ai/remote-style';
+      // linkElement.href = 'https://data.askguru.ai/remote-style';
       document.head.appendChild(linkElement);
     }
   
     function handleStaticButtonClick(event) {
       event.preventDefault();
   
-      createReactWrapper();
-      loadReactClient();
-      loadReactStyles();
+      const existingWrapper = document.getElementById(config.wrapper_id)
+
+      if(existingWrapper === null || existingWrapper === undefined){
+        createReactWrapper();
+        loadReactClient();
+        loadReactStyles();  
+      }else{
+        existingWrapper.style.opacity = '1';
+        existingWrapper.style.display = 'block'
+        document.getElementById(config.button_id).style.opacity = '0';
+        document.getElementById(config.button_id).style.display = 'none';
+      }
     }
   
     const createStaticButton = () => {
@@ -84,12 +97,15 @@ const getButtonInitFile = (token, color) => {
   
       btn.id = config.button_id;
   
-      btn.innerHTML = '<svg width="27" height="25" viewBox="0 0 27 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_2201_136)"><path d="M4.64062 24.4336C6.04688 24.4336 9.55078 22.8984 11.543 21.4688C11.7422 21.3281 11.9062 21.2695 12.0703 21.2695C12.2227 21.2812 12.375 21.293 12.5273 21.293C20.9766 21.293 26.5781 16.4883 26.5781 10.6523C26.5781 4.75781 20.6719 0 13.2891 0C5.90625 0 0 4.75781 0 10.6523C0 14.4023 2.30859 17.6953 6.07031 19.7109C6.24609 19.8047 6.30469 19.9805 6.21094 20.1562C5.55469 21.2344 4.38281 22.5234 3.9375 23.1094C3.48047 23.6953 3.73828 24.4336 4.64062 24.4336Z" fill="#${color}"/></g><defs><clipPath id="clip0_2201_136"><rect width="26.5781" height="24.4336" fill="white"/></clipPath></defs></svg>';
-  
-      btn.style.width = '44px';
-      btn.style.height = '44px';
+      btn.innerHTML = '<svg stroke="#FFFFFF" fill="#FFFFFF" stroke-width="0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M87.48 380c1.2-4.38-1.43-10.47-3.94-14.86a42.63 42.63 0 00-2.54-3.8 199.81 199.81 0 01-33-110C47.64 139.09 140.72 48 255.82 48 356.2 48 440 117.54 459.57 209.85a199 199 0 014.43 41.64c0 112.41-89.49 204.93-204.59 204.93-18.31 0-43-4.6-56.47-8.37s-26.92-8.77-30.39-10.11a31.14 31.14 0 00-11.13-2.07 30.7 30.7 0 00-12.08 2.43L81.5 462.78a15.92 15.92 0 01-4.66 1.22 9.61 9.61 0 01-9.58-9.74 15.85 15.85 0 01.6-3.29z"></path><circle cx="160" cy="256" r="32"></circle><circle cx="256" cy="256" r="32"></circle><circle cx="352" cy="256" r="32"></circle></svg>'
+
+      btn.style.width = '64px';
+      btn.style.height = '64px';
       btn.style.border = 'none';
-      btn.style.borderRadius = '44px';
+      btn.style.borderRadius = '64px';
+
+      btn.style.padding = '12px';
+      btn.style.boxSizing = 'border-box'
   
       btn.style.display = 'flex';
       btn.style.alignItems = 'center';
@@ -102,7 +118,7 @@ const getButtonInitFile = (token, color) => {
       btn.style.transition = '0.25s ease-in-out';
       btn.style.opacity = '1';
   
-      btn.style.backgroundColor = '#010F08';
+      btn.style.backgroundColor = '#${color}';
   
       btn.onclick = handleStaticButtonClick;
   
@@ -124,16 +140,18 @@ app.get('/remote-script', async (req, res) => {
 
 app.get('/remote-style', async (req, res) => {
   try {
-    const files = await fs.readdir(path.join(__dirname, 'chat-application', 'build', 'static', 'css'));
+    const files = await readdir(path.join(__dirname, 'chat-application', 'build', 'static', 'css'));
     const requestedFile = files.find((file) => /^main\..+\.css$/.test(file));
 
     if (requestedFile) {
       const filePath = path.join(__dirname, 'chat-application', 'build', 'static', 'css', requestedFile);
       res.sendFile(filePath);
     } else {
+      console.log('not found');
       res.status(404).json({ error: 'Main CSS file not found' });
     }
   } catch (error) {
+    console.log({ error });
     res.json({ error });
   }
 });
