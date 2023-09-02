@@ -4,7 +4,7 @@ import { setAnswerRating } from '../AskGuru';
 import Like from './Icons/Like';
 import Dislike from './Icons/Dislike';
 import CirclePositive from './Icons/CirclePositive';
-export default function Message({ data, isLast, selectedColor }) {
+export default function Message({ data, isLast, selectedColor, isLoading }) {
   const markdownRef = useRef(null);
 
   const [currentReaction, setReaction] = useState(null);
@@ -48,7 +48,7 @@ export default function Message({ data, isLast, selectedColor }) {
       <div className="askguru-message" style={data.role !== 'assistant' ? { backgroundColor: selectedColor } : {}}>
         <div ref={markdownRef}></div>
 
-        {data.role === 'assistant' && isLast && (
+        {data.role === 'assistant' && isLast && !isLoading && (
           <>
             {currentReaction === null ? (
               <div className="askguru-message-rating">
