@@ -64,4 +64,21 @@ const setAnswerRating = async ({ request_id, like_status }) => {
   console.log({ req: request });
 };
 
-export { getAnswer, setAnswerRating };
+const reportAnalyticsEvent = async ({ eventType }) => {
+  const route = '/events';
+  console.log({ event: eventType });
+  const REQUEST_URL = `${config.askguruAPI}/${config.askguruApiVersion}${route}`;
+  const REQUEST_BODY = {
+    type: eventType,
+    context: {},
+  };
+  const REQUEST_CONFIG = {
+    headers: {
+      Authorization: 'Bearer ' + CLIENT_TOKEN,
+    },
+  };
+  const request = await axios.post(REQUEST_URL, REQUEST_BODY, REQUEST_CONFIG);
+  console.log({ req: request });
+};
+
+export { getAnswer, setAnswerRating, reportAnalyticsEvent };

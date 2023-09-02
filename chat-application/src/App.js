@@ -1,7 +1,7 @@
 import './App.css';
 import { useState, useRef, useEffect } from 'react';
 import Message from './components/Message';
-import { getAnswer } from './AskGuru.js';
+import { getAnswer, reportAnalyticsEvent } from './AskGuru.js';
 function App() {
   useEffect(() => {
     applyChatHistory();
@@ -148,7 +148,10 @@ function App() {
         const messageData = JSON.parse(event.data);
         if (messageData.answer) {
           const { request_id, sources, answer } = messageData;
-
+          console.log({ sources });
+          if (sources.length === 0) {
+            reportAnalyticsEvent('POPUP_ERROR');
+          }
           message_id = request_id;
 
           initialAnswer += answer;

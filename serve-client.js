@@ -71,11 +71,27 @@ const getButtonInitFile = (token, color) => {
       linkElement.href = 'https://data.askguru.ai/remote-style';
       document.head.appendChild(linkElement);
     }
+
+    async function reportEvent(eventType){
+      const requestData = { type: eventType, context: {} };
+      const apiUrl = '/v2/events'
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + '${token}',
+        },
+        body: JSON.stringify(requestData),
+      }; 
+      fetch(apiUrl, fetchOptions)      
+    }
   
     function handleStaticButtonClick(event) {
       event.preventDefault();
   
       const existingWrapper = document.getElementById(config.wrapper_id)
+
+      reportEvent("POPUP_CALLED")
 
       if(existingWrapper === null || existingWrapper === undefined){
         createReactWrapper();
@@ -90,7 +106,7 @@ const getButtonInitFile = (token, color) => {
     }
   
     const createStaticButton = () => {
-  
+      
       localStorage.setItem('askguru-token', '${token}')
   
       const btn = document.createElement('button');
@@ -124,6 +140,7 @@ const getButtonInitFile = (token, color) => {
       btn.onclick = handleStaticButtonClick;
   
       document.body.appendChild(btn);
+      reportEvent("POPUP_SEEN")
     };
   
     createStaticButton();
