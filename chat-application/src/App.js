@@ -263,7 +263,15 @@ function App() {
       </div>
       <div className="askguru-content">
         {messages.map((message, index) => {
-          return <Message isLoading={isLoading} selectedColor={selectedColor} isLast={messages.length - 1 === index} data={message} />;
+          return (
+            <Message
+              isLoading={isLoading}
+              isFirst={index === 0}
+              selectedColor={selectedColor}
+              isLast={messages.length - 1 === index}
+              data={message}
+            />
+          );
         })}
         <div id="askguru-scroll-anchor"></div>
       </div>
