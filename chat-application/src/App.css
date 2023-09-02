@@ -243,3 +243,48 @@
   display: flex;
   gap: 8px;
 }
+
+.askguru-message-rating{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  
+  margin-top: 8px;
+  justify-content: flex-end;
+}
+
+.askguru-message-rating-btn{
+  background-color: rgb(246, 246, 247);
+  color: rgb(56, 56, 56);
+  border: none;
+  cursor: pointer;
+  padding-top: 6px;
+  padding-left: 8px;
+  padding-right: 8px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding-bottom: 6px;
+  border-radius: 4px;
+}
+
+.askguru-message-rating-btn svg{
+  width: 18px;
+  height: 18px;
+}
+
+.askguru-message-rating-btn.selected svg path{
+  fill: white;
+}
+
+.askguru-message-rating-btn:hover{
+  background-color: #18b569b0;
+  color: white;
+  transition: 0.1s ease-in-out;
+}
+
+.askguru-message-rating-btn.selected{
+  background-color: #18b569;
+  color: white;
+}

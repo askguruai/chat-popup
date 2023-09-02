@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 import qs from 'qs';
 
@@ -18,9 +19,6 @@ const createApiRequestStream = ({ url, version, route, accessToken, params = {} 
   try {
     const queryString = qs.stringify(params, { arrayFormat: 'repeat' });
     const eventSourceUrl = `${url}/${version}${route}?${queryString}`;
-
-    console.log({ url, version, route, accessToken, params });
-    console.log(eventSourceUrl);
     const eventSource = new EventSourcePolyfill(eventSourceUrl, {
       headers: {
         Authorization: 'Bearer ' + accessToken,
@@ -48,4 +46,22 @@ const getAnswer = ({ chat, query, document = '', documentCollection = '' }) => {
   });
 };
 
-export { getAnswer };
+const setAnswerRating = async ({ request_id, like_status }) => {
+  const route = '/reactions';
+  const REQUEST_URL = `${config.askguruAPI}/${config.askguruApiVersion}${route}`;
+  const REQUEST_BODY = {
+    request_id,
+    like_status,
+  };
+
+  const REQUEST_CONFIG = {
+    headers: {
+      Authorization: 'Bearer ' + CLIENT_TOKEN,
+    },
+  };
+
+  const request = await axios.post(REQUEST_URL, REQUEST_BODY, REQUEST_CONFIG);
+  console.log({ req: request });
+};
+
+export { getAnswer, setAnswerRating };
