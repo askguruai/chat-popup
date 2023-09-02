@@ -37,6 +37,8 @@ const getButtonInitFile = (token, color) => {
       wrapper.style.position = 'fixed';
       wrapper.style.bottom = '16px';
       wrapper.style.right = '16px';
+
+      wrapper.style.boxShadow = 'rgba(0, 0, 0, 0.3) 0px 4px 12px';
   
       wrapper.style.maxHeight = '650px';
       wrapper.style.maxWidth = '450px';
@@ -108,6 +110,7 @@ const getButtonInitFile = (token, color) => {
     const createStaticButton = () => {
       
       localStorage.setItem('askguru-token', '${token}')
+      localStorage.setItem('askguru-color', '#${color}');
   
       const btn = document.createElement('button');
   

@@ -3,7 +3,8 @@ import { useEffect, useRef, useState } from 'react';
 import { setAnswerRating } from '../AskGuru';
 import Like from './Icons/Like';
 import Dislike from './Icons/Dislike';
-export default function Message({ data }) {
+import CirclePositive from './Icons/CirclePositive';
+export default function Message({ data, isLast, selectedColor }) {
   const markdownRef = useRef(null);
 
   const [currentReaction, setReaction] = useState(null);
@@ -44,25 +45,35 @@ export default function Message({ data }) {
 
   return (
     <div className={data.role === 'assistant' ? 'askguru-message-container' : 'askguru-message-container from-user'}>
-      <div className="askguru-message">
+      <div className="askguru-message" style={data.role !== 'assistant' ? { backgroundColor: selectedColor } : {}}>
         <div ref={markdownRef}></div>
-        {data.role === 'assistant' && (
-          <div className="askguru-message-rating">
-            <button
-              onClick={() => handleReaction('like')}
-              className={currentReaction === 'like' ? 'askguru-message-rating-btn selected' : 'askguru-message-rating-btn'}
-            >
-              <Like />
-              Like
-            </button>
-            <button
-              onClick={() => handleReaction('dislike')}
-              className={currentReaction === 'dislike' ? 'askguru-message-rating-btn selected' : 'askguru-message-rating-btn'}
-            >
-              <Dislike />
-              Dislike
-            </button>
-          </div>
+
+        {data.role === 'assistant' && isLast && (
+          <>
+            {currentReaction === null ? (
+              <div className="askguru-message-rating">
+                <button
+                  onClick={() => handleReaction('like')}
+                  className={currentReaction === 'like' ? 'askguru-message-rating-btn selected' : 'askguru-message-rating-btn'}
+                >
+                  <Like />
+                  Like
+                </button>
+                <button
+                  onClick={() => handleReaction('dislike')}
+                  className={currentReaction === 'dislike' ? 'askguru-message-rating-btn selected' : 'askguru-message-rating-btn'}
+                >
+                  <Dislike />
+                  Dislike
+                </button>
+              </div>
+            ) : (
+              <div className="askguru-feedback-thanks">
+                <CirclePositive />
+                Thanks for submitting your feedback!
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

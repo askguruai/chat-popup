@@ -38,7 +38,7 @@
 }
 
 .askguru-message-container.from-user .askguru-message{
-  background-color: #18b569;
+  /* background-color: #18b569; */
   color: white;
 }
 
@@ -287,4 +287,20 @@
 .askguru-message-rating-btn.selected{
   background-color: #18b569;
   color: white;
+}
+
+.askguru-feedback-thanks{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  white-space: nowrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+
+.askguru-feedback-thanks svg{
+  width: 18px;
+  height: 18px;
 }
