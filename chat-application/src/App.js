@@ -98,6 +98,13 @@ function App() {
     return newMessage;
   };
 
+  const checkForHumanHelp = (request) => {
+    if (request.includes('live') && request.includes('agent')) {
+      return true;
+    }
+    return false;
+  };
+
   const handleUserMessage = async (event) => {
     event.preventDefault();
 
@@ -111,6 +118,10 @@ function App() {
 
     if (composeValue.length === 0) {
       return;
+    }
+
+    if (checkForHumanHelp(composeValue)) {
+      reportAnalyticsEvent({ eventType: 'POPUP_NO_ANSWER_CLIENT', eventContext: messagesRef.current });
     }
 
     const newMessage = createNewMessage('user', composeValue);
@@ -148,9 +159,8 @@ function App() {
         const messageData = JSON.parse(event.data);
         if (messageData.answer) {
           const { request_id, sources, answer } = messageData;
-          console.log({ sources });
           if (sources.length === 0) {
-            reportAnalyticsEvent('POPUP_ERROR');
+            reportAnalyticsEvent({ eventType: 'POPUP_NO_ANSWER_SERVER', eventContext: messagesRef.current });
           }
           message_id = request_id;
 
