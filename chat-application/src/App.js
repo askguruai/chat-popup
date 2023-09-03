@@ -26,7 +26,6 @@ function App() {
 
   const getApplicationColor = () => {
     const currentColor = localStorage.getItem('askguru-color');
-    console.log({ currentColor });
     if (currentColor === null) {
       setSelectedColor('#18b569');
     } else {
@@ -79,7 +78,6 @@ function App() {
   const resizeContainer = () => {
     try {
       const wrapper = document.getElementById('ask-guru-wrapper');
-      console.log({ value: wrapper.style.maxWidth });
       if (wrapper.style.maxWidth === 'calc(100vw - 32px)') {
         wrapper.style.maxWidth = '450px';
         wrapper.style.maxHeight = '650px';
@@ -153,6 +151,12 @@ function App() {
     setMessages(newMessages);
     messagesRef.current = newMessages;
     setLoading(true);
+
+    const newAssistantMessage = createNewMessage('assistant', '');
+    const updatedMessagesV = [...messagesRef.current, newAssistantMessage];
+    setMessages(updatedMessagesV);
+    messagesRef.current = updatedMessagesV;
+
     const answerStream = getAnswer(requestData);
 
     let initialAnswer = '';
@@ -161,17 +165,12 @@ function App() {
 
     answerStream.addEventListener('open', (event) => {
       try {
-        const newAssistantMessage = createNewMessage('assistant', initialAnswer);
-        const updatedMessagesV = [...messagesRef.current, newAssistantMessage];
-        setMessages(updatedMessagesV);
-        messagesRef.current = updatedMessagesV;
-        console.log({ updatedMessagesV });
+        // non used opening
       } catch (e) {
         console.log({ open: e });
       }
     });
     answerStream.addEventListener('message', (event) => {
-      console.log('MESSAGE');
       try {
         const messageData = JSON.parse(event.data);
         if (messageData.answer) {
@@ -215,7 +214,6 @@ function App() {
       }
     });
     answerStream.addEventListener('error', (event) => {
-      console.log('EVENT CLOSED');
       setLoading(false);
       answerStream.close();
       saveChatHistory();

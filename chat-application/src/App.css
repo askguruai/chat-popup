@@ -334,8 +334,9 @@
   gap: 1px;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
-
-  margin-top: 8px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  box-sizing: border-box;
 
 }
 
