@@ -76,7 +76,7 @@ const getButtonInitFile = (token, color) => {
 
     async function reportEvent(eventType){
       const requestData = { type: eventType, context: {} };
-      const apiUrl = '/v2/events'
+      const apiUrl = 'https://api.askguru.ai/v2/events'
       const requestOptions = {
         method: "POST",
         headers: {
