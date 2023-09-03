@@ -85,7 +85,7 @@ const getButtonInitFile = (token, color) => {
         },
         body: JSON.stringify(requestData),
       }; 
-      fetch(apiUrl, fetchOptions)      
+      fetch(apiUrl, requestOptions)      
     }
   
     function handleStaticButtonClick(event) {
