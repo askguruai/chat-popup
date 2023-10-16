@@ -1,4 +1,4 @@
-.askguru-container{
+.askguru-container {
   display: flex;
   flex-direction: column;
   gap: 0px;
@@ -17,7 +17,7 @@
   display: none;
 }
 
-.askguru-content{
+.askguru-content {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -28,7 +28,7 @@
   gap: 8px;
 }
 
-.askguru-message-container{
+.askguru-message-container {
   width: 100%;
   height: auto;
   margin-top: 8px;
@@ -39,16 +39,16 @@
   justify-content: flex-start;
 }
 
-.askguru-message-container.from-user{
+.askguru-message-container.from-user {
   justify-content: flex-end;
 }
 
-.askguru-message-container.from-user .askguru-message{
+.askguru-message-container.from-user .askguru-message {
   /* background-color: #18b569; */
   color: white;
 }
 
-.askguru-header{
+.askguru-header {
   width: 100%;
   height: 50px;
   min-height: 50px;
@@ -61,7 +61,7 @@
   background: #fff;
 }
 
-.askguru-ai-heading{
+.askguru-ai-heading {
   color: #333;
   font-size: 20px;
   display: flex;
@@ -76,7 +76,7 @@
   width: 18px !important;
 }
 
-.askguru-ai-close{
+.askguru-ai-close {
   width: 44px;
   height: 44px;
   border: none;
@@ -86,14 +86,12 @@
   cursor: pointer;
 }
 
-.askguru-ai-close svg{
+.askguru-ai-close svg {
   width: 22px !important;
-  height :22px !important;
+  height: 22px !important;
 }
 
-
-
-.askguru-ai-clear{
+.askguru-ai-clear {
   width: 44px;
   height: 44px;
   border: none;
@@ -102,16 +100,16 @@
   cursor: pointer;
 }
 
-.askguru-small-btn{
+.askguru-small-btn {
   position: relative;
 }
 
-.askguru-small-btn:hover .askguru-tooltip{
+.askguru-small-btn:hover .askguru-tooltip {
   display: block;
   opacity: 1;
 }
 
-.askguru-tooltip{
+.askguru-tooltip {
   background-color: #000;
   color: white;
   font-size: 12px;
@@ -126,12 +124,12 @@
   transition: 0.1s;
 }
 
-.askguru-ai-clear svg{
+.askguru-ai-clear svg {
   width: 16px !important;
-  height :16px;
+  height: 16px;
 }
 
-.ask-guru-footer{
+.ask-guru-footer {
   font-size: 12px;
   color: #333;
   padding-top: 4px;
@@ -141,26 +139,25 @@
   justify-content: center;
 }
 
-.ask-guru-footer-content{
+.ask-guru-footer-content {
   display: flex;
   align-items: center;
   cursor: pointer;
   justify-content: center;
 }
 
-.ask-guru-footer-content svg{
-  height :10px;
+.ask-guru-footer-content svg {
+  height: 10px;
   width: 100px;
   object-fit: contain;
 }
 
-
-.askguru-header svg{
+.askguru-header svg {
   width: 60px;
   object-fit: contain;
 }
 
-.askguru-compose{
+.askguru-compose {
   width: 100%;
   height: 70px;
   min-height: 70px;
@@ -174,7 +171,7 @@
   justify-content: center;
 }
 
-.askguru-compose input{
+.askguru-compose input {
   width: 100%;
   box-sizing: border-box;
   padding: 12px 20px;
@@ -187,15 +184,15 @@
   gap: 8px;
 }
 
-.askguru-resize{
+.askguru-resize {
   width: 44px;
   height: 44px;
   background-color: transparent;
-  border :none;
+  border: none;
   cursor: pointer;
 }
 
-.askguru-submit-btn{
+.askguru-submit-btn {
   width: 44px;
   height: 44px;
   border-radius: 44px;
@@ -207,10 +204,11 @@
   justify-content: center;
 }
 
+.askguru-compose input::placeholder {
+  color: #5b5b5b;
+}
 
-.askguru-compose input::placeholder{ color: #5b5b5b;}
-
-.askguru-scale-btn{
+.askguru-scale-btn {
   width: 24px;
   height: 24px;
   object-fit: contain;
@@ -231,36 +229,36 @@
   gap: 4px;
 }
 
-.askguru-message a{
+.askguru-message a {
   color: #18b569;
   text-decoration: underline;
   cursor: pointer;
 }
 
-.askguru-message p{
+.askguru-message p {
   margin: 0;
 }
 
-#askguru-scroll-anchor{
+#askguru-scroll-anchor {
   margin-top: -8px;
 }
 
-.askguru-header-buttons{
+.askguru-header-buttons {
   display: flex;
   gap: 8px;
 }
 
-.askguru-message-rating{
+.askguru-message-rating {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 8px;
-  
+
   margin-top: 8px;
   justify-content: flex-end;
 }
 
-.askguru-message-rating-btn{
+.askguru-message-rating-btn {
   background-color: rgb(246, 246, 247);
   color: rgb(56, 56, 56);
   border: none;
@@ -275,27 +273,27 @@
   border-radius: 4px;
 }
 
-.askguru-message-rating-btn svg{
+.askguru-message-rating-btn svg {
   width: 18px;
   height: 18px;
 }
 
-.askguru-message-rating-btn.selected svg path{
+.askguru-message-rating-btn.selected svg path {
   fill: white;
 }
 
-.askguru-message-rating-btn:hover{
+.askguru-message-rating-btn:hover {
   background-color: #18b569b0;
   color: white;
   transition: 0.1s ease-in-out;
 }
 
-.askguru-message-rating-btn.selected{
+.askguru-message-rating-btn.selected {
   background-color: #18b569;
   color: white;
 }
 
-.askguru-feedback-thanks{
+.askguru-feedback-thanks {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -305,36 +303,60 @@
   margin-top: 8px;
 }
 
-
-.askguru-feedback-thanks svg{
+.askguru-feedback-thanks svg {
   width: 18px;
   height: 18px;
 }
 
-@-webkit-keyframes bubble { 
-  0% { width: 6px; height: 6px; }
-  50% { width: 4px; height: 4px; }
-  100% { width: 6px; height: 6px; }
+@-webkit-keyframes bubble {
+  0% {
+    width: 6px;
+    height: 6px;
+  }
+  50% {
+    width: 4px;
+    height: 4px;
+  }
+  100% {
+    width: 6px;
+    height: 6px;
+  }
 }
 
 @keyframes bubble {
-  0% { width: 6px; height: 6px; }
-  50% { width: 4px; height: 4px; }
-  100% { width: 6px; height: 6px; }
+  0% {
+    width: 6px;
+    height: 6px;
+  }
+  50% {
+    width: 4px;
+    height: 4px;
+  }
+  100% {
+    width: 6px;
+    height: 6px;
+  }
 }
 
-@-webkit-keyframes growUp { 
-
-  0% { height: 0px; }
-  100% { height: 200px; }
+@-webkit-keyframes growUp {
+  0% {
+    height: 0px;
+  }
+  100% {
+    height: 200px;
+  }
 }
 
 @keyframes growUp {
-  0% { height: 0px; }
-  100% { height: 200px; }
+  0% {
+    height: 0px;
+  }
+  100% {
+    height: 200px;
+  }
 }
 
-.askguru-progress{
+.askguru-progress {
   display: grid;
   width: 18px;
   gap: 1px;
@@ -343,10 +365,9 @@
   margin-top: 4px;
   margin-bottom: 8px;
   box-sizing: border-box;
-
 }
 
-.askguru-progress-dot{
+.askguru-progress-dot {
   width: 6px;
   height: 6px;
   border-radius: 6px;
@@ -357,9 +378,9 @@
   transition: all 0.6s;
 }
 
-.askguru-progress-dot.two{
+.askguru-progress-dot.two {
   animation-delay: 0.2s;
 }
-.askguru-progress-dot.three{
+.askguru-progress-dot.three {
   animation-delay: 0.4s;
 }

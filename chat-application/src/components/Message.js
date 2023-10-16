@@ -5,7 +5,13 @@ import Like from './Icons/Like';
 import Dislike from './Icons/Dislike';
 import CirclePositive from './Icons/CirclePositive';
 import TripleDots from './TripleDots';
-export default function Message({ data, isLast, selectedColor, isLoading, isFirst }) {
+export default function Message({
+  data,
+  isLast,
+  selectedColor,
+  isLoading,
+  isFirst,
+}) {
   const markdownRef = useRef(null);
 
   const [currentReaction, setReaction] = useState(null);
@@ -45,8 +51,19 @@ export default function Message({ data, isLast, selectedColor, isLoading, isFirs
   };
 
   return (
-    <div className={data.role === 'assistant' ? 'askguru-message-container' : 'askguru-message-container from-user'}>
-      <div className="askguru-message" style={data.role !== 'assistant' ? { backgroundColor: selectedColor } : {}}>
+    <div
+      className={
+        data.role === 'assistant'
+          ? 'askguru-message-container'
+          : 'askguru-message-container from-user'
+      }
+    >
+      <div
+        className="askguru-message"
+        style={
+          data.role !== 'assistant' ? { backgroundColor: selectedColor } : {}
+        }
+      >
         <div ref={markdownRef}></div>
         {data.role === 'assistant' && isLoading && isLast && <TripleDots />}
         {data.role === 'assistant' && isLast && !isLoading && !isFirst && (
@@ -55,14 +72,22 @@ export default function Message({ data, isLast, selectedColor, isLoading, isFirs
               <div className="askguru-message-rating">
                 <button
                   onClick={() => handleReaction('like')}
-                  className={currentReaction === 'like' ? 'askguru-message-rating-btn selected' : 'askguru-message-rating-btn'}
+                  className={
+                    currentReaction === 'like'
+                      ? 'askguru-message-rating-btn selected'
+                      : 'askguru-message-rating-btn'
+                  }
                 >
                   <Like />
                   Like
                 </button>
                 <button
                   onClick={() => handleReaction('dislike')}
-                  className={currentReaction === 'dislike' ? 'askguru-message-rating-btn selected' : 'askguru-message-rating-btn'}
+                  className={
+                    currentReaction === 'dislike'
+                      ? 'askguru-message-rating-btn selected'
+                      : 'askguru-message-rating-btn'
+                  }
                 >
                   <Dislike />
                   Dislike

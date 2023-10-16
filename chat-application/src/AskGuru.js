@@ -15,7 +15,13 @@ const config = {
   queryPlaceholder: 'Your question here...',
 };
 
-const createApiRequestStream = ({ url, version, route, accessToken, params = {} }) => {
+const createApiRequestStream = ({
+  url,
+  version,
+  route,
+  accessToken,
+  params = {},
+}) => {
   try {
     const queryString = qs.stringify(params, { arrayFormat: 'repeat' });
     const eventSourceUrl = `${url}/${version}${route}?${queryString}`;

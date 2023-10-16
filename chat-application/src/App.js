@@ -12,7 +12,8 @@ function App() {
   const chatInitialState = [
     {
       role: 'assistant',
-      content: "Hi! I'm AskGuru AI Assistant. Nice to meet you! 👋 Search the docs or ask a question...",
+      content:
+        "Hi! I'm AskGuru AI Assistant. Nice to meet you! 👋 Search the docs or ask a question...",
     },
   ];
 
@@ -136,7 +137,10 @@ function App() {
     }
 
     if (checkForHumanHelp(composeValue)) {
-      reportAnalyticsEvent({ eventType: 'POPUP_NO_ANSWER_CLIENT', eventContext: messagesRef.current });
+      reportAnalyticsEvent({
+        eventType: 'POPUP_NO_ANSWER_CLIENT',
+        eventContext: messagesRef.current,
+      });
     }
 
     const newMessage = createNewMessage('user', composeValue);
@@ -176,7 +180,10 @@ function App() {
         if (messageData.answer) {
           const { request_id, sources, answer } = messageData;
           if (sources.length === 0) {
-            reportAnalyticsEvent({ eventType: 'POPUP_NO_ANSWER_SERVER', eventContext: messagesRef.current });
+            reportAnalyticsEvent({
+              eventType: 'POPUP_NO_ANSWER_SERVER',
+              eventContext: messagesRef.current,
+            });
           }
           message_id = request_id;
 
@@ -191,13 +198,20 @@ function App() {
             source.link = link;
 
             var idx =
-              generated_sources.findIndex((existingSource) => existingSource.id === source.id && existingSource.collection === source.collection) + 1;
+              generated_sources.findIndex(
+                (existingSource) =>
+                  existingSource.id === source.id &&
+                  existingSource.collection === source.collection,
+              ) + 1;
             if (idx === 0) {
               generated_sources.push(source);
               idx = generated_sources.length;
             }
 
-            initialAnswer = initialAnswer.replace(regexPattern, `[[${idx}]](${link})`);
+            initialAnswer = initialAnswer.replace(
+              regexPattern,
+              `[[${idx}]](${link})`,
+            );
           }
 
           const refIndex = messagesRef.current.length - 1;
@@ -224,13 +238,26 @@ function App() {
     <div className="askguru-container">
       <div className="askguru-header">
         <div className="askguru-ai-heading">
-          <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            width="512"
+            height="512"
+            viewBox="0 0 512 512"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
               d="M307.111 372.809V334.812C307.111 310.038 286.756 290.831 260.16 290.831H47.0992C20.5038 290.831 0 271.623 0 246.849V139.26C0 114.207 20.5038 95 47.0992 95H260.16C286.756 95 307.111 114.207 307.111 139.26V246.71C307.111 271.484 327.615 290.691 354.21 290.691H464.901C491.496 290.691 512 309.899 512 334.673V372.67C512 397.723 491.496 416.93 464.901 416.93H354.21C327.615 416.93 307.111 397.723 307.111 372.67V372.809Z"
               fill="url(#paint0_linear_616_1922)"
             />
             <defs>
-              <linearGradient id="paint0_linear_616_1922" x1="256" y1="95" x2="254.979" y2="771.681" gradientUnits="userSpaceOnUse">
+              <linearGradient
+                id="paint0_linear_616_1922"
+                x1="256"
+                y1="95"
+                x2="254.979"
+                y2="771.681"
+                gradientUnits="userSpaceOnUse"
+              >
                 <stop stop-color="#19EA85" />
                 <stop offset="1" />
               </linearGradient>
@@ -239,8 +266,15 @@ function App() {
           Chat with AI Assistant
         </div>
         <div className="askguru-header-buttons">
-          <button className="askguru-small-btn askguru-ai-clear" onClick={clearConversation}>
-            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
+          <button
+            className="askguru-small-btn askguru-ai-clear"
+            onClick={clearConversation}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="1em"
+              viewBox="0 0 512 512"
+            >
               <path
                 d="M463.5 224H472c13.3 0 24-10.7 24-24V72c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1c-87.5 87.5-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H463.5z"
                 fill="#333"
@@ -248,8 +282,17 @@ function App() {
             </svg>
             <div className="askguru-tooltip">Clear</div>
           </button>
-          <button className="askguru-small-btn askguru-ai-close" onClick={handleClose}>
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <button
+            className="askguru-small-btn askguru-ai-close"
+            onClick={handleClose}
+          >
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 28 28"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 d="M14.1836 20.4805C14.4766 20.4805 14.7695 20.3633 14.9688 20.1406L24.0391 10.8477C24.2383 10.6484 24.3555 10.3906 24.3555 10.0977C24.3555 9.48828 23.8984 9.01953 23.2891 9.01953C22.9961 9.01953 22.7266 9.13672 22.5273 9.32422L13.5508 18.5H14.8047L5.82812 9.32422C5.64062 9.13672 5.37109 9.01953 5.06641 9.01953C4.45703 9.01953 4 9.48828 4 10.0977C4 10.3906 4.11719 10.6484 4.31641 10.8594L13.3867 20.1406C13.6094 20.3633 13.8789 20.4805 14.1836 20.4805Z"
                 fill="#333"
@@ -289,7 +332,10 @@ function App() {
             </g>
           </svg>
         </button>
-        <form style={{ display: 'flex', gap: '8px', width: '100%' }} onSubmit={handleUserMessage}>
+        <form
+          style={{ display: 'flex', gap: '8px', width: '100%' }}
+          onSubmit={handleUserMessage}
+        >
           <input
             type="text"
             value={composeValue}
@@ -297,8 +343,18 @@ function App() {
             disabled={isLoading}
             placeholder="What's your question?"
           ></input>
-          <button type="submit" disabled={isLoading} className="askguru-submit-btn">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="askguru-submit-btn"
+          >
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 28 28"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <g clip-path="url(#clip0_2124_88365)">
                 <path
                   d="M16.6719 26.9102C17.5156 26.9102 18.1133 26.1836 18.5469 25.0586L26.2227 5.00781C26.4336 4.46875 26.5508 3.98827 26.5508 3.58983C26.5508 2.82811 26.082 2.35938 25.3203 2.35938C24.9219 2.35938 24.4414 2.47655 23.9023 2.68749L3.74609 10.4102C2.76172 10.7852 2 11.3828 2 12.2383C2 13.3164 2.82031 13.6797 3.94531 14.0195L12.4062 16.5039L14.8672 24.8594C15.2188 26.043 15.582 26.9102 16.6719 26.9102ZM12.9336 14.7227L4.84766 12.25C4.66016 12.1914 4.60156 12.1445 4.60156 12.0625C4.60156 11.9805 4.64844 11.9219 4.82422 11.8516L20.668 5.85156C21.6055 5.5 22.5078 5.03125 23.375 4.63281C22.6016 5.26561 21.6406 6.01562 20.9961 6.66016L12.9336 14.7227ZM16.8594 24.332C16.7656 24.332 16.7188 24.25 16.6602 24.0625L14.1875 15.9766L22.25 7.91405C22.8828 7.28124 23.668 6.29688 24.2891 5.49999C23.8906 6.39061 23.4102 7.29296 23.0586 8.24218L17.0586 24.0859C16.9883 24.2617 16.9414 24.332 16.8594 24.332Z"
@@ -308,7 +364,12 @@ function App() {
               </g>
               <defs>
                 <clipPath id="clip0_2124_88365">
-                  <rect width="24.5508" height="25.9102" fill="white" transform="translate(2 1)" />
+                  <rect
+                    width="24.5508"
+                    height="25.9102"
+                    fill="white"
+                    transform="translate(2 1)"
+                  />
                 </clipPath>
               </defs>
             </svg>
@@ -318,7 +379,13 @@ function App() {
       <div className="ask-guru-footer">
         <div className="ask-guru-footer-content" onClick={openAskGuru}>
           Powered by{' '}
-          <svg width="182" height="24" viewBox="0 0 182 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            width="182"
+            height="24"
+            viewBox="0 0 182 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
               d="M46.8633 23.7978H42.8594L51.6748 0.202246H56.2844L65.0662 23.7978H60.9277L58.707 17.9663H49.0504L46.8633 23.7978ZM53.8619 4.38202L50.1271 14.6629H57.6303L53.8619 4.38202Z"
               fill="#333"
@@ -356,7 +423,14 @@ function App() {
               fill="url(#paint0_linear_629_566)"
             />
             <defs>
-              <linearGradient id="paint0_linear_629_566" x1="17.5714" y1="1.80348e-09" x2="17.4888" y2="50.4467" gradientUnits="userSpaceOnUse">
+              <linearGradient
+                id="paint0_linear_629_566"
+                x1="17.5714"
+                y1="1.80348e-09"
+                x2="17.4888"
+                y2="50.4467"
+                gradientUnits="userSpaceOnUse"
+              >
                 <stop stop-color="#19EA85" />
                 <stop offset="1" />
               </linearGradient>
