@@ -61,7 +61,7 @@ export default function Message({
       <div
         className="askguru-message"
         style={
-          data.role !== 'assistant' ? { backgroundColor: selectedColor } : {}
+          data.role !== 'assistant' ? { backgroundColor: selectedColor, cursor: 'default' } : {}
         }
       >
         <div ref={markdownRef}></div>

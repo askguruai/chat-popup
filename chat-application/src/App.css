@@ -44,7 +44,6 @@
 }
 
 .askguru-message-container.from-user .askguru-message {
-  /* background-color: #18b569; */
   color: white;
 }
 
@@ -74,6 +73,12 @@
 .askguru-ai-heading svg {
   height: 18px;
   width: 18px !important;
+}
+
+.askguru-ai-heading img {
+  height: 18px;
+  width: 18px !important;
+  object-fit: contain;
 }
 
 .askguru-ai-close {
@@ -255,7 +260,7 @@
   gap: 8px;
 
   margin-top: 8px;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .askguru-message-rating-btn {
@@ -278,8 +283,8 @@
   height: 18px;
 }
 
-.askguru-message-rating-btn.selected svg path {
-  fill: white;
+.askguru-message-rating-btn:hover svg g path {
+  fill: white !important;
 }
 
 .askguru-message-rating-btn:hover {
@@ -289,7 +294,6 @@
 }
 
 .askguru-message-rating-btn.selected {
-  background-color: #18b569;
   color: white;
 }
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 import qs from 'qs';
 
-const CLIENT_TOKEN = localStorage.getItem('askguru-token');
+const CLIENT_TOKEN = JSON.parse(decodeURIComponent(escape(atob(localStorage.getItem('askguru-config'))))).token;
 
 const config = {
   askguruAPI: 'https://api.askguru.ai',
@@ -36,16 +36,17 @@ const createApiRequestStream = ({
   }
 };
 
-const getAnswer = ({ chat, query, document = '', documentCollection = '' }) => {
+const getAnswer = ({ chat, token, projectToEn }) => {
   return createApiRequestStream({
     url: config.askguruAPI,
     version: config.askguruApiVersion,
     route: `/collections/answer`,
-    accessToken: CLIENT_TOKEN,
+    accessToken: token,
     params: {
       collections: config.collections,
       chat: chat,
       stream: true,
+      project_to_en: projectToEn
     },
   });
 };
