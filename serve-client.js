@@ -59,6 +59,9 @@ const makeClientConfiguration = ({
 };
 
 const getButtonInitFile = ({ configuration }) => {
+  const stringConfiguration = JSON.stringify(configuration);
+  const encodedStringConfiguration = btoa(unescape(encodeURIComponent(stringConfiguration)));
+
   return `(function () {
     const config = {
       button_id: 'ask-guru-static-btn',
@@ -152,7 +155,7 @@ const getButtonInitFile = ({ configuration }) => {
       
       localStorage.setItem('askguru-token', '${configuration.token}')
       localStorage.setItem('askguru-color', '#${configuration.color}');
-      localStorage.setItem('askguru-config', "${JSON.stringify(configuration)}")
+      localStorage.setItem('askguru-config', '${encodedStringConfiguration}')
 
       const btn = document.createElement('button');
   
