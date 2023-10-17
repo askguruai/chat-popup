@@ -17,7 +17,48 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'remote-app', 'build')));
 app.use(express.static(__dirname));
 
-const getButtonInitFile = (token, color) => {
+const getBooleanFromString = (booleanString) => {
+  if (booleanString === undefined) {
+    return false;
+  }
+  if (booleanString === undefined) {
+    return false;
+  }
+  if (booleanString.toLowerCase() === 'true') {
+    return true;
+  }
+  return false;
+};
+
+const makeClientConfiguration = ({
+  token, // [STRING]
+  color, // [STRING] (HEX) without #
+  hoverColor, // [STRING] (HEX) without #
+  zIndex, // [INT] Optional zIndex change
+  lang, // [STRING] ISO language code
+  whitelabel, // [BOOL] Should display powered by
+  popupIcon, // [STRING-URL]? Custom icon for popUp
+  popupMessage, // [STRING]?
+  windowHeading, // [STRING]? Displayed on top of chat
+  welcomeMessage, // [STRING]?
+  addUnreadDot, // [BOOL] Default: False. Should display round dot on top of popup on first enter
+}) => {
+  return {
+    token,
+    color,
+    hoverColor,
+    zIndex,
+    lang,
+    whitelabel,
+    popupIcon,
+    popupMessage,
+    windowHeading,
+    welcomeMessage,
+    addUnreadDot,
+  };
+};
+
+const getButtonInitFile = ({ configuration }) => {
   return `(function () {
     const config = {
       button_id: 'ask-guru-static-btn',
@@ -81,7 +122,7 @@ const getButtonInitFile = (token, color) => {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + '${token}',
+          'Authorization': 'Bearer ' + '${configuration.token}',
         },
         body: JSON.stringify(requestData),
       }; 
@@ -109,9 +150,10 @@ const getButtonInitFile = (token, color) => {
   
     const createStaticButton = () => {
       
-      localStorage.setItem('askguru-token', '${token}')
-      localStorage.setItem('askguru-color', '#${color}');
-  
+      localStorage.setItem('askguru-token', '${configuration.token}')
+      localStorage.setItem('askguru-color', '#${configuration.color}');
+      localStorage.setItem('askguru-config', ${JSON.stringify(configuration)})
+
       const btn = document.createElement('button');
   
       btn.id = config.button_id;
@@ -138,7 +180,7 @@ const getButtonInitFile = (token, color) => {
       btn.style.opacity = '1';
   
       btn.style.cursor = 'pointer';
-      btn.style.backgroundColor = '#${color}';
+      btn.style.backgroundColor = '#${configuration.color}';
   
       btn.onclick = handleStaticButtonClick;
   
@@ -182,7 +224,7 @@ app.get('/i', async (req, res) => {
     // color required to be HEX without #
     // token is token
 
-    const { token, color } = req.query;
+    let { token, color, hoverColor, zIndex, lang, whitelabel, popupIcon, popupMessage, windowHeading, welcomeMessage, addUnreadDot } = req.query;
 
     if (token === null || token === undefined) {
       throw new Error('No token received');
@@ -192,7 +234,37 @@ app.get('/i', async (req, res) => {
       color = '#FFFFFF';
     }
 
-    const clientScript = getButtonInitFile(token, color);
+    if (hoverColor === null || hoverColor === undefined) {
+      hoverColor = '#333';
+    }
+
+    if (zIndex === null || zIndex === undefined) {
+      zIndex = '10';
+    }
+
+    if (lang === null || lang === undefined) {
+      lang = 'EN-us';
+    }
+
+    let whitelabelBoolean = getBooleanFromString(whitelabel);
+    let addUnreadDotBoolean = getBooleanFromString(addUnreadDot);
+
+    // handle all optional and bool checks and casts here here
+
+    const clientConfiguration = makeClientConfiguration({
+      token: token,
+      color: color,
+      hoverColor: hoverColor,
+      zIndex: zIndex,
+      lang: lang,
+      whitelabel: whitelabelBoolean,
+      popupIcon,
+      popupMessage,
+      windowHeading,
+      welcomeMessage,
+      addUnreadDot: addUnreadDotBoolean,
+    });
+    const clientScript = getButtonInitFile({ configuration: clientConfiguration });
 
     res.setHeader('Content-Type', 'application/javascript');
     res.send(clientScript);
