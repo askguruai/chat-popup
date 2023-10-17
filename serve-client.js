@@ -255,6 +255,10 @@ app.get('/i', async (req, res) => {
       welcomeMessage = `Hi! I'm AskGuru AI Assistant. Nice to meet you! 👋 Search the docs or ask a question...`;
     }
 
+    if (windowHeading === undefined) {
+      windowHeading = null;
+    }
+
     const clientConfiguration = makeClientConfiguration({
       token: token,
       color: color,
@@ -264,8 +268,8 @@ app.get('/i', async (req, res) => {
       whitelabel: whitelabelBoolean,
       popupIcon,
       popupMessage,
-      windowHeading,
-      welcomeMessage,
+      windowHeading: windowHeading,
+      welcomeMessage: welcomeMessage,
       addUnreadDot: addUnreadDotBoolean,
     });
 
