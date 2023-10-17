@@ -238,7 +238,6 @@ function App() {
               isLoading={isLoading}
               isFirst={index === 0}
               selectedColor={'#'+widgetConfiguration.color}
-              hoverColor={widgetConfiguration.hoverColor}
               isLast={messages.length - 1 === index}
               data={message}
             />
