@@ -152,7 +152,7 @@ const getButtonInitFile = ({ configuration }) => {
       
       localStorage.setItem('askguru-token', '${configuration.token}')
       localStorage.setItem('askguru-color', '#${configuration.color}');
-      localStorage.setItem('askguru-config', '${JSON.stringify(configuration)}')
+      localStorage.setItem('askguru-config', "${JSON.stringify(configuration)}")
 
       const btn = document.createElement('button');
   
