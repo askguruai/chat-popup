@@ -209,7 +209,8 @@ function App() {
     <div className="askguru-container">
       <div className="askguru-header">
         <div className="askguru-ai-heading">
-          {widgetConfiguration.whitelabel === false && <AskGuruIcon />}
+          {widgetConfiguration.whitelabel === false && widgetConfiguration.popupIcon === null && <AskGuruIcon />}
+          {widgetConfiguration.popupIcon && <img alt='Custom Icon' src={widgetConfiguration.popupIcon} className='custom-askguru-icon'/>}
           {widgetConfiguration.windowHeading === null ? <>Chat with AI Assistant</> : widgetConfiguration.windowHeading} 
         </div>
         <div className="askguru-header-buttons">

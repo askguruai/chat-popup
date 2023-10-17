@@ -75,6 +75,12 @@
   width: 18px !important;
 }
 
+.askguru-ai-heading img {
+  height: 18px;
+  width: 18px !important;
+  object-fit: contain;
+}
+
 .askguru-ai-close {
   width: 44px;
   height: 44px;
