@@ -224,7 +224,7 @@ const getButtonInitFile = ({ configuration }) => {
       btn.style.opacity = '1';
   
       btn.style.cursor = 'pointer';
-      btn.style.backgroundColor = '${configuration.color}';
+      btn.style.backgroundColor = '#${configuration.color}';
   
       btn.onclick = handleStaticButtonClick;
   
@@ -320,7 +320,7 @@ app.get('/i', async (req, res) => {
     }
 
     if (color === null || color === undefined) {
-      color = '#18b569';
+      color = '18b569';
     }
 
     if (hoverColor === null || hoverColor === undefined) {
