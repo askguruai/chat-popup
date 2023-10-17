@@ -161,6 +161,10 @@ const getButtonInitFile = ({ configuration }) => {
           isCollapsed = true  
         }
       }
+
+      try{
+        document.getElementById("askguru-unread-dot").style.opacity = 0;
+      }catch(e){}
     }
   
     const createStaticButton = () => {
@@ -198,11 +202,30 @@ const getButtonInitFile = ({ configuration }) => {
   
       btn.onclick = handleStaticButtonClick;
   
+      if(${configuration.addUnreadDot}){
+        console.log("ADD")
+        const unreadDot = document.createElement('div');
+        unreadDot.id = 'askguru-unread-dot'
+        unreadDot.style.width = '8px'
+        unreadDot.style.height = '8px'
+        unreadDot.style.borderRadius = '8px'
+        unreadDot.style.backgroundColor = 'orange'
+        unreadDot.style.border = '2px solid white'
+
+        unreadDot.style.position = 'fixed'
+        unreadDot.style.right = '20px';
+        unreadDot.style.bottom = '64px';
+        unreadDot.style.zIndex = '50';  
+
+        document.body.appendChild(unreadDot);
+      }
+
       document.body.appendChild(btn);
       reportEvent("POPUP_SEEN")
     };
   
     createStaticButton();
+    
   })();
   `;
 };
