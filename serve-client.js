@@ -33,7 +33,6 @@ const getBooleanFromString = (booleanString) => {
 const makeClientConfiguration = ({
   token, // [STRING]
   color, // [STRING] (HEX) without #
-  hoverColor, // [STRING] (HEX) without #
   zIndex, // [INT] Optional zIndex change
   lang, // [STRING] ISO language code
   whitelabel, // [BOOL] Should display powered by
@@ -46,7 +45,6 @@ const makeClientConfiguration = ({
   return {
     token,
     color,
-    hoverColor,
     zIndex,
     lang,
     whitelabel,
@@ -324,7 +322,7 @@ app.get('/i', async (req, res) => {
     // color required to be HEX without #
     // token is token
 
-    let { token, color, hoverColor, zIndex, lang, whitelabel, popupIcon, popupMessage, windowHeading, welcomeMessage, addUnreadDot } = req.query;
+    let { token, color, zIndex, lang, whitelabel, popupIcon, popupMessage, windowHeading, welcomeMessage, addUnreadDot } = req.query;
 
     if (token === null || token === undefined) {
       throw new Error('No token received');
@@ -332,10 +330,6 @@ app.get('/i', async (req, res) => {
 
     if (color === null || color === undefined) {
       color = '18b569';
-    }
-
-    if (hoverColor === null || hoverColor === undefined) {
-      hoverColor = '#0d6e3f';
     }
 
     if (zIndex === null || zIndex === undefined) {
@@ -348,8 +342,6 @@ app.get('/i', async (req, res) => {
 
     let whitelabelBoolean = getBooleanFromString(whitelabel);
     let addUnreadDotBoolean = getBooleanFromString(addUnreadDot);
-
-    // handle all optional and bool checks and casts here here
 
     if (welcomeMessage === null || welcomeMessage === undefined) {
       welcomeMessage = `Hi! I'm AskGuru AI Assistant. Nice to meet you! 👋 Search the docs or ask a question...`;
@@ -370,7 +362,6 @@ app.get('/i', async (req, res) => {
     const clientConfiguration = makeClientConfiguration({
       token: token,
       color: color,
-      hoverColor: hoverColor,
       zIndex: zIndex,
       lang: lang,
       whitelabel: whitelabelBoolean,
