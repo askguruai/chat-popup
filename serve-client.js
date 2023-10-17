@@ -257,7 +257,7 @@ app.get('/i', async (req, res) => {
     }
 
     if (lang === null || lang === undefined) {
-      lang = 'EN-us';
+      lang = 'en-US';
     }
 
     let whitelabelBoolean = getBooleanFromString(whitelabel);
