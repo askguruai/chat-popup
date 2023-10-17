@@ -157,7 +157,14 @@ const getButtonInitFile = ({ configuration }) => {
         } else {
           existingWrapper.style.opacity = '0'
           existingWrapper.style.display = 'none'
-          document.getElementById(config.button_id).innerHTML = originalChatIcon
+
+          if (${configuration.popupIcon !== null}){
+            
+            document.getElementById(config.button_id).innerHTML = ''
+            document.getElementById(config.button_id).appendChild(makePopupIcon())
+          } else {
+            document.getElementById(config.button_id).innerHTML = originalChatIcon
+          }
           isCollapsed = true  
         }
       }
@@ -167,6 +174,15 @@ const getButtonInitFile = ({ configuration }) => {
       }catch(e){}
     }
   
+    const makePopupIcon = () => {
+      const popupImageIcon = document.createElement('img')
+      popupImageIcon.src = '${configuration.popupIcon}'
+      popupImageIcon.style.width = '40px'
+      popupImageIcon.style.height = '40px'
+      popupImageIcon.style.objectFit = 'contain'
+      return popupImageIcon
+    }
+
     const createStaticButton = () => {
       
       localStorage.setItem('askguru-token', '${configuration.token}')
@@ -178,6 +194,16 @@ const getButtonInitFile = ({ configuration }) => {
       btn.id = config.button_id;
   
       btn.innerHTML = originalChatIcon
+
+      if (${configuration.popupIcon !== null}){
+
+        btn.innerHTML = ''
+        btn.appendChild(makePopupIcon())
+      } else {
+        btn.innerHTML = originalChatIcon
+      }
+
+
       btn.style.width = '64px';
       btn.style.height = '64px';
       btn.style.border = 'none';
@@ -203,7 +229,6 @@ const getButtonInitFile = ({ configuration }) => {
       btn.onclick = handleStaticButtonClick;
   
       if(${configuration.addUnreadDot}){
-        console.log("ADD")
         const unreadDot = document.createElement('div');
         unreadDot.id = 'askguru-unread-dot'
         unreadDot.style.width = '8px'
@@ -323,6 +348,10 @@ app.get('/i', async (req, res) => {
       windowHeading = null;
     }
 
+    if (popupIcon === undefined || popupIcon === null) {
+      popupIcon = null;
+    }
+
     if (popupMessage === undefined || popupMessage === null) {
       popupMessage = null;
     }
@@ -334,8 +363,8 @@ app.get('/i', async (req, res) => {
       zIndex: zIndex,
       lang: lang,
       whitelabel: whitelabelBoolean,
-      popupIcon,
-      popupMessage,
+      popupIcon: popupIcon,
+      popupMessage: popupMessage,
       windowHeading: windowHeading,
       welcomeMessage: welcomeMessage,
       addUnreadDot: addUnreadDotBoolean,
