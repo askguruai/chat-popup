@@ -278,6 +278,7 @@ const getButtonInitFile = ({ configuration }) => {
         document.body.appendChild(popupWidget);
 
         document.getElementById('askguru-popup-close').addEventListener('click', () => {
+          localStorage.setItem('askguru-has-interacted', 'true')
           document.getElementById('askguru-popup-widget').style.display = 'none'
         })
       }
