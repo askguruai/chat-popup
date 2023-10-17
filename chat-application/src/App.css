@@ -283,7 +283,7 @@
 }
 
 .askguru-message-rating-btn:hover {
-  background-color: #18b569b0;
+  /* background-color: #18b569b0; */
   color: white;
   transition: 0.1s ease-in-out;
 }

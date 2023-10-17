@@ -1,10 +1,9 @@
 import { marked } from 'marked';
 import { useEffect, useRef, useState } from 'react';
 import { setAnswerRating } from '../AskGuru';
-import Like from './Icons/Like';
-import Dislike from './Icons/Dislike';
 import CirclePositive from './Icons/CirclePositive';
 import TripleDots from './TripleDots';
+import ReactionButton, { ReactionType } from './ReactionButton';
 
 export default function Message({
   data,
@@ -71,28 +70,16 @@ export default function Message({
           <>
             {currentReaction === null ? (
               <div className="askguru-message-rating">
-                <button
-                  onClick={() => handleReaction('like')}
-                  className={
-                    currentReaction === 'like'
-                      ? 'askguru-message-rating-btn selected'
-                      : 'askguru-message-rating-btn'
-                  }
-                >
-                  <Like />
-                  Like
-                </button>
-                <button
-                  onClick={() => handleReaction('dislike')}
-                  className={
-                    currentReaction === 'dislike'
-                      ? 'askguru-message-rating-btn selected'
-                      : 'askguru-message-rating-btn'
-                  }
-                >
-                  <Dislike />
-                  Dislike
-                </button>
+                <ReactionButton
+                  type={ReactionType.LIKE}
+                  hoverColor={selectedColor}
+                  onButtonClick={handleReaction}
+                />
+                <ReactionButton
+                  type={ReactionType.DISLIKE}
+                  hoverColor={selectedColor}
+                  onButtonClick={handleReaction}
+                />
               </div>
             ) : (
               <div className="askguru-feedback-thanks">
