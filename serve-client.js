@@ -220,6 +220,33 @@ const getButtonInitFile = ({ configuration }) => {
         document.body.appendChild(unreadDot);
       }
 
+      if(${configuration.popupMessage != null}){
+        const popupWidget = document.createElement('div')
+        popupWidget.id = 'askguru-popup-widget'
+        popupWidget.style.display = 'flex'
+        popupWidget.style.flexDirection = 'row'
+        popupWidget.style.gap = '2px'
+        popupWidget.style.padding = '6px 12px'
+
+        popupWidget.style.borderRadius = '8px'
+        popupWidget.innerHTML = "${
+          configuration.popupMessage
+        }" + '<svg id="askguru-popup-close" style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">     <g >         <path id="x" d="M18.717 6.697l-1.414-1.414-5.303 5.303-5.303-5.303-1.414 1.414 5.303 5.303-5.303 5.303 1.414 1.414 5.303-5.303 5.303 5.303 1.414-1.414-5.303-5.303z"/>     </g> </svg>'
+        popupWidget.style.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif'
+        popupWidget.style.fontSize = '12px'
+        popupWidget.style.position = 'fixed'
+        popupWidget.style.right = '90px';
+        popupWidget.style.bottom = '34px';
+        popupWidget.style.zIndex = '50';  
+        popupWidget.style.backgroundColor = 'white'
+
+        document.body.appendChild(popupWidget);
+
+        document.getElementById('askguru-popup-close').addEventListener('click', () => {
+          document.getElementById('askguru-popup-widget').style.display = 'none'
+        })
+      }
+
       document.body.appendChild(btn);
       reportEvent("POPUP_SEEN")
     };
@@ -294,6 +321,10 @@ app.get('/i', async (req, res) => {
 
     if (windowHeading === undefined) {
       windowHeading = null;
+    }
+
+    if (popupMessage === undefined || popupMessage === null) {
+      popupMessage = null;
     }
 
     const clientConfiguration = makeClientConfiguration({
