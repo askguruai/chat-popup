@@ -224,7 +224,7 @@ const getButtonInitFile = ({ configuration }) => {
       btn.style.opacity = '1';
   
       btn.style.cursor = 'pointer';
-      btn.style.backgroundColor = '#${configuration.color}';
+      btn.style.backgroundColor = '${configuration.color}';
   
       btn.onclick = handleStaticButtonClick;
   
