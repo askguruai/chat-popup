@@ -9,6 +9,7 @@ export default function Message({
   data,
   isLast,
   selectedColor,
+  hoverColor,
   isLoading,
   isFirst,
 }) {

@@ -8,7 +8,6 @@ function App() {
   useEffect(() => {
     applyConfiguration();
     applyChatHistory();
-    getApplicationColor();
   }, []);
 
   const chatInitialState = [
@@ -23,23 +22,9 @@ function App() {
   const [messages, setMessages] = useState(chatInitialState);
   const [widgetConfiguration, setWidgetConfiguration] = useState(null);
   const [composeValue, setComposeValue] = useState('');
-  const [selectedColor, setSelectedColor] = useState('');
   const messagesRef = useRef(chatInitialState);
 
   const regexPattern = new RegExp('{ *doc_idx *: *([^}]*)}');
-
-  const getApplicationColor = () => {
-    const currentColor = localStorage.getItem('askguru-color');
-    if (currentColor === null) {
-      setSelectedColor('#18b569');
-    } else {
-      if (currentColor.startsWith('#')) {
-        setSelectedColor(currentColor);
-      } else {
-        setSelectedColor('#18b569');
-      }
-    }
-  };
 
   const saveChatHistory = () => {
     const currentHistory = JSON.stringify(messagesRef.current);
@@ -111,7 +96,7 @@ function App() {
       const askGuruBtn = document.getElementById('ask-guru-static-btn');
       wrapper.style.opacity = 0;
       wrapper.style.display = 'none';
-      wrapper.style.zIndex = 10;
+      wrapper.style.zIndex = widgetConfiguration.zIndex;
       askGuruBtn.style.opacity = 1;
       askGuruBtn.style.display = 'flex';
     } catch (e) {
@@ -322,7 +307,8 @@ function App() {
             <Message
               isLoading={isLoading}
               isFirst={index === 0}
-              selectedColor={selectedColor}
+              selectedColor={widgetConfiguration.color}
+              hoverColor={widgetConfiguration.hoverColor}
               isLast={messages.length - 1 === index}
               data={message}
             />
@@ -354,7 +340,6 @@ function App() {
             type="text"
             value={composeValue}
             onChange={(e) => setComposeValue(e.target.value)}
-            disabled={isLoading}
             placeholder="What's your question?"
           ></input>
           <button

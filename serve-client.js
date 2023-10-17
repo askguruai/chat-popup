@@ -231,15 +231,15 @@ app.get('/i', async (req, res) => {
     }
 
     if (color === null || color === undefined) {
-      color = '#FFFFFF';
+      color = '#18b569';
     }
 
     if (hoverColor === null || hoverColor === undefined) {
-      hoverColor = '#333';
+      hoverColor = '#0d6e3f';
     }
 
     if (zIndex === null || zIndex === undefined) {
-      zIndex = '10';
+      zIndex = 10;
     }
 
     if (lang === null || lang === undefined) {
