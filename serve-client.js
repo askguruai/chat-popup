@@ -251,6 +251,10 @@ app.get('/i', async (req, res) => {
 
     // handle all optional and bool checks and casts here here
 
+    if (welcomeMessage === null || welcomeMessage === undefined) {
+      welcomeMessage = `Hi! I'm AskGuru AI Assistant. Nice to meet you! 👋 Search the docs or ask a question...`;
+    }
+
     const clientConfiguration = makeClientConfiguration({
       token: token,
       color: color,
