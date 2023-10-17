@@ -264,6 +264,7 @@ app.get('/i', async (req, res) => {
       welcomeMessage,
       addUnreadDot: addUnreadDotBoolean,
     });
+
     const clientScript = getButtonInitFile({ configuration: clientConfiguration });
 
     res.setHeader('Content-Type', 'application/javascript');
