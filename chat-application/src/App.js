@@ -198,6 +198,9 @@ function App() {
       setLoading(false);
       answerStream.close();
       ChatHelper.saveState(messagesRef.current)
+      setTimeout(() => {
+        updateScroll();
+      }, 25)
     });
   };
 
