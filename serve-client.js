@@ -63,6 +63,11 @@ const getButtonInitFile = ({ configuration }) => {
   const encodedStringConfiguration = btoa(unescape(encodeURIComponent(stringConfiguration)));
 
   return `(function () {
+
+    const originalChevron = '<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.1836 20.4805C14.4766 20.4805 14.7695 20.3633 14.9688 20.1406L24.0391 10.8477C24.2383 10.6484 24.3555 10.3906 24.3555 10.0977C24.3555 9.48828 23.8984 9.01953 23.2891 9.01953C22.9961 9.01953 22.7266 9.13672 22.5273 9.32422L13.5508 18.5H14.8047L5.82812 9.32422C5.64062 9.13672 5.37109 9.01953 5.06641 9.01953C4.45703 9.01953 4 9.48828 4 10.0977C4 10.3906 4.11719 10.6484 4.31641 10.8594L13.3867 20.1406C13.6094 20.3633 13.8789 20.4805 14.1836 20.4805Z" fill="#fff"/></svg>'
+    const originalChatIcon = '<svg stroke="#FFFFFF" fill="#FFFFFF" stroke-width="0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M87.48 380c1.2-4.38-1.43-10.47-3.94-14.86a42.63 42.63 0 00-2.54-3.8 199.81 199.81 0 01-33-110C47.64 139.09 140.72 48 255.82 48 356.2 48 440 117.54 459.57 209.85a199 199 0 014.43 41.64c0 112.41-89.49 204.93-204.59 204.93-18.31 0-43-4.6-56.47-8.37s-26.92-8.77-30.39-10.11a31.14 31.14 0 00-11.13-2.07 30.7 30.7 0 00-12.08 2.43L81.5 462.78a15.92 15.92 0 01-4.66 1.22 9.61 9.61 0 01-9.58-9.74 15.85 15.85 0 01.6-3.29z"></path><circle cx="160" cy="256" r="32"></circle><circle cx="256" cy="256" r="32"></circle><circle cx="352" cy="256" r="32"></circle></svg>'
+    let isCollapsed = true;
+
     const config = {
       button_id: 'ask-guru-static-btn',
       wrapper_id: 'ask-guru-wrapper',
@@ -79,7 +84,7 @@ const getButtonInitFile = ({ configuration }) => {
       wrapper.id = config.wrapper_id;
   
       wrapper.style.position = 'fixed';
-      wrapper.style.bottom = '16px';
+      wrapper.style.bottom = '88px';
       wrapper.style.right = '16px';
 
       wrapper.style.boxShadow = 'rgba(0, 0, 0, 0.3) 0px 4px 12px';
@@ -106,8 +111,8 @@ const getButtonInitFile = ({ configuration }) => {
       scriptElement.addEventListener('load', () => {
         document.getElementById(config.wrapper_id).style.opacity = '1';
         document.getElementById(config.wrapper_id).style.display = 'block'
-        document.getElementById(config.button_id).style.opacity = '0';
-        document.getElementById(config.button_id).style.display = 'none';
+        document.getElementById(config.button_id).innerHTML = originalChevron
+        isCollapsed = false
       });
       document.head.appendChild(scriptElement);
     }
@@ -144,10 +149,17 @@ const getButtonInitFile = ({ configuration }) => {
         loadReactClient();
         loadReactStyles();  
       }else{
-        existingWrapper.style.opacity = '1';
-        existingWrapper.style.display = 'block'
-        document.getElementById(config.button_id).style.opacity = '0';
-        document.getElementById(config.button_id).style.display = 'none';
+        if (isCollapsed) {
+          existingWrapper.style.opacity = '1';
+          existingWrapper.style.display = 'block'
+          document.getElementById(config.button_id).innerHTML = originalChevron
+          isCollapsed = false  
+        } else {
+          existingWrapper.style.opacity = '0'
+          existingWrapper.style.display = 'none'
+          document.getElementById(config.button_id).innerHTML = originalChatIcon
+          isCollapsed = true  
+        }
       }
     }
   
@@ -161,8 +173,7 @@ const getButtonInitFile = ({ configuration }) => {
   
       btn.id = config.button_id;
   
-      btn.innerHTML = '<svg stroke="#FFFFFF" fill="#FFFFFF" stroke-width="0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M87.48 380c1.2-4.38-1.43-10.47-3.94-14.86a42.63 42.63 0 00-2.54-3.8 199.81 199.81 0 01-33-110C47.64 139.09 140.72 48 255.82 48 356.2 48 440 117.54 459.57 209.85a199 199 0 014.43 41.64c0 112.41-89.49 204.93-204.59 204.93-18.31 0-43-4.6-56.47-8.37s-26.92-8.77-30.39-10.11a31.14 31.14 0 00-11.13-2.07 30.7 30.7 0 00-12.08 2.43L81.5 462.78a15.92 15.92 0 01-4.66 1.22 9.61 9.61 0 01-9.58-9.74 15.85 15.85 0 01.6-3.29z"></path><circle cx="160" cy="256" r="32"></circle><circle cx="256" cy="256" r="32"></circle><circle cx="352" cy="256" r="32"></circle></svg>'
-
+      btn.innerHTML = originalChatIcon
       btn.style.width = '64px';
       btn.style.height = '64px';
       btn.style.border = 'none';

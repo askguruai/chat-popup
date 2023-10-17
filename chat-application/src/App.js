@@ -65,28 +65,12 @@ function App() {
         wrapper.style.maxHeight = '650px';
       } else {
         wrapper.style.maxWidth = 'calc(100vw - 32px)';
-        wrapper.style.maxHeight = 'calc(100vh - 32px)';
+        wrapper.style.maxHeight = 'calc(100vh - 104px)';
       }
     } catch (e) {
       console.log(e);
     }
   };
-
-  const handleClose = (event) => {
-    event.preventDefault();
-    try {
-      const wrapper = document.getElementById('ask-guru-wrapper');
-      const askGuruBtn = document.getElementById('ask-guru-static-btn');
-      wrapper.style.opacity = 0;
-      wrapper.style.display = 'none';
-      wrapper.style.zIndex = widgetConfiguration.zIndex;
-      askGuruBtn.style.opacity = 1;
-      askGuruBtn.style.display = 'flex';
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
   const createNewMessage = (role, content) => {
     return {
       role: role,
@@ -243,24 +227,6 @@ function App() {
               />
             </svg>
             <div className="askguru-tooltip">Clear</div>
-          </button>
-          <button
-            className="askguru-small-btn askguru-ai-close"
-            onClick={handleClose}
-          >
-            <svg
-              width="28"
-              height="28"
-              viewBox="0 0 28 28"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.1836 20.4805C14.4766 20.4805 14.7695 20.3633 14.9688 20.1406L24.0391 10.8477C24.2383 10.6484 24.3555 10.3906 24.3555 10.0977C24.3555 9.48828 23.8984 9.01953 23.2891 9.01953C22.9961 9.01953 22.7266 9.13672 22.5273 9.32422L13.5508 18.5H14.8047L5.82812 9.32422C5.64062 9.13672 5.37109 9.01953 5.06641 9.01953C4.45703 9.01953 4 9.48828 4 10.0977C4 10.3906 4.11719 10.6484 4.31641 10.8594L13.3867 20.1406C13.6094 20.3633 13.8789 20.4805 14.1836 20.4805Z"
-                fill="#333"
-              />
-            </svg>
-            <div className="askguru-tooltip">Collapse</div>
           </button>
         </div>
       </div>
