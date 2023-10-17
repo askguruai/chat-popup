@@ -36,7 +36,7 @@ const createApiRequestStream = ({
   }
 };
 
-const getAnswer = ({ chat, token, query, document = '', documentCollection = '' }) => {
+const getAnswer = ({ chat, token, projectToEn }) => {
   return createApiRequestStream({
     url: config.askguruAPI,
     version: config.askguruApiVersion,
@@ -46,6 +46,7 @@ const getAnswer = ({ chat, token, query, document = '', documentCollection = '' 
       collections: config.collections,
       chat: chat,
       stream: true,
+      project_to_en: projectToEn
     },
   });
 };

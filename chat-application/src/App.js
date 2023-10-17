@@ -114,7 +114,8 @@ function App() {
 
     const requestData = {
       chat: JSON.stringify(newMessages),
-      token: widgetConfiguration.token
+      token: widgetConfiguration.token,
+      projectToEn: widgetConfiguration.lang === 'EN-us'
     };
 
     setComposeValue('');
