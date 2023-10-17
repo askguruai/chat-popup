@@ -1,4 +1,13 @@
-export default function PoweredByBlock({openAskGuru}) {
+export default function PoweredByBlock() {
+
+  const openAskGuru = () => {
+    try {
+      window.open('https://www.askguru.ai/', '_blank').focus();
+    } catch (error) {
+      console.error({ error });
+    }
+  };
+    
     return (
         <div className="ask-guru-footer">
         <div className="ask-guru-footer-content" onClick={openAskGuru}>

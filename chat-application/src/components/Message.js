@@ -16,6 +16,7 @@ export default function Message({
   const markdownRef = useRef(null);
 
   const [currentReaction, setReaction] = useState(null);
+  const [isHovered, setHovered] = useState(false);
 
   useEffect(() => {
     const tokenizer = new marked.Tokenizer();
@@ -60,9 +61,11 @@ export default function Message({
       }
     >
       <div
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
         className="askguru-message"
         style={
-          data.role !== 'assistant' ? { backgroundColor: selectedColor } : {}
+          data.role !== 'assistant' ? { backgroundColor: !isHovered ? selectedColor : hoverColor, cursor: 'default' } : {}
         }
       >
         <div ref={markdownRef}></div>

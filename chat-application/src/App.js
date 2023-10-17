@@ -3,74 +3,58 @@ import { useState, useRef, useEffect } from 'react';
 import Message from './components/Message';
 import { getAnswer, reportAnalyticsEvent } from './AskGuru.js';
 import PoweredByBlock from './components/PoweredByBlock';
+import AskGuruIcon from './components/Icons/AskGuruIcon';
+import ChatHelper from './ChatHelper';
 
 function App() {
+
   useEffect(() => {
     applyConfiguration();
-    applyChatHistory();
   }, []);
 
-  const chatInitialState = [
-    {
-      role: 'assistant',
-      content:
-        "Hi! I'm AskGuru AI Assistant. Nice to meet you! 👋 Search the docs or ask a question...",
-    },
-  ];
-
   const [isLoading, setLoading] = useState(false);
-  const [messages, setMessages] = useState(chatInitialState);
+  const [messages, setMessages] = useState([]);
   const [widgetConfiguration, setWidgetConfiguration] = useState(null);
   const [composeValue, setComposeValue] = useState('');
-  const messagesRef = useRef(chatInitialState);
+  const messagesRef = useRef([]);
 
   const regexPattern = new RegExp('{ *doc_idx *: *([^}]*)}');
 
-  const saveChatHistory = () => {
-    const currentHistory = JSON.stringify(messagesRef.current);
-    localStorage.setItem('askguru-history', currentHistory);
-  };
-
   const clearConversation = () => {
-    setMessages(chatInitialState);
-    messagesRef.current = chatInitialState;
-    localStorage.removeItem('askguru-history');
+    let state = ChatHelper.initialState(widgetConfiguration)
+    setMessages(state);
+    messagesRef.current = state;
   };
 
   useEffect(() => {
     updateScroll();
   }, [messages]);
 
-  const applyChatHistory = () => {
-    const chatHistoryRaw = localStorage.getItem('askguru-history');
-
-    if (chatHistoryRaw !== null && chatHistoryRaw !== undefined) {
-      const savedHistory = JSON.parse(chatHistoryRaw);
-      messagesRef.current = savedHistory;
-      setMessages(savedHistory);
-    }
+  const applyChatHistory = (configuration) => {
+    const state = ChatHelper.getState(configuration)
+    setMessages(state)
+    messagesRef.current = state
   };
 
   const applyConfiguration = () => {
     const configurationRaw = localStorage.getItem('askguru-config');
-    if (configurationRaw === null) { 
+    if (configurationRaw === null || configurationRaw === undefined) { 
+      setWidgetConfiguration(ChatHelper.fallbackConfiguration);
+      applyChatHistory(ChatHelper.fallbackConfiguration)
       return;
     }
     const configuration = JSON.parse(configurationRaw)
     console.log({configuration})
     setWidgetConfiguration(configuration)
+    applyChatHistory(configuration);
   }
 
   const updateScroll = (behavior = 'smooth') => {
     const anchor = document.getElementById('askguru-scroll-anchor');
-    anchor.scrollIntoView({ behavior: behavior });
-  };
-
-  const openAskGuru = () => {
-    try {
-      window.open('https://www.askguru.ai/', '_blank').focus();
-    } catch (error) {
-      console.error({ error });
+    try { 
+      anchor.scrollIntoView({ behavior: behavior }); 
+    } catch (scrollError) {
+      console.log({scrollError})
     }
   };
 
@@ -105,12 +89,11 @@ function App() {
   };
 
   const createNewMessage = (role, content) => {
-    const newMessage = {
+    return {
       role: role,
       content: content,
       id: null,
-    };
-    return newMessage;
+    }
   };
 
   const checkForHumanHelp = (request) => {
@@ -229,40 +212,20 @@ function App() {
     answerStream.addEventListener('error', (event) => {
       setLoading(false);
       answerStream.close();
-      saveChatHistory();
+      ChatHelper.saveState(messagesRef.current)
     });
   };
+
+  if (widgetConfiguration === null) {
+    return <></>
+  }
 
   return (
     <div className="askguru-container">
       <div className="askguru-header">
         <div className="askguru-ai-heading">
-          <svg
-            width="512"
-            height="512"
-            viewBox="0 0 512 512"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M307.111 372.809V334.812C307.111 310.038 286.756 290.831 260.16 290.831H47.0992C20.5038 290.831 0 271.623 0 246.849V139.26C0 114.207 20.5038 95 47.0992 95H260.16C286.756 95 307.111 114.207 307.111 139.26V246.71C307.111 271.484 327.615 290.691 354.21 290.691H464.901C491.496 290.691 512 309.899 512 334.673V372.67C512 397.723 491.496 416.93 464.901 416.93H354.21C327.615 416.93 307.111 397.723 307.111 372.67V372.809Z"
-              fill="url(#paint0_linear_616_1922)"
-            />
-            <defs>
-              <linearGradient
-                id="paint0_linear_616_1922"
-                x1="256"
-                y1="95"
-                x2="254.979"
-                y2="771.681"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stop-color="#19EA85" />
-                <stop offset="1" />
-              </linearGradient>
-            </defs>
-          </svg>
-          Chat with AI Assistant
+          {widgetConfiguration.whitelabel === false && <AskGuruIcon />}
+          {widgetConfiguration.windowHeading === null ? <>Chat with AI Assistant</> : widgetConfiguration.windowHeading} 
         </div>
         <div className="askguru-header-buttons">
           <button
@@ -375,7 +338,7 @@ function App() {
           </button>
         </form>
       </div>
-      { widgetConfiguration.whitelabel === true && <PoweredByBlock openAskGuru={openAskGuru}/> }
+      { widgetConfiguration.whitelabel === false && <PoweredByBlock/> }
     </div>
   );
 }

@@ -1,2 +1,3 @@
 node_modules
 chat-application/node_modules
+*.todo
