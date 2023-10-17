@@ -73,12 +73,12 @@ export default function Message({
               <div className="askguru-message-rating">
                 <ReactionButton
                   type={ReactionType.LIKE}
-                  hoverColor={selectedColor}
+                  hoverColor={hoverColor}
                   onButtonClick={handleReaction}
                 />
                 <ReactionButton
                   type={ReactionType.DISLIKE}
-                  hoverColor={selectedColor}
+                  hoverColor={hoverColor}
                   onButtonClick={handleReaction}
                 />
               </div>

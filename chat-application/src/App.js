@@ -54,9 +54,7 @@ function App() {
     const anchor = document.getElementById('askguru-scroll-anchor');
     try { 
       anchor.scrollIntoView({ behavior: behavior }); 
-    } catch (scrollError) {
-      console.log({scrollError})
-    }
+    } catch (scrollError) {}
   };
 
   const resizeContainer = () => {
@@ -132,6 +130,7 @@ function App() {
 
     const requestData = {
       chat: JSON.stringify(newMessages),
+      token: widgetConfiguration.token
     };
 
     setComposeValue('');

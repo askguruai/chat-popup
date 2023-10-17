@@ -237,6 +237,7 @@
 
 .askguru-message p {
   margin: 0;
+  color: #333;
 }
 
 #askguru-scroll-anchor {
@@ -278,8 +279,8 @@
   height: 18px;
 }
 
-.askguru-message-rating-btn.selected svg path {
-  fill: white;
+.askguru-message-rating-btn:hover svg g path {
+  fill: white !important;
 }
 
 .askguru-message-rating-btn:hover {
@@ -289,7 +290,6 @@
 }
 
 .askguru-message-rating-btn.selected {
-  background-color: #18b569;
   color: white;
 }
 
