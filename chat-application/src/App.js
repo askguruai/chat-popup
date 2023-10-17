@@ -98,6 +98,7 @@ function App() {
       const askGuruBtn = document.getElementById('ask-guru-static-btn');
       wrapper.style.opacity = 0;
       wrapper.style.display = 'none';
+      wrapper.style.zIndex = 10;
       askGuruBtn.style.opacity = 1;
       askGuruBtn.style.display = 'flex';
     } catch (e) {
