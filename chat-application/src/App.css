@@ -1,3 +1,7 @@
+#ask-guru-wrapper{
+  z-index: 10;
+}
+
 .askguru-container {
   display: flex;
   flex-direction: column;
