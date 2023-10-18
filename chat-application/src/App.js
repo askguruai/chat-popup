@@ -226,6 +226,7 @@ function App() {
         <div className="askguru-header-buttons">
           <button
             className="askguru-small-btn askguru-ai-clear"
+            aria-label={localized(widgetConfiguration.lang, "clear")}
             onClick={clearConversation}
           >
             <svg
@@ -257,7 +258,9 @@ function App() {
         <div id="askguru-scroll-anchor"></div>
       </div>
       <div className="askguru-compose">
-        <button className="askguru-resize" onClick={resizeContainer}>
+        <button
+          aria-label={localized(widgetConfiguration.lang, "resize")}
+          className="askguru-resize" onClick={resizeContainer}>
           <svg
             className="askguru-scale-btn"
             stroke="currentColor"
@@ -284,6 +287,7 @@ function App() {
             placeholder={localized(widgetConfiguration.lang, "inputPlaceholder")}
           ></input>
           <button
+            aria-label={localized(widgetConfiguration.lang, "send")}
             type="submit"
             disabled={isLoading}
             className="askguru-submit-btn"
