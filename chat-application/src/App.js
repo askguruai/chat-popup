@@ -5,6 +5,7 @@ import { getAnswer, reportAnalyticsEvent } from './AskGuru.js';
 import PoweredByBlock from './components/PoweredByBlock';
 import AskGuruIcon from './components/Icons/AskGuruIcon';
 import ChatHelper from './ChatHelper';
+import { localized } from './localization/Localization';
 
 function App() {
   useEffect(() => {
@@ -215,13 +216,7 @@ function App() {
         <div className="askguru-ai-heading">
           {widgetConfiguration.whitelabel === false &&
             widgetConfiguration.popupIcon === null && <AskGuruIcon />}
-          {widgetConfiguration.popupIcon && (
-            <img
-              alt="Custom Icon"
-              src={widgetConfiguration.popupIcon}
-              className="custom-askguru-icon"
-            />
-          )}
+          
           {widgetConfiguration.windowHeading === null ? (
             <>Chat with AI Assistant</>
           ) : (
@@ -243,7 +238,7 @@ function App() {
                 fill="#333"
               />
             </svg>
-            <div className="askguru-tooltip">Clear</div>
+            <div className="askguru-tooltip">{ localized(widgetConfiguration.lang, "clear")}</div>
           </button>
         </div>
       </div>
@@ -276,6 +271,7 @@ function App() {
               <path d="M16 3h6v6h-2V5h-4V3zM2 3h6v2H4v4H2V3zm18 16v-4h2v6h-6v-2h4zM4 19h4v2H2v-6h2v4z"></path>
             </g>
           </svg>
+          <div className="askguru-tooltip-top">{ localized(widgetConfiguration.lang, "resize")}</div>
         </button>
         <form
           style={{ display: 'flex', gap: '8px', width: '100%' }}
@@ -285,13 +281,15 @@ function App() {
             type="text"
             value={composeValue}
             onChange={(e) => setComposeValue(e.target.value)}
-            placeholder="What's your question?"
+            placeholder={localized(widgetConfiguration.lang, "inputPlaceholder")}
           ></input>
           <button
             type="submit"
             disabled={isLoading}
             className="askguru-submit-btn"
           >
+
+          <div className="askguru-tooltip-top">{ localized(widgetConfiguration.lang, "send")}</div>
             <svg
               width="28"
               height="28"

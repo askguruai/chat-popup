@@ -113,6 +113,26 @@
   position: relative;
 }
 
+button:hover .askguru-tooltip-top{
+  display: block;
+  opacity: 1;
+}
+
+.askguru-tooltip-top {
+  background-color: #000;
+  color: white;
+  font-size: 12px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  padding: 6px 9px;
+  opacity: 0;
+  position: absolute;
+  bottom: 36px;
+  left: -5%;
+  white-space: nowrap;
+  transition: 0.1s;
+}
+
 .askguru-small-btn:hover .askguru-tooltip {
   display: block;
   opacity: 1;
@@ -196,6 +216,7 @@
 .askguru-resize {
   width: 44px;
   height: 44px;
+  position: relative;
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -204,6 +225,7 @@
 .askguru-submit-btn {
   width: 44px;
   height: 44px;
+  position: relative;
   border-radius: 44px;
   background-color: transparent;
   border: none;

@@ -4,7 +4,7 @@ export default class ChatHelper {
     color: '#333',
     hoverColor: 'red',
     zIndex: 10,
-    lang: 'EN-us',
+    lang: 'en-US',
     whitelabel: true,
     popupIcon: null,
     popupMessage: null,
