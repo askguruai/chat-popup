@@ -1,28 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>CLIENTS APP</title>
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CLIENTS APP</title>
-</head>
+  <body>
+    <style>
+      html,
+      body {
+        min-height: 100vh;
+        background-color: grey;
+        width: 100%;
+        padding: 0;
+        overflow-x: hidden;
+        margin: 0;
+      }
+    </style>
 
-
-<body>
-
-  <style>
-    html,
-    body {
-      min-height: 100vh;
-      background-color: grey;
-      width: 100%;
-      padding: 0;
-      overflow-x: hidden;
-      margin: 0;
-    }
-  </style>
-
-  <!-- 
+    <!-- 
   AskGuru Data Script
 
   This script allows the integration of AskGuru's data functionalities into your web page.
@@ -31,24 +28,22 @@
     - src: The source URL for the AskGuru data script.
   
   Query Parameters:
-    - color (hexadecimal color code): Defines the primary color for the AskGuru widget. E.g. FF0000 for red. Provide without #
+    - token (str, JWT Token): A JSON Web Token (JWT) for authentication and authorization.
+    - color (str, hexadecimal color code): Defines the primary color for the AskGuru widget. Affects popup button, user messages and reaciton buttons on hover. E.g. FF0000 for red. Provide without #.
+    - popupIcon (str, URL): The URL to an image that will be used as the icon for the AskGuru popup.
+    - popupMessage (str, HTML): A message that appears to the left of the AskGuru popup. Supports <b>HTML</b>.
+    - whitelabel (bool): Determines if the widget should be whitelabeled (without AskGuru footer and AskGuru icon in header). Accepts either "true" or "false".
+    - windowHeading (str): The heading text for the chat box window.
+    - welcomeMessage (str, markdown): First bot's message in the chat. Supports **markdown**.
+    - addUnreadDot (bool): Determines if an unread notification dot should be added.
+    - lang (str, Locale Code): Specifies the language for the AskGuru widget. E.g. "ru-RU" for Russian.
     - zIndex (INT): The z-index CSS property for the AskGuru widget. Used to control the stack order of elements on the web page. Default: 10
-    - token (JWT Token): A JSON Web Token (JWT) for authentication and authorization.
-    - lang (Locale Code): Specifies the language for the AskGuru widget. E.g. "ru-RU" for Russian.
-    - whitelabel (Boolean): Determines if the widget should be whitelabeled (i.e., without branding). Accepts either "true" or "false".
-    - popupIcon (URL): The URL to an image that will be used as the icon for the AskGuru popup.
-    - popupMessage (String): A message that appears to the left of the AskGuru popup. Supports HTML and plain text.
-    - windowHeading (String): The heading text for the AskGuru window.
-    - welcomeMessage (HTML or String): welcome message for the AskGuru widget. Supports Markdown.
-    - addUnreadDot (Boolean): Determines if an unread notification dot should be added. Accepts either "true" or "false".
     
   Note: Ensure that the 'token' parameter value remains confidential, as it may contain sensitive information.
     -->
 
-  <script
-    src="https://data.askguru.ai/i?color=FF0000&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZW5kb3IiOiJhc2tndXJ1cHVibGljIiwib3JnYW5pemF0aW9uIjoiYXNrZ3VydSIsInNlY3VyaXR5X2dyb3VwcyI6W119.bR2GxUtV3zeER-s95AsV3UBrssa_ufP7Q1EalkBO5Kw">
-    </script>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-</body>
-
+    <script src="https://data.askguru.ai/i?color=FF0000&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZW5kb3IiOiJhc2tndXJ1cHVibGljIiwib3JnYW5pemF0aW9uIjoiYXNrZ3VydSIsInNlY3VyaXR5X2dyb3VwcyI6W119.bR2GxUtV3zeER-s95AsV3UBrssa_ufP7Q1EalkBO5Kw"></script>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+  </body>
 </html>
+
