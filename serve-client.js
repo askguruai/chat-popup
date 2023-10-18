@@ -267,21 +267,24 @@ const getButtonInitFile = ({ configuration }) => {
         }" + '<svg id="askguru-popup-close" style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">     <g >         <path id="x" d="M18.717 6.697l-1.414-1.414-5.303 5.303-5.303-5.303-1.414 1.414 5.303 5.303-5.303 5.303 1.414 1.414 5.303-5.303 5.303 5.303 1.414-1.414-5.303-5.303z"/>     </g> </svg>'
         popupWidget.style.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif'
         popupWidget.style.fontSize = '12px'
-        popupWidget.style.position = 'fixed'
-        popupWidget.style.right = '90px';
-        popupWidget.style.bottom = '34px';
+        popupWidget.style.position = 'absolute'
+        popupWidget.style.right = '72px';
+        popupWidget.style.bottom = '20px';
+        popupWidget.style.whiteSpace = 'nowrap';
         popupWidget.style.zIndex = '50';  
         popupWidget.style.backgroundColor = 'white'
 
-        document.body.appendChild(popupWidget);
+        btn.appendChild(popupWidget);
 
-        document.getElementById('askguru-popup-close').addEventListener('click', () => {
-          localStorage.setItem('askguru-has-interacted', 'true')
-          document.getElementById('askguru-popup-widget').style.display = 'none'
-        })
       }
 
       document.body.appendChild(btn);
+      
+      document.getElementById('askguru-popup-close').addEventListener('click', () => {
+        localStorage.setItem('askguru-has-interacted', 'true')
+        document.getElementById('askguru-popup-widget').style.display = 'none'
+      })
+      
       reportEvent("POPUP_SEEN")
     };
   
