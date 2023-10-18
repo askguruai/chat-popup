@@ -1,5 +1,6 @@
 #ask-guru-wrapper{
   z-index: 10;
+  max-height: calc(100vh - 104px);
 }
 
 .askguru-container {
