@@ -1,9 +1,9 @@
-import express from 'express';
-import cors from 'cors';
-import path from 'path';
+import express from "express";
+import cors from "cors";
+import path from "path";
 
-import { readdir } from 'fs/promises';
-import { fileURLToPath } from 'url';
+import { readdir } from "fs/promises";
+import { fileURLToPath } from "url";
 
 const app = express();
 const port = 8088;
@@ -11,10 +11,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use(cors());
-app.options('*', cors());
+app.options("*", cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'remote-app', 'build')));
+app.use(express.static(path.join(__dirname, "remote-app", "build")));
 app.use(express.static(__dirname));
 
 const getBooleanFromString = (booleanString) => {
@@ -24,7 +24,7 @@ const getBooleanFromString = (booleanString) => {
   if (booleanString === undefined) {
     return false;
   }
-  if (booleanString.toLowerCase() === 'true') {
+  if (booleanString.toLowerCase() === "true") {
     return true;
   }
   return false;
@@ -58,7 +58,9 @@ const makeClientConfiguration = ({
 
 const getButtonInitFile = ({ configuration }) => {
   const stringConfiguration = JSON.stringify(configuration);
-  const encodedStringConfiguration = btoa(unescape(encodeURIComponent(stringConfiguration)));
+  const encodedStringConfiguration = btoa(
+    unescape(encodeURIComponent(stringConfiguration)),
+  );
 
   return `(function () {
 
@@ -291,25 +293,43 @@ const getButtonInitFile = ({ configuration }) => {
   `;
 };
 
-app.get('/remote-script', async (req, res) => {
+app.get("/remote-script", async (req, res) => {
   try {
-    res.sendFile(path.join(__dirname, 'chat-application', 'build', 'static', 'js', 'bundle.js'));
+    res.sendFile(
+      path.join(
+        __dirname,
+        "chat-application",
+        "build",
+        "static",
+        "js",
+        "bundle.js",
+      ),
+    );
   } catch (error) {
     res.json({ error });
   }
 });
 
-app.get('/remote-style', async (req, res) => {
+app.get("/remote-style", async (req, res) => {
   try {
-    const files = await readdir(path.join(__dirname, 'chat-application', 'build', 'static', 'css'));
+    const files = await readdir(
+      path.join(__dirname, "chat-application", "build", "static", "css"),
+    );
     const requestedFile = files.find((file) => /^main\..+\.css$/.test(file));
 
     if (requestedFile) {
-      const filePath = path.join(__dirname, 'chat-application', 'build', 'static', 'css', requestedFile);
+      const filePath = path.join(
+        __dirname,
+        "chat-application",
+        "build",
+        "static",
+        "css",
+        requestedFile,
+      );
       res.sendFile(filePath);
     } else {
-      console.log('not found');
-      res.status(404).json({ error: 'Main CSS file not found' });
+      console.log("not found");
+      res.status(404).json({ error: "Main CSS file not found" });
     }
   } catch (error) {
     console.log({ error });
@@ -317,19 +337,30 @@ app.get('/remote-style', async (req, res) => {
   }
 });
 
-app.get('/i', async (req, res) => {
+app.get("/i", async (req, res) => {
   try {
     // color required to be HEX without #
     // token is token
 
-    let { token, color, zIndex, lang, whitelabel, popupIcon, popupMessage, windowHeading, welcomeMessage, addUnreadDot } = req.query;
+    let {
+      token,
+      color,
+      zIndex,
+      lang,
+      whitelabel,
+      popupIcon,
+      popupMessage,
+      windowHeading,
+      welcomeMessage,
+      addUnreadDot,
+    } = req.query;
 
     if (token === null || token === undefined) {
-      throw new Error('No token received');
+      throw new Error("No token received");
     }
 
     if (color === null || color === undefined) {
-      color = '18b569';
+      color = "18b569";
     }
 
     if (zIndex === null || zIndex === undefined) {
@@ -337,7 +368,7 @@ app.get('/i', async (req, res) => {
     }
 
     if (lang === null || lang === undefined) {
-      lang = 'en-US';
+      lang = "en-US";
     }
 
     let whitelabelBoolean = getBooleanFromString(whitelabel);
@@ -372,9 +403,11 @@ app.get('/i', async (req, res) => {
       addUnreadDot: addUnreadDotBoolean,
     });
 
-    const clientScript = getButtonInitFile({ configuration: clientConfiguration });
+    const clientScript = getButtonInitFile({
+      configuration: clientConfiguration,
+    });
 
-    res.setHeader('Content-Type', 'application/javascript');
+    res.setHeader("Content-Type", "application/javascript");
     res.send(clientScript);
   } catch (error) {
     res.json({ error });
