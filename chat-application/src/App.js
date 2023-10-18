@@ -7,7 +7,6 @@ import AskGuruIcon from './components/Icons/AskGuruIcon';
 import ChatHelper from './ChatHelper';
 
 function App() {
-
   useEffect(() => {
     applyConfiguration();
   }, []);
@@ -21,7 +20,7 @@ function App() {
   const regexPattern = new RegExp('{ *doc_idx *: *([^}]*)}');
 
   const clearConversation = () => {
-    let state = ChatHelper.initialState(widgetConfiguration)
+    let state = ChatHelper.initialState(widgetConfiguration);
     setMessages(state);
     messagesRef.current = state;
   };
@@ -31,29 +30,31 @@ function App() {
   }, [messages]);
 
   const applyChatHistory = (configuration) => {
-    const state = ChatHelper.getState(configuration)
-    setMessages(state)
-    messagesRef.current = state
+    const state = ChatHelper.getState(configuration);
+    setMessages(state);
+    messagesRef.current = state;
   };
 
   const applyConfiguration = () => {
     const configurationRaw = localStorage.getItem('askguru-config');
-    if (configurationRaw === null || configurationRaw === undefined) { 
+    if (configurationRaw === null || configurationRaw === undefined) {
       setWidgetConfiguration(ChatHelper.fallbackConfiguration);
-      applyChatHistory(ChatHelper.fallbackConfiguration)
+      applyChatHistory(ChatHelper.fallbackConfiguration);
       return;
     }
-    const decodedConfiguration = JSON.parse(decodeURIComponent(escape(atob(configurationRaw))));
-    const configuration = decodedConfiguration
-    console.log({configuration})
-    setWidgetConfiguration(configuration)
+    const decodedConfiguration = JSON.parse(
+      decodeURIComponent(escape(atob(configurationRaw))),
+    );
+    const configuration = decodedConfiguration;
+    console.log({ configuration });
+    setWidgetConfiguration(configuration);
     applyChatHistory(configuration);
-  }
+  };
 
   const updateScroll = (behavior = 'smooth') => {
     const anchor = document.getElementById('askguru-scroll-anchor');
-    try { 
-      anchor.scrollIntoView({ behavior: behavior }); 
+    try {
+      anchor.scrollIntoView({ behavior: behavior });
     } catch (scrollError) {}
   };
 
@@ -76,7 +77,7 @@ function App() {
       role: role,
       content: content,
       id: null,
-    }
+    };
   };
 
   const checkForHumanHelp = (request) => {
@@ -115,7 +116,7 @@ function App() {
     const requestData = {
       chat: JSON.stringify(newMessages),
       token: widgetConfiguration.token,
-      projectToEn: widgetConfiguration.lang === 'en-US'
+      projectToEn: widgetConfiguration.lang === 'en-US',
     };
 
     setComposeValue('');
@@ -197,24 +198,35 @@ function App() {
     answerStream.addEventListener('error', (event) => {
       setLoading(false);
       answerStream.close();
-      ChatHelper.saveState(messagesRef.current)
+      ChatHelper.saveState(messagesRef.current);
       setTimeout(() => {
         updateScroll();
-      }, 25)
+      }, 25);
     });
   };
 
   if (widgetConfiguration === null) {
-    return <></>
+    return <></>;
   }
 
   return (
     <div className="askguru-container">
       <div className="askguru-header">
         <div className="askguru-ai-heading">
-          {widgetConfiguration.whitelabel === false && widgetConfiguration.popupIcon === null && <AskGuruIcon />}
-          {widgetConfiguration.popupIcon && <img alt='Custom Icon' src={widgetConfiguration.popupIcon} className='custom-askguru-icon'/>}
-          {widgetConfiguration.windowHeading === null ? <>Chat with AI Assistant</> : widgetConfiguration.windowHeading} 
+          {widgetConfiguration.whitelabel === false &&
+            widgetConfiguration.popupIcon === null && <AskGuruIcon />}
+          {widgetConfiguration.popupIcon && (
+            <img
+              alt="Custom Icon"
+              src={widgetConfiguration.popupIcon}
+              className="custom-askguru-icon"
+            />
+          )}
+          {widgetConfiguration.windowHeading === null ? (
+            <>Chat with AI Assistant</>
+          ) : (
+            widgetConfiguration.windowHeading
+          )}
         </div>
         <div className="askguru-header-buttons">
           <button
@@ -241,7 +253,7 @@ function App() {
             <Message
               isLoading={isLoading}
               isFirst={index === 0}
-              selectedColor={'#'+widgetConfiguration.color}
+              selectedColor={'#' + widgetConfiguration.color}
               isLast={messages.length - 1 === index}
               data={message}
             />
@@ -308,7 +320,7 @@ function App() {
           </button>
         </form>
       </div>
-      { widgetConfiguration.whitelabel === false && <PoweredByBlock/> }
+      {widgetConfiguration.whitelabel === false && <PoweredByBlock />}
     </div>
   );
 }
