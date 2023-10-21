@@ -43,13 +43,17 @@ function App() {
       applyChatHistory(ChatHelper.fallbackConfiguration);
       return;
     }
-    const decodedConfiguration = JSON.parse(
-      decodeURIComponent(escape(atob(configurationRaw))),
-    );
-    const configuration = decodedConfiguration;
-    console.log({ configuration });
-    setWidgetConfiguration(configuration);
-    applyChatHistory(configuration);
+    try {
+      const decodedConfiguration = JSON.parse(
+        decodeURIComponent(escape(atob(configurationRaw))),
+      );
+      const configuration = decodedConfiguration;
+      console.log({ configuration });
+      setWidgetConfiguration(configuration);
+      applyChatHistory(configuration);
+    } catch (decodingError) { 
+      console.error("Decoding Error", decodingError)
+    }
   };
 
   const updateScroll = (behavior = 'smooth') => {
