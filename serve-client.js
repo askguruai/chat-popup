@@ -244,12 +244,12 @@ const getButtonInitFile = ({ configuration }) => {
         unreadDot.style.backgroundColor = 'orange'
         unreadDot.style.border = '4px solid white'
 
-        unreadDot.style.position = 'fixed'
-        unreadDot.style.right = '16px';
-        unreadDot.style.bottom = '60px';
+        unreadDot.style.position = 'absolute'
+        unreadDot.style.top = '0px';
+        unreadDot.style.right = '0px';
         unreadDot.style.zIndex = '50';  
 
-        document.body.appendChild(unreadDot);
+        btn.appendChild(unreadDot);
       }
 
       if(${configuration.popupMessage != null} && !hasInteracted){
