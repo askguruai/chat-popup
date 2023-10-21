@@ -69,7 +69,9 @@ const getButtonInitFile = ({ configuration }) => {
 
     const config = {
       button_id: 'ask-guru-static-btn',
-      wrapper_id: 'ask-guru-wrapper',
+      button_content_id: 'askguru-btn-content',
+      chat_id: 'ask-guru-wrapper',
+      wrapper_id: 'askguru-wrapper',
     };
   
     const animationsClasses = {
@@ -77,29 +79,25 @@ const getButtonInitFile = ({ configuration }) => {
       fadeOut: 'ask-guru-fade-out',
     };
   
-    function createReactWrapper() {
-      const wrapper = document.createElement('div');
+    function createChat() {
+      const chat = document.createElement('div');
   
-      wrapper.id = config.wrapper_id;
-  
-      wrapper.style.position = 'fixed';
-      wrapper.style.bottom = '88px';
-      wrapper.style.right = '16px';
-
-      wrapper.style.boxShadow = 'rgba(0, 0, 0, 0.3) 0px 4px 12px';
-  
-      wrapper.style.maxHeight = '650px';
-      wrapper.style.maxWidth = '450px';
-  
-      wrapper.style.height = '100%';
-      wrapper.style.width = '100%';
-      wrapper.style.opacity = '0';
-      wrapper.style.transition = '0.25s ease-in-out';
-  
-      wrapper.style.borderRadius = '16px';
-      wrapper.style.overflow = 'hidden';
-
-      document.body.appendChild(wrapper);
+      chat.id = config.chat_id;
+      chat.style.position = 'absolute';
+      chat.style.bottom = '68px';
+      chat.style.right = '0px';
+      chat.style.boxShadow = 'rgba(0, 0, 0, 0.3) 0px 4px 12px';
+      chat.style.maxHeight = '650px';
+      chat.style.maxWidth = '450px';
+      chat.style.minWidth = '450px';
+      chat.style.minHeight = '650px';
+      chat.style.height = '100%';
+      chat.style.width = '100%';
+      chat.style.opacity = '0';
+      chat.style.transition = '0.25s ease-in-out';
+      chat.style.borderRadius = '16px';
+      chat.style.overflow = 'hidden';
+      document.getElementById(config.wrapper_id).appendChild(chat);
     }
   
     async function loadReactStyles() {
@@ -108,9 +106,9 @@ const getButtonInitFile = ({ configuration }) => {
       scriptElement.src = 'https://data.askguru.ai/remote-script';
   
       scriptElement.addEventListener('load', () => {
-        document.getElementById(config.wrapper_id).style.opacity = '1';
-        document.getElementById(config.wrapper_id).style.display = 'block'
-        document.getElementById(config.button_id).innerHTML = originalChevron
+        document.getElementById(config.chat_id).style.opacity = '1';
+        document.getElementById(config.chat_id).style.display = 'block'
+        document.getElementById(config.button_content_id).innerHTML = originalChevron
         isCollapsed = false
       });
       document.head.appendChild(scriptElement);
@@ -139,13 +137,13 @@ const getButtonInitFile = ({ configuration }) => {
     function handleStaticButtonClick(event) {
       event.preventDefault();
   
-      const existingWrapper = document.getElementById(config.wrapper_id)
+      const existingWrapper = document.getElementById(config.chat_id)
 
       reportEvent("POPUP_CALLED")
       localStorage.setItem('askguru-has-interacted', 'true')
 
       if(existingWrapper === null || existingWrapper === undefined){
-        createReactWrapper();
+        createChat();
         loadReactClient();
         loadReactStyles();  
         try{
@@ -155,7 +153,7 @@ const getButtonInitFile = ({ configuration }) => {
         if (isCollapsed) {
           existingWrapper.style.opacity = '1';
           existingWrapper.style.display = 'block'
-          document.getElementById(config.button_id).innerHTML = originalChevron
+          document.getElementById(config.button_content_id).innerHTML = originalChevron
           isCollapsed = false  
         } else {
           existingWrapper.style.opacity = '0'
@@ -163,10 +161,10 @@ const getButtonInitFile = ({ configuration }) => {
 
           if (${configuration.popupIcon !== null}){
             
-            document.getElementById(config.button_id).innerHTML = ''
-            document.getElementById(config.button_id).appendChild(makePopupIcon())
+            document.getElementById(config.button_content_id).innerHTML = ''
+            document.getElementById(config.button_content_id).appendChild(makePopupIcon())
           } else {
-            document.getElementById(config.button_id).innerHTML = originalChatIcon
+            document.getElementById(config.button_content_id).innerHTML = originalChatIcon
           }
           isCollapsed = true  
           try{
@@ -195,18 +193,35 @@ const getButtonInitFile = ({ configuration }) => {
       localStorage.setItem('askguru-color', '#${configuration.color}');
       localStorage.setItem('askguru-config', '${encodedStringConfiguration}')
 
+      const askguruWrapper = document.createElement('div');
+      askguruWrapper.id = config.wrapper_id;
+
+      askguruWrapper.style.position = 'fixed';
+      askguruWrapper.style.bottom = '16px';
+      askguruWrapper.style.right = '16px';
+
       const btn = document.createElement('button');
-  
       btn.id = config.button_id;
-  
-      btn.innerHTML = originalChatIcon
+
+      const btnContent = document.createElement('div')
+      btnContent.id = 'askguru-btn-content'
+      btnContent.innerHTML = originalChatIcon
+
+      btnContent.style.width = '100%'
+      btnContent.style.height = '100%'
+      btnContent.style.display = 'flex';
+
+      btnContent.style.alignItems = 'center'
+      btnContent.style.justifyContent = 'center'
+
+      btn.appendChild(btnContent)
 
       if (${configuration.popupIcon !== null}){
 
-        btn.innerHTML = ''
-        btn.appendChild(makePopupIcon())
+        btnContent.innerHTML = ''
+        btnContent.appendChild(makePopupIcon())
       } else {
-        btn.innerHTML = originalChatIcon
+        btnContent.innerHTML = originalChatIcon
       }
 
 
@@ -222,11 +237,6 @@ const getButtonInitFile = ({ configuration }) => {
       btn.style.alignItems = 'center';
       btn.style.justifyContent = 'center';
   
-      btn.style.position = 'fixed';
-      btn.style.bottom = '16px';
-      btn.style.right = '16px';
-      
-  
       btn.style.transition = '0.25s ease-in-out';
       btn.style.opacity = '1';
   
@@ -234,6 +244,8 @@ const getButtonInitFile = ({ configuration }) => {
       btn.style.backgroundColor = '#${configuration.color}';
   
       btn.onclick = handleStaticButtonClick;
+
+      askguruWrapper.appendChild(btn)
   
       if(${configuration.addUnreadDot} && !hasInteracted){
         const unreadDot = document.createElement('div');
@@ -278,7 +290,7 @@ const getButtonInitFile = ({ configuration }) => {
 
       }
 
-      document.body.appendChild(btn);
+      document.body.appendChild(askguruWrapper);
       
       document.getElementById('askguru-popup-close').addEventListener('click', () => {
         localStorage.setItem('askguru-has-interacted', 'true')
