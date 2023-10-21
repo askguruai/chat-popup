@@ -2,10 +2,6 @@ import axios from 'axios';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 import qs from 'qs';
 
-const CLIENT_TOKEN = JSON.parse(
-  decodeURIComponent(escape(atob(localStorage.getItem('askguru-config')))),
-).token;
-
 const config = {
   askguruAPI: 'https://api.askguru.ai',
   askguruApiVersion: 'v2',
@@ -61,13 +57,17 @@ const setAnswerRating = async ({ request_id, like_status }) => {
     like_status,
   };
 
-  const REQUEST_CONFIG = {
-    headers: {
-      Authorization: 'Bearer ' + CLIENT_TOKEN,
-    },
-  };
-
-  await axios.post(REQUEST_URL, REQUEST_BODY, REQUEST_CONFIG);
+  let savedToken = localStorage.getItem('askguru-config')
+  if (savedToken !== null && savedToken !== undefined) {
+    const CLIENT_TOKEN = JSON.parse(decodeURIComponent(escape(atob(savedToken)))).token;    
+    
+    const REQUEST_CONFIG = {
+      headers: {
+        Authorization: 'Bearer ' + CLIENT_TOKEN,
+      },
+    };
+    await axios.post(REQUEST_URL, REQUEST_BODY, REQUEST_CONFIG);
+  }
 };
 
 const reportAnalyticsEvent = async ({ eventType, eventContext = [] }) => {
@@ -78,12 +78,17 @@ const reportAnalyticsEvent = async ({ eventType, eventContext = [] }) => {
       type: eventType,
       context: { chat: eventContext },
     };
-    const REQUEST_CONFIG = {
-      headers: {
-        Authorization: 'Bearer ' + CLIENT_TOKEN,
-      },
-    };
-    await axios.post(REQUEST_URL, REQUEST_BODY, REQUEST_CONFIG);
+
+    let savedToken = localStorage.getItem('askguru-config')
+    if (savedToken !== null && savedToken !== undefined) {
+      const CLIENT_TOKEN = JSON.parse(decodeURIComponent(escape(atob(savedToken)))).token;  
+      const REQUEST_CONFIG = {
+        headers: {
+          Authorization: 'Bearer ' + CLIENT_TOKEN,
+        },
+      };
+      await axios.post(REQUEST_URL, REQUEST_BODY, REQUEST_CONFIG);
+    }
   } catch (reportError) {
     console.error(reportError);
   }
