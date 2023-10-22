@@ -90,8 +90,8 @@ function App() {
         wrapper.style.maxHeight = 'calc(100vh - 104px)';
         wrapper.style.minHeight = 'calc(100vh - 104px)';
 
-        wrapper.style.width = 'max-content';
-        wrapper.style.height = 'max-content';
+        wrapper.style.width = '100%';
+        wrapper.style.height = '100%';
       }
     } catch (e) {
       console.log(e);
