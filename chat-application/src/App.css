@@ -432,14 +432,15 @@ button:hover .askguru-tooltip-top{
   #ask-guru-wrapper{
     max-width: 100vw !important;
     max-height: 100vh !important;
-    height: 100% !important;
-
-    height: 100%  !important;
+    
+    height: 100vh !important;
     height: -moz-available !important;          /* WebKit-based browsers will ignore this. */
     height: -webkit-fill-available !important;  /* Mozilla-based browsers will ignore this. */
     height: fill-available !important;
     min-width: 100vw !important;
     min-height: -webkit-fill-available !important;
+    min-height: -moz-available !important;
+    min-height: fill-available !important;
     border-radius: 0 !important;
     right: -16px !important;
     bottom: -16px !important;
