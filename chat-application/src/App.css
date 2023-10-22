@@ -433,7 +433,7 @@ button:hover .askguru-tooltip-top{
     max-width: 100vw !important;
     max-height: 100vh !important;
     min-width: 100vw !important;
-    min-height: 100vh !important;
+    min-height: -webkit-fill-available !important;
     border-radius: 0 !important;
     right: -16px !important;
     bottom: -16px !important;
