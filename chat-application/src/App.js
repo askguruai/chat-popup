@@ -75,7 +75,7 @@ function App() {
   const resizeContainer = () => {
     try {
       const wrapper = document.getElementById('ask-guru-wrapper');
-      if (wrapper.style.maxWidth === 'calc(100vw - 32px)') {
+      if (wrapper.style.height === 'auto') {
         wrapper.style.maxHeight = 'calc(100vh - 104px)';
         wrapper.style.maxWidth = 'calc(100vw - 32px)';
         wrapper.style.width = '450px';
@@ -85,6 +85,9 @@ function App() {
         wrapper.style.minWidth = 'calc(100vw - 32px)';
         wrapper.style.maxHeight = 'calc(100vh - 104px)';
         wrapper.style.minHeight = 'calc(100vh - 104px)';
+
+        wrapper.style.width = 'auto';
+        wrapper.style.height = 'auto';
       }
     } catch (e) {
       console.log(e);
