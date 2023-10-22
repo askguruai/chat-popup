@@ -3,6 +3,25 @@
   max-height: calc(100vh - 104px);
 }
 
+#askguru-collapse{
+  display: none;
+}
+
+@media screen and (max-width: 450px) {
+  #askguru-collapse{
+    display: block;
+  }
+  #askguru-resize{
+    display: none;
+  }
+  #ask-guru-wrapper{
+    max-width: 100vw;
+    max-height: 100vh;
+    min-width: 100vw;
+    min-height: 100vh;
+  }
+}
+
 .askguru-container {
   display: flex;
   flex-direction: column;
