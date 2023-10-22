@@ -7,20 +7,6 @@
   display: none;
 }
 
-@media screen and (max-width: 450px) {
-  #askguru-collapse{
-    display: block;
-  }
-  #askguru-resize{
-    display: none;
-  }
-  #ask-guru-wrapper{
-    max-width: 100vw;
-    max-height: 100vh;
-    min-width: 100vw;
-    min-height: 100vh;
-  }
-}
 
 .askguru-container {
   display: flex;
@@ -433,4 +419,20 @@ button:hover .askguru-tooltip-top{
 }
 .askguru-progress-dot.three {
   animation-delay: 0.4s;
+}
+
+
+@media screen and (max-width: 450px) {
+  #askguru-collapse{
+    display: block !important;
+  }
+  #askguru-resize{
+    display: none !important;
+  }
+  #ask-guru-wrapper{
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+    min-width: 100vw !important;
+    min-height: 100vh !important;
+  }
 }
