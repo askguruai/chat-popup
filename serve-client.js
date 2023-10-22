@@ -87,12 +87,10 @@ const getButtonInitFile = ({ configuration }) => {
       chat.style.bottom = '68px';
       chat.style.right = '0px';
       chat.style.boxShadow = 'rgba(0, 0, 0, 0.3) 0px 4px 12px';
-      chat.style.maxHeight = '650px';
-      chat.style.maxWidth = '450px';
-      chat.style.minWidth = '450px';
-      chat.style.minHeight = '650px';
-      chat.style.height = '100%';
-      chat.style.width = '100%';
+      chat.style.maxHeight = 'calc(100vh - 104px)';
+      chat.style.maxWidth = 'calc(100vw - 32px)';
+      chat.style.width = '450px';
+      chat.style.height = '650px';
       chat.style.opacity = '0';
       chat.style.transition = '0.25s ease-in-out';
       chat.style.borderRadius = '16px';

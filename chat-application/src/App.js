@@ -67,10 +67,10 @@ function App() {
     try {
       const wrapper = document.getElementById('ask-guru-wrapper');
       if (wrapper.style.maxWidth === 'calc(100vw - 32px)') {
-        wrapper.style.maxWidth = '450px';
-        wrapper.style.minWidth = '450px';
-        wrapper.style.maxHeight = '650px';
-        wrapper.style.minHeight = '450px';
+        wrapper.style.maxHeight = 'calc(100vh - 104px)';
+        wrapper.style.maxWidth = 'calc(100vw - 32px)';
+        wrapper.style.width = '450px';
+        wrapper.style.height = '650px';
       } else {
         wrapper.style.maxWidth = 'calc(100vw - 32px)';
         wrapper.style.minWidth = 'calc(100vw - 32px)';
