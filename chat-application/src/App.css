@@ -432,17 +432,31 @@ button:hover .askguru-tooltip-top{
   #ask-guru-wrapper{
     max-width: 100vw !important;
     max-height: 100vh !important;
-    
-    height: 100vh !important;
-    height: -moz-available !important;          /* WebKit-based browsers will ignore this. */
-    height: -webkit-fill-available !important;  /* Mozilla-based browsers will ignore this. */
-    height: fill-available !important;
     min-width: 100vw !important;
-    min-height: -webkit-fill-available !important;
-    min-height: -moz-available !important;
-    min-height: fill-available !important;
     border-radius: 0 !important;
     right: -16px !important;
     bottom: -16px !important;
+
+    /* Height */
+    height: 100vh !important;  /* Sets to viewport height */
+    
+    /* Fallback for browsers that don't support viewport units */
+    height: 100% !important;
+
+    /* Specialized declarations for browsers with fill-available support */
+    height: -moz-available !important;          /* Firefox */
+    height: -webkit-fill-available !important;  /* Safari and old Chrome */
+    height: fill-available !important;          /* Future browsers */
+
+    /* Min Height */
+    min-height: 100vh !important;  /* Sets to viewport height */
+
+    /* Fallback for browsers that don't support viewport units for min-height */
+    min-height: 100% !important;
+
+    /* Specialized declarations for browsers with fill-available support for min-height */
+    min-height: -moz-available !important;          /* Firefox */
+    min-height: -webkit-fill-available !important;  /* Safari and old Chrome */
+    min-height: fill-available !important;          /* Future browsers */
   }
 }
