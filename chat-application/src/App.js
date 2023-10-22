@@ -78,6 +78,10 @@ function App() {
       if (wrapper.style.height !== '650px') {
         wrapper.style.maxHeight = 'calc(100vh - 104px)';
         wrapper.style.maxWidth = 'calc(100vw - 32px)';
+
+        wrapper.style.minWidth = 'auto';
+        wrapper.style.minHeight = 'auto';
+        
         wrapper.style.width = '450px';
         wrapper.style.height = '650px';
       } else {
