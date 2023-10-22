@@ -435,7 +435,7 @@ button:hover .askguru-tooltip-top{
     min-width: 100vw !important;
     min-height: 100vh !important;
 
-    right: -16px;
-    bottom: -16px;
+    right: -16px !important;
+    bottom: -16px !important;
   }
 }
