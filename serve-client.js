@@ -138,11 +138,6 @@ const getButtonInitFile = ({ configuration }) => {
   
     function handleStaticButtonClick(event) {
       event.preventDefault();
-
-      if (window.innerWidth < 450) {
-        const rootWrapper = document.getElementById(config.wrapper_id);
-        rootWrapper.style.top = '0px';
-      }
   
       const existingWrapper = document.getElementById(config.chat_id)
 
@@ -162,6 +157,10 @@ const getButtonInitFile = ({ configuration }) => {
           existingWrapper.style.display = 'block'
           document.getElementById(config.button_content_id).innerHTML = originalChevron
           isCollapsed = false  
+          if (window.innerWidth < 450) {
+            const rootWrapper = document.getElementById(config.wrapper_id);
+            rootWrapper.style.top = '0px';
+          }
         } else {
           existingWrapper.style.opacity = '0'
           existingWrapper.style.display = 'none'
