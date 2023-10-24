@@ -257,6 +257,13 @@ function App() {
       }
     });
     answerStream.addEventListener('error', (event) => {
+      if (!initialAnswer) {
+        let tempArray = messagesRef.current;
+        const refIndex = messagesRef.current.length - 1;
+        tempArray[refIndex].content = localized(widgetConfiguration.lang, 'errorMessage');
+        setMessages([...tempArray]);
+        messagesRef.current = tempArray;
+      }
       setLoading(false);
       answerStream.close();
       ChatHelper.saveState(messagesRef.current);

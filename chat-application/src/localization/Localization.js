@@ -3,13 +3,15 @@ const contents = {
         clear: "Clear",
         resize: "Resize",
         send: "Send",
-        inputPlaceholder: "What's your question?"
+        inputPlaceholder: "What's your question?",
+        errorMessage: "Something went wrong. Please try again later!"
     },
     "ru-RU": {
         clear: "Очистить",
         resize: "Изменить размер",
         send: "Отправить",
-        inputPlaceholder: "Введите ваш вопрос..."
+        inputPlaceholder: "Введите ваш вопрос...",
+        errorMessage: "Что-то пошло не так. Пожалуйста, попробуйте позже!"
     }
 }
 
