@@ -139,6 +139,7 @@ const getButtonInitFile = ({ configuration }) => {
     function handleStaticButtonClick(event) {
       event.preventDefault();
   
+      const rootWrapper = document.getElementById(config.wrapper_id);
       const existingWrapper = document.getElementById(config.chat_id)
 
       reportEvent("POPUP_CALLED")
@@ -148,12 +149,9 @@ const getButtonInitFile = ({ configuration }) => {
         createChat();
         loadReactClient();
         loadReactStyles();  
+        if (window.innerWidth < 450) rootWrapper.style.top = '0px';
         try{
           document.getElementById('askguru-popup-widget').style.display = 'none'
-          if (window.innerWidth < 450) {
-            const rootWrapper = document.getElementById(config.wrapper_id);
-            rootWrapper.style.top = '0px';
-          }
         }catch(e){}
       }else{
         if (isCollapsed) {
@@ -161,10 +159,7 @@ const getButtonInitFile = ({ configuration }) => {
           existingWrapper.style.display = 'block'
           document.getElementById(config.button_content_id).innerHTML = originalChevron
           isCollapsed = false  
-          if (window.innerWidth < 450) {
-            const rootWrapper = document.getElementById(config.wrapper_id);
-            rootWrapper.style.top = '0px';
-          }
+          if (window.innerWidth < 450) rootWrapper.style.top = '0px';
         } else {
           existingWrapper.style.opacity = '0'
           existingWrapper.style.display = 'none'
