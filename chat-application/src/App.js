@@ -110,6 +110,9 @@ function App() {
   const handleClose = (event) => {
     event.preventDefault();
     try {
+      const askguruRootWrapper = document.getElementById('askguru-wrapper');
+      askguruRootWrapper.style.removeProperty('top');
+
       const wrapper = document.getElementById('ask-guru-wrapper');
       const askGuruBtn = document.getElementById('ask-guru-static-btn');
       wrapper.style.opacity = 0;
