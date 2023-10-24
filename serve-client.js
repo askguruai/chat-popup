@@ -150,6 +150,10 @@ const getButtonInitFile = ({ configuration }) => {
         loadReactStyles();  
         try{
           document.getElementById('askguru-popup-widget').style.display = 'none'
+          if (window.innerWidth < 450) {
+            const rootWrapper = document.getElementById(config.wrapper_id);
+            rootWrapper.style.top = '0px';
+          }
         }catch(e){}
       }else{
         if (isCollapsed) {
