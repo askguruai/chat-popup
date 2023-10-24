@@ -138,6 +138,11 @@ const getButtonInitFile = ({ configuration }) => {
   
     function handleStaticButtonClick(event) {
       event.preventDefault();
+
+      if (window.innerWidth < 450) {
+        const rootWrapper = document.getElementById(config.wrapper_id);
+        rootWrapper.style.top = '0px';
+      }
   
       const existingWrapper = document.getElementById(config.chat_id)
 
