@@ -203,6 +203,7 @@ const getButtonInitFile = ({ configuration }) => {
       askguruWrapper.style.position = 'fixed';
       askguruWrapper.style.bottom = '16px';
       askguruWrapper.style.right = '16px';
+      askguruWrapper.style.zIndex = 10;
 
       const btn = document.createElement('button');
       btn.id = config.button_id;
