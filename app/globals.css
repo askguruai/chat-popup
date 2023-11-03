@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.small-btn {
+  position: relative;
+}
+
+.tooltip {
+  background-color: #000;
+  color: white;
+  font-size: 12px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  padding: 6px 9px;
+  opacity: 0;
+  display: block;
+  position: absolute;
+  left: -15px;
+  white-space: nowrap;
+  transition: 0.1s;
+}
+
+button:hover .tooltip {
+  opacity: 1;
+}
