@@ -1,9 +1,9 @@
-import express from "express";
-import cors from "cors";
-import path from "path";
+import express from 'express';
+import cors from 'cors';
+import path from 'path';
 
-import { readdir } from "fs/promises";
-import { fileURLToPath } from "url";
+import { readdir } from 'fs/promises';
+import { fileURLToPath } from 'url';
 
 const app = express();
 const port = 8088;
@@ -11,10 +11,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use(cors());
-app.options("*", cors());
+app.options('*', cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "remote-app", "build")));
+app.use(express.static(path.join(__dirname, 'remote-app', 'build')));
 app.use(express.static(__dirname));
 
 const getBooleanFromString = (booleanString) => {
@@ -24,7 +24,7 @@ const getBooleanFromString = (booleanString) => {
   if (booleanString === undefined) {
     return false;
   }
-  if (booleanString.toLowerCase() === "true") {
+  if (booleanString.toLowerCase() === 'true') {
     return true;
   }
   return false;
@@ -58,9 +58,7 @@ const makeClientConfiguration = ({
 
 const getButtonInitFile = ({ configuration }) => {
   const stringConfiguration = JSON.stringify(configuration);
-  const encodedStringConfiguration = btoa(
-    unescape(encodeURIComponent(stringConfiguration)),
-  );
+  const encodedStringConfiguration = btoa(unescape(encodeURIComponent(stringConfiguration)));
 
   return `(function () {
 
@@ -68,10 +66,14 @@ const getButtonInitFile = ({ configuration }) => {
     const originalChatIcon = '<svg stroke="#FFFFFF" fill="#FFFFFF" stroke-width="0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M87.48 380c1.2-4.38-1.43-10.47-3.94-14.86a42.63 42.63 0 00-2.54-3.8 199.81 199.81 0 01-33-110C47.64 139.09 140.72 48 255.82 48 356.2 48 440 117.54 459.57 209.85a199 199 0 014.43 41.64c0 112.41-89.49 204.93-204.59 204.93-18.31 0-43-4.6-56.47-8.37s-26.92-8.77-30.39-10.11a31.14 31.14 0 00-11.13-2.07 30.7 30.7 0 00-12.08 2.43L81.5 462.78a15.92 15.92 0 01-4.66 1.22 9.61 9.61 0 01-9.58-9.74 15.85 15.85 0 01.6-3.29z"></path><circle cx="160" cy="256" r="32"></circle><circle cx="256" cy="256" r="32"></circle><circle cx="352" cy="256" r="32"></circle></svg>'
     let isCollapsed = true;
     const hasInteracted = localStorage.getItem('askguru-has-interacted') === null ? false : true
+    const mediaQueryMatches = window.matchMedia("(max-width: 450px)").matches;
+
 
     const config = {
       button_id: 'ask-guru-static-btn',
-      wrapper_id: 'ask-guru-wrapper',
+      button_content_id: 'askguru-btn-content',
+      chat_id: 'ask-guru-wrapper',
+      wrapper_id: 'askguru-wrapper',
     };
   
     const animationsClasses = {
@@ -79,29 +81,25 @@ const getButtonInitFile = ({ configuration }) => {
       fadeOut: 'ask-guru-fade-out',
     };
   
-    function createReactWrapper() {
-      const wrapper = document.createElement('div');
+    function createChat() {
+      const chat = document.createElement('div');
   
-      wrapper.id = config.wrapper_id;
-  
-      wrapper.style.position = 'fixed';
-      wrapper.style.bottom = '88px';
-      wrapper.style.right = '16px';
-
-      wrapper.style.boxShadow = 'rgba(0, 0, 0, 0.3) 0px 4px 12px';
-  
-      wrapper.style.maxHeight = '650px';
-      wrapper.style.maxWidth = '450px';
-  
-      wrapper.style.height = '100%';
-      wrapper.style.width = '100%';
-      wrapper.style.opacity = '0';
-      wrapper.style.transition = '0.25s ease-in-out';
-  
-      wrapper.style.borderRadius = '16px';
-      wrapper.style.overflow = 'hidden';
-
-      document.body.appendChild(wrapper);
+      chat.id = config.chat_id;
+      chat.style.position = 'absolute';
+      chat.style.bottom = '68px';
+      chat.style.right = '0px';
+      chat.style.boxShadow = 'rgba(0, 0, 0, 0.3) 0px 4px 12px';
+      chat.style.maxHeight = 'calc(100vh - 104px)';
+      chat.style.maxWidth = 'calc(100vw - 32px)';
+      if(!mediaQueryMatches){
+        chat.style.width = '450px';
+        chat.style.height = '650px';
+      }
+      chat.style.opacity = '0';
+      chat.style.transition = '0.25s ease-in-out';
+      chat.style.borderRadius = '16px';
+      chat.style.overflow = 'hidden';
+      document.getElementById(config.wrapper_id).appendChild(chat);
     }
   
     async function loadReactStyles() {
@@ -110,9 +108,9 @@ const getButtonInitFile = ({ configuration }) => {
       scriptElement.src = 'https://data.askguru.ai/remote-script';
   
       scriptElement.addEventListener('load', () => {
-        document.getElementById(config.wrapper_id).style.opacity = '1';
-        document.getElementById(config.wrapper_id).style.display = 'block'
-        document.getElementById(config.button_id).innerHTML = originalChevron
+        document.getElementById(config.chat_id).style.opacity = '1';
+        document.getElementById(config.chat_id).style.display = 'block'
+        document.getElementById(config.button_content_id).innerHTML = originalChevron
         isCollapsed = false
       });
       document.head.appendChild(scriptElement);
@@ -141,15 +139,17 @@ const getButtonInitFile = ({ configuration }) => {
     function handleStaticButtonClick(event) {
       event.preventDefault();
   
-      const existingWrapper = document.getElementById(config.wrapper_id)
+      const rootWrapper = document.getElementById(config.wrapper_id);
+      const existingWrapper = document.getElementById(config.chat_id)
 
       reportEvent("POPUP_CALLED")
       localStorage.setItem('askguru-has-interacted', 'true')
 
       if(existingWrapper === null || existingWrapper === undefined){
-        createReactWrapper();
+        createChat();
         loadReactClient();
         loadReactStyles();  
+        if (window.innerWidth < 450) rootWrapper.style.top = '0px';
         try{
           document.getElementById('askguru-popup-widget').style.display = 'none'
         }catch(e){}
@@ -157,18 +157,18 @@ const getButtonInitFile = ({ configuration }) => {
         if (isCollapsed) {
           existingWrapper.style.opacity = '1';
           existingWrapper.style.display = 'block'
-          document.getElementById(config.button_id).innerHTML = originalChevron
+          document.getElementById(config.button_content_id).innerHTML = originalChevron
           isCollapsed = false  
+          if (window.innerWidth < 450) rootWrapper.style.top = '0px';
         } else {
           existingWrapper.style.opacity = '0'
           existingWrapper.style.display = 'none'
 
           if (${configuration.popupIcon !== null}){
-            
-            document.getElementById(config.button_id).innerHTML = ''
-            document.getElementById(config.button_id).appendChild(makePopupIcon())
+            document.getElementById(config.button_content_id).innerHTML = ''
+            document.getElementById(config.button_content_id).appendChild(makePopupIcon())
           } else {
-            document.getElementById(config.button_id).innerHTML = originalChatIcon
+            document.getElementById(config.button_content_id).innerHTML = originalChatIcon
           }
           isCollapsed = true  
           try{
@@ -197,18 +197,36 @@ const getButtonInitFile = ({ configuration }) => {
       localStorage.setItem('askguru-color', '#${configuration.color}');
       localStorage.setItem('askguru-config', '${encodedStringConfiguration}')
 
+      const askguruWrapper = document.createElement('div');
+      askguruWrapper.id = config.wrapper_id;
+
+      askguruWrapper.style.position = 'fixed';
+      askguruWrapper.style.bottom = '16px';
+      askguruWrapper.style.right = '16px';
+      askguruWrapper.style.zIndex = 10;
+
       const btn = document.createElement('button');
-  
       btn.id = config.button_id;
-  
-      btn.innerHTML = originalChatIcon
+
+      const btnContent = document.createElement('div')
+      btnContent.id = 'askguru-btn-content'
+      btnContent.innerHTML = originalChatIcon
+
+      btnContent.style.width = '100%'
+      btnContent.style.height = '100%'
+      btnContent.style.display = 'flex';
+
+      btnContent.style.alignItems = 'center'
+      btnContent.style.justifyContent = 'center'
+
+      btn.appendChild(btnContent)
 
       if (${configuration.popupIcon !== null}){
 
-        btn.innerHTML = ''
-        btn.appendChild(makePopupIcon())
+        btnContent.innerHTML = ''
+        btnContent.appendChild(makePopupIcon())
       } else {
-        btn.innerHTML = originalChatIcon
+        btnContent.innerHTML = originalChatIcon
       }
 
 
@@ -224,11 +242,6 @@ const getButtonInitFile = ({ configuration }) => {
       btn.style.alignItems = 'center';
       btn.style.justifyContent = 'center';
   
-      btn.style.position = 'fixed';
-      btn.style.bottom = '16px';
-      btn.style.right = '16px';
-      
-  
       btn.style.transition = '0.25s ease-in-out';
       btn.style.opacity = '1';
   
@@ -236,6 +249,8 @@ const getButtonInitFile = ({ configuration }) => {
       btn.style.backgroundColor = '#${configuration.color}';
   
       btn.onclick = handleStaticButtonClick;
+
+      askguruWrapper.appendChild(btn)
   
       if(${configuration.addUnreadDot} && !hasInteracted){
         const unreadDot = document.createElement('div');
@@ -246,12 +261,12 @@ const getButtonInitFile = ({ configuration }) => {
         unreadDot.style.backgroundColor = 'orange'
         unreadDot.style.border = '4px solid white'
 
-        unreadDot.style.position = 'fixed'
-        unreadDot.style.right = '16px';
-        unreadDot.style.bottom = '60px';
+        unreadDot.style.position = 'absolute'
+        unreadDot.style.top = '0px';
+        unreadDot.style.right = '0px';
         unreadDot.style.zIndex = '50';  
 
-        document.body.appendChild(unreadDot);
+        btn.appendChild(unreadDot);
       }
 
       if(${configuration.popupMessage != null} && !hasInteracted){
@@ -269,21 +284,24 @@ const getButtonInitFile = ({ configuration }) => {
         }" + '<svg id="askguru-popup-close" style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">     <g >         <path id="x" d="M18.717 6.697l-1.414-1.414-5.303 5.303-5.303-5.303-1.414 1.414 5.303 5.303-5.303 5.303 1.414 1.414 5.303-5.303 5.303 5.303 1.414-1.414-5.303-5.303z"/>     </g> </svg>'
         popupWidget.style.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif'
         popupWidget.style.fontSize = '12px'
-        popupWidget.style.position = 'fixed'
-        popupWidget.style.right = '90px';
-        popupWidget.style.bottom = '34px';
+        popupWidget.style.position = 'absolute'
+        popupWidget.style.right = '72px';
+        popupWidget.style.bottom = '20px';
+        popupWidget.style.whiteSpace = 'nowrap';
         popupWidget.style.zIndex = '50';  
         popupWidget.style.backgroundColor = 'white'
 
-        document.body.appendChild(popupWidget);
+        btn.appendChild(popupWidget);
 
-        document.getElementById('askguru-popup-close').addEventListener('click', () => {
-          localStorage.setItem('askguru-has-interacted', 'true')
-          document.getElementById('askguru-popup-widget').style.display = 'none'
-        })
       }
 
-      document.body.appendChild(btn);
+      document.body.appendChild(askguruWrapper);
+      
+      document.getElementById('askguru-popup-close').addEventListener('click', () => {
+        localStorage.setItem('askguru-has-interacted', 'true')
+        document.getElementById('askguru-popup-widget').style.display = 'none'
+      })
+      
       reportEvent("POPUP_SEEN")
     };
   
@@ -293,43 +311,25 @@ const getButtonInitFile = ({ configuration }) => {
   `;
 };
 
-app.get("/remote-script", async (req, res) => {
+app.get('/remote-script', async (req, res) => {
   try {
-    res.sendFile(
-      path.join(
-        __dirname,
-        "chat-application",
-        "build",
-        "static",
-        "js",
-        "bundle.js",
-      ),
-    );
+    res.sendFile(path.join(__dirname, 'chat-application', 'build', 'static', 'js', 'bundle.js'));
   } catch (error) {
     res.json({ error });
   }
 });
 
-app.get("/remote-style", async (req, res) => {
+app.get('/remote-style', async (req, res) => {
   try {
-    const files = await readdir(
-      path.join(__dirname, "chat-application", "build", "static", "css"),
-    );
+    const files = await readdir(path.join(__dirname, 'chat-application', 'build', 'static', 'css'));
     const requestedFile = files.find((file) => /^main\..+\.css$/.test(file));
 
     if (requestedFile) {
-      const filePath = path.join(
-        __dirname,
-        "chat-application",
-        "build",
-        "static",
-        "css",
-        requestedFile,
-      );
+      const filePath = path.join(__dirname, 'chat-application', 'build', 'static', 'css', requestedFile);
       res.sendFile(filePath);
     } else {
-      console.log("not found");
-      res.status(404).json({ error: "Main CSS file not found" });
+      console.log('not found');
+      res.status(404).json({ error: 'Main CSS file not found' });
     }
   } catch (error) {
     console.log({ error });
@@ -337,38 +337,23 @@ app.get("/remote-style", async (req, res) => {
   }
 });
 
-app.get("/i", async (req, res) => {
+app.get('/i', async (req, res) => {
   try {
     // color required to be HEX without #
     // token is token
 
-    let {
-      token,
-      color,
-      zIndex,
-      lang,
-      whitelabel,
-      popupIcon,
-      popupMessage,
-      windowHeading,
-      welcomeMessage,
-      addUnreadDot,
-    } = req.query;
+    let { token, color, zIndex, lang, whitelabel, popupIcon, popupMessage, windowHeading, welcomeMessage, addUnreadDot } = req.query;
 
     if (token === null || token === undefined) {
-      throw new Error("No token received");
+      throw new Error('No token received');
     }
 
     if (color === null || color === undefined) {
-      color = "18b569";
-    }
-
-    if (zIndex === null || zIndex === undefined) {
-      zIndex = 10;
+      color = '18b569';
     }
 
     if (lang === null || lang === undefined) {
-      lang = "en-US";
+      lang = 'en-US';
     }
 
     let whitelabelBoolean = getBooleanFromString(whitelabel);
@@ -407,7 +392,7 @@ app.get("/i", async (req, res) => {
       configuration: clientConfiguration,
     });
 
-    res.setHeader("Content-Type", "application/javascript");
+    res.setHeader('Content-Type', 'application/javascript');
     res.send(clientScript);
   } catch (error) {
     res.json({ error });

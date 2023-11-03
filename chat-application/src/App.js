@@ -5,11 +5,21 @@ import { getAnswer, reportAnalyticsEvent } from './AskGuru.js';
 import PoweredByBlock from './components/PoweredByBlock';
 import AskGuruIcon from './components/Icons/AskGuruIcon';
 import ChatHelper from './ChatHelper';
+import { localized } from './localization/Localization';
 
 function App() {
   useEffect(() => {
     applyConfiguration();
   }, []);
+
+  const staticConfig = {
+    button_id: 'ask-guru-static-btn',
+    button_content_id: 'askguru-btn-content',
+    chat_id: 'ask-guru-wrapper',
+    wrapper_id: 'askguru-wrapper',
+  };
+
+  const originalChatIcon = '<svg stroke="#FFFFFF" fill="#FFFFFF" stroke-width="0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M87.48 380c1.2-4.38-1.43-10.47-3.94-14.86a42.63 42.63 0 00-2.54-3.8 199.81 199.81 0 01-33-110C47.64 139.09 140.72 48 255.82 48 356.2 48 440 117.54 459.57 209.85a199 199 0 014.43 41.64c0 112.41-89.49 204.93-204.59 204.93-18.31 0-43-4.6-56.47-8.37s-26.92-8.77-30.39-10.11a31.14 31.14 0 00-11.13-2.07 30.7 30.7 0 00-12.08 2.43L81.5 462.78a15.92 15.92 0 01-4.66 1.22 9.61 9.61 0 01-9.58-9.74 15.85 15.85 0 01.6-3.29z"></path><circle cx="160" cy="256" r="32"></circle><circle cx="256" cy="256" r="32"></circle><circle cx="352" cy="256" r="32"></circle></svg>'
 
   const [isLoading, setLoading] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -42,13 +52,17 @@ function App() {
       applyChatHistory(ChatHelper.fallbackConfiguration);
       return;
     }
-    const decodedConfiguration = JSON.parse(
-      decodeURIComponent(escape(atob(configurationRaw))),
-    );
-    const configuration = decodedConfiguration;
-    console.log({ configuration });
-    setWidgetConfiguration(configuration);
-    applyChatHistory(configuration);
+    try {
+      const decodedConfiguration = JSON.parse(
+        decodeURIComponent(escape(atob(configurationRaw))),
+      );
+      const configuration = decodedConfiguration;
+      console.log({ configuration });
+      setWidgetConfiguration(configuration);
+      applyChatHistory(configuration);
+    } catch (decodingError) { 
+      console.error("Decoding Error", decodingError)
+    }
   };
 
   const updateScroll = (behavior = 'smooth') => {
@@ -61,17 +75,64 @@ function App() {
   const resizeContainer = () => {
     try {
       const wrapper = document.getElementById('ask-guru-wrapper');
-      if (wrapper.style.maxWidth === 'calc(100vw - 32px)') {
-        wrapper.style.maxWidth = '450px';
-        wrapper.style.maxHeight = '650px';
+      if (wrapper.style.height !== '650px') {
+        wrapper.style.maxHeight = 'calc(100vh - 104px)';
+        wrapper.style.maxWidth = 'calc(100vw - 32px)';
+
+        wrapper.style.minWidth = 'auto';
+        wrapper.style.minHeight = 'auto';
+        
+        wrapper.style.width = '450px';
+        wrapper.style.height = '650px';
       } else {
         wrapper.style.maxWidth = 'calc(100vw - 32px)';
+        wrapper.style.minWidth = 'calc(100vw - 32px)';
         wrapper.style.maxHeight = 'calc(100vh - 104px)';
+        wrapper.style.minHeight = 'calc(100vh - 104px)';
+
+        wrapper.style.width = '100%';
+        wrapper.style.height = '100%';
       }
     } catch (e) {
       console.log(e);
     }
   };
+
+  const makePopupIcon = () => {
+    const popupImageIcon = document.createElement('img')
+    popupImageIcon.src = widgetConfiguration.popupIcon
+    popupImageIcon.style.width = '40px'
+    popupImageIcon.style.height = '40px'
+    popupImageIcon.style.objectFit = 'contain'
+    return popupImageIcon
+  }
+
+  const handleClose = (event) => {
+    event.preventDefault();
+    try {
+      const askguruRootWrapper = document.getElementById('askguru-wrapper');
+      askguruRootWrapper.style.removeProperty('top');
+
+      const wrapper = document.getElementById('ask-guru-wrapper');
+      const askGuruBtn = document.getElementById('ask-guru-static-btn');
+      wrapper.style.opacity = 0;
+      wrapper.style.display = 'none';
+      wrapper.style.zIndex = widgetConfiguration.zIndex;
+      askGuruBtn.style.opacity = 1;
+      askGuruBtn.style.display = 'flex';
+
+      if (widgetConfiguration.popupIcon !== null){
+        document.getElementById(staticConfig.button_content_id).innerHTML = ''
+        document.getElementById(staticConfig.button_content_id).appendChild(makePopupIcon())
+      } else {
+        document.getElementById(staticConfig.button_content_id).innerHTML = originalChatIcon
+      }
+
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const createNewMessage = (role, content) => {
     return {
       role: role,
@@ -196,6 +257,13 @@ function App() {
       }
     });
     answerStream.addEventListener('error', (event) => {
+      if (!initialAnswer) {
+        let tempArray = messagesRef.current;
+        const refIndex = messagesRef.current.length - 1;
+        tempArray[refIndex].content = localized(widgetConfiguration.lang, 'errorMessage');
+        setMessages([...tempArray]);
+        messagesRef.current = tempArray;
+      }
       setLoading(false);
       answerStream.close();
       ChatHelper.saveState(messagesRef.current);
@@ -215,13 +283,7 @@ function App() {
         <div className="askguru-ai-heading">
           {widgetConfiguration.whitelabel === false &&
             widgetConfiguration.popupIcon === null && <AskGuruIcon />}
-          {widgetConfiguration.popupIcon && (
-            <img
-              alt="Custom Icon"
-              src={widgetConfiguration.popupIcon}
-              className="custom-askguru-icon"
-            />
-          )}
+          
           {widgetConfiguration.windowHeading === null ? (
             <>Chat with AI Assistant</>
           ) : (
@@ -231,6 +293,7 @@ function App() {
         <div className="askguru-header-buttons">
           <button
             className="askguru-small-btn askguru-ai-clear"
+            aria-label={localized(widgetConfiguration.lang, "clear")}
             onClick={clearConversation}
           >
             <svg
@@ -243,7 +306,26 @@ function App() {
                 fill="#333"
               />
             </svg>
-            <div className="askguru-tooltip">Clear</div>
+            <div className="askguru-tooltip">{ localized(widgetConfiguration.lang, "clear")}</div>
+          </button>
+          <button
+            className="askguru-small-btn askguru-ai-close"
+            id='askguru-collapse'
+            onClick={handleClose}
+          >
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 28 28"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.1836 20.4805C14.4766 20.4805 14.7695 20.3633 14.9688 20.1406L24.0391 10.8477C24.2383 10.6484 24.3555 10.3906 24.3555 10.0977C24.3555 9.48828 23.8984 9.01953 23.2891 9.01953C22.9961 9.01953 22.7266 9.13672 22.5273 9.32422L13.5508 18.5H14.8047L5.82812 9.32422C5.64062 9.13672 5.37109 9.01953 5.06641 9.01953C4.45703 9.01953 4 9.48828 4 10.0977C4 10.3906 4.11719 10.6484 4.31641 10.8594L13.3867 20.1406C13.6094 20.3633 13.8789 20.4805 14.1836 20.4805Z"
+                fill="#333"
+              />
+            </svg>
+            <div className="askguru-tooltip">Collapse</div>
           </button>
         </div>
       </div>
@@ -262,7 +344,11 @@ function App() {
         <div id="askguru-scroll-anchor"></div>
       </div>
       <div className="askguru-compose">
-        <button className="askguru-resize" onClick={resizeContainer}>
+        <button
+          aria-label={localized(widgetConfiguration.lang, "resize")}
+          className="askguru-resize"
+          id='askguru-resize'
+          onClick={resizeContainer}>
           <svg
             className="askguru-scale-btn"
             stroke="currentColor"
@@ -276,6 +362,7 @@ function App() {
               <path d="M16 3h6v6h-2V5h-4V3zM2 3h6v2H4v4H2V3zm18 16v-4h2v6h-6v-2h4zM4 19h4v2H2v-6h2v4z"></path>
             </g>
           </svg>
+          <div className="askguru-tooltip-top">{ localized(widgetConfiguration.lang, "resize")}</div>
         </button>
         <form
           style={{ display: 'flex', gap: '8px', width: '100%' }}
@@ -285,13 +372,16 @@ function App() {
             type="text"
             value={composeValue}
             onChange={(e) => setComposeValue(e.target.value)}
-            placeholder="What's your question?"
+            placeholder={localized(widgetConfiguration.lang, "inputPlaceholder")}
           ></input>
           <button
+            aria-label={localized(widgetConfiguration.lang, "send")}
             type="submit"
             disabled={isLoading}
             className="askguru-submit-btn"
           >
+
+          <div className="askguru-tooltip-top">{ localized(widgetConfiguration.lang, "send")}</div>
             <svg
               width="28"
               height="28"
