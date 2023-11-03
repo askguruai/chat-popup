@@ -50,3 +50,9 @@ export type Localizations = {
 }
 
 export type ReactionType = "LIKE" | "DISLIKE"
+
+declare global {
+  interface Window {
+    askguruQueryParams?: URLSearchParams
+  }
+}

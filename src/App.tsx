@@ -31,7 +31,7 @@ export default function App() {
 
   const configuration: Configuration = {
     ...defaultConfiguration,
-    ...parseSearchParams(Object.fromEntries(searchParams)),
+    ...parseSearchParams(Object.fromEntries(window.askguruQueryParams ? window.askguruQueryParams : searchParams)),
   }
 
   const askguruConfiguration: AskguruConfiguration = {
