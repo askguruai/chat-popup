@@ -1,11 +1,11 @@
+import { Configuration, MessageType } from "../_interfaces"
+import AskguruApi from "../_lib/api"
+import localizations from "../_lib/localization"
 import Compose from "./Compose"
 import Footer from "./Footer"
 import Header from "./Header"
 import Message from "./Message"
 import styles from "./styles.module.css"
-import { Configuration, MessageType } from "@/app/_interfaces"
-import AskguruApi from "@/app/_lib/api"
-import localizations from "@/app/_lib/localization"
 import { FormEvent, useEffect, useRef } from "react"
 
 export default function Chat({

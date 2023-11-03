@@ -1,4 +1,4 @@
-import { AskguruConfiguration, EventType, LikeStatus, MessageType } from "@/app/_interfaces"
+import { AskguruConfiguration, EventType, LikeStatus, MessageType } from "../_interfaces"
 import axios from "axios"
 import { EventSourcePolyfill } from "event-source-polyfill"
 import qs from "qs"

@@ -1,7 +1,6 @@
+import { Configuration } from "../../_interfaces"
+import localizations from "../../_lib/localization"
 import styles from "./styles.module.css"
-import { Configuration } from "@/app/_interfaces"
-import localizations from "@/app/_lib/localization"
-import Image from "next/image"
 
 export default function Header({
   configuration,
@@ -18,13 +17,12 @@ export default function Header({
     <div className={styles.header}>
       <div className={styles.heading}>
         {!configuration.whitelabel && (
-          <Image
+          <img
             alt=""
             src="/images/chat/header/askguru-logo.svg"
             height={36}
             width={36}
             style={{ objectFit: "contain" }}
-            priority={true}
           />
         )}
         {configuration.windowHeading}
@@ -35,7 +33,7 @@ export default function Header({
           onClick={() => onClearButtonClick()}
           aria-label={localizations[configuration.lang].clear}
         >
-          <Image alt="" src="/images/chat/header/refresh-icon.svg" height={18} width={18} priority={true} />
+          <img alt="" src="/images/chat/header/refresh-icon.svg" height={18} width={18} />
           {!isMobile && <div className="tooltip">{localizations[configuration.lang].clear}</div>}
         </button>
         {isMobile && (
@@ -44,7 +42,7 @@ export default function Header({
             onClick={() => onCollapseButtonClick()}
             aria-label={localizations[configuration.lang].collapse}
           >
-            <Image alt="" src="/images/chat/header/close-icon.svg" height={18} width={18} priority={true} />
+            <img alt="" src="/images/chat/header/close-icon.svg" height={18} width={18} />
             {/* <div className="tooltip">{localizations[configuration.lang].collapse}</div> */}
           </button>
         )}

@@ -1,12 +1,10 @@
-"use client"
-
-import Chat from "@/app/_components/Chat"
-import PopupButton from "@/app/_components/PopupButton"
-import { AskguruConfiguration, Configuration, MessageType } from "@/app/_interfaces"
-import AskguruApi from "@/app/_lib/api"
-import { defaultAskguruConfiguration, defaultConfiguration } from "@/app/configuration"
-import { useSearchParams } from "next/navigation"
+import Chat from "./Chat"
+import PopupButton from "./PopupButton"
+import { AskguruConfiguration, Configuration, MessageType } from "./_interfaces"
+import AskguruApi from "./_lib/api"
+import { defaultAskguruConfiguration, defaultConfiguration } from "./configuration"
 import { useEffect, useState } from "react"
+import { useSearchParams } from "react-router-dom"
 
 const mobileWindowWidthThreshold = 450
 
@@ -19,9 +17,10 @@ function parseSearchParams(params: { [k: string]: string }): Partial<Configurati
   return parsed
 }
 
-export default function Home() {
+export default function App() {
   // State of Chat component live here to save it
   // during collapses
+  const [searchParams, _setSearchParams] = useSearchParams()
   const [isCollapsed, setIsCollapsed] = useState(true)
   const [hasInteracted, setHasInteracted] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
@@ -32,7 +31,7 @@ export default function Home() {
 
   const configuration: Configuration = {
     ...defaultConfiguration,
-    ...parseSearchParams(Object.fromEntries(useSearchParams())),
+    ...parseSearchParams(Object.fromEntries(searchParams)),
   }
 
   const askguruConfiguration: AskguruConfiguration = {

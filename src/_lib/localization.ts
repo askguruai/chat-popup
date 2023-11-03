@@ -1,4 +1,4 @@
-import { Localizations } from "@/app/_interfaces"
+import { Localizations } from "../_interfaces"
 
 const localizations: Localizations = {
   "en-US": {

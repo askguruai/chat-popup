@@ -1,6 +1,5 @@
+import { ReactionType } from "../../../_interfaces"
 import styles from "./styles.module.css"
-import { ReactionType } from "@/app/_interfaces"
-import Image from "next/image"
 import { useState } from "react"
 
 export default function ReactionButton({
@@ -25,12 +24,12 @@ export default function ReactionButton({
     >
       {reaction === "LIKE" ? (
         <>
-          <Image alt="" src="/images/chat/message/feedback-like.svg" height={18} width={18} priority={true} />
+          <img alt="" src="/images/chat/message/feedback-like.svg" height={18} width={18} />
           Like
         </>
       ) : (
         <>
-          <Image alt="" src="/images/chat/message/feedback-dislike.svg" height={18} width={18} priority={true} />
+          <img alt="" src="/images/chat/message/feedback-dislike.svg" height={18} width={18} />
           Dislike
         </>
       )}

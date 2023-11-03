@@ -1,10 +1,9 @@
+import { MessageType, ReactionType } from "../../_interfaces"
+import AskguruApi from "../../_lib/api"
 import ReactionButton from "./ReactionButton"
 import TripleDots from "./TripleDots"
 import styles from "./styles.module.css"
-import { MessageType, ReactionType } from "@/app/_interfaces"
-import AskguruApi from "@/app/_lib/api"
 import { marked } from "marked"
-import Image from "next/image"
 import { useEffect, useState } from "react"
 
 export default function Message({
@@ -75,13 +74,7 @@ export default function Message({
               </div>
             ) : (
               <div className={styles.messageFeedbackThanks}>
-                <Image
-                  alt=""
-                  src="/images/chat/message/feedback-submit-tick.svg"
-                  width={18}
-                  height={18}
-                  priority={true}
-                />
+                <img alt="" src="/images/chat/message/feedback-submit-tick.svg" width={18} height={18} />
                 Thanks for submitting your feedback!
               </div>
             )}

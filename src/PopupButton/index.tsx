@@ -1,7 +1,6 @@
+import { Configuration } from "../_interfaces"
+import AskguruApi from "../_lib/api"
 import styles from "./styles.module.css"
-import { Configuration } from "@/app/_interfaces"
-import AskguruApi from "@/app/_lib/api"
-import Image from "next/image"
 import { useEffect } from "react"
 
 export default function PopupButton({
@@ -26,7 +25,7 @@ export default function PopupButton({
   function handleClick(): void {
     setIsCollapsed(!isCollapsed)
     setHasInteracted(true)
-    localStorage.setItem("askguru-has-interacted", "true")
+    // localStorage.setItem("askguru-has-interacted", "true")
     askguruAPI.logEvent({ eventType: "POPUP_CALLED" })
   }
 
@@ -41,21 +40,19 @@ export default function PopupButton({
       onClick={() => handleClick()}
     >
       <div className={styles.imageContainer}>
-        <Image
+        <img
           className={`${styles.fadingImage} ${!isCollapsed && styles.hiddenImage}`}
           alt=""
           src={configuration.popupIcon}
           width={64}
           height={64}
-          priority={true}
         />
-        <Image
+        <img
           className={`${styles.fadingImage} ${isCollapsed && styles.hiddenImage}`}
           alt=""
           src={"/images/popup/chevron.svg"}
           width={64}
           height={64}
-          priority={true}
         />
       </div>
       {configuration.addUnreadDot && !hasInteracted && <div className={styles.unreadDot} />}
