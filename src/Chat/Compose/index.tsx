@@ -1,6 +1,8 @@
 import { Configuration } from "../../_interfaces"
 import localizations from "../../_lib/localization"
 import styles from "./styles.module.css"
+import RecizeIcon from "/src/_images/chat/message/compose-resize.svg?react"
+import SendIcon from "/src/_images/chat/message/compose-send.svg?react"
 import { FormEvent } from "react"
 
 export default function Compose({
@@ -28,7 +30,7 @@ export default function Compose({
           className="small-btn"
           onClick={() => onResizeClick()}
         >
-          <img alt="" src="/images/chat/message/compose-resize.svg" width={24} height={24} />
+          <RecizeIcon width={24} height={24} />
           {!isMobile && (
             <div className="tooltip" style={{ bottom: 25 }}>
               {localizations[configuration.lang].resize}
@@ -52,7 +54,7 @@ export default function Compose({
           disabled={isLoading || !composeValue}
           className="small-btn"
         >
-          <img alt="" src="/images/chat/message/compose-send.svg" width={28} height={28} />
+          <SendIcon width={28} height={28} />
           {!isMobile && (
             <div className="tooltip" style={{ bottom: 40 }}>
               {localizations[configuration.lang].send}

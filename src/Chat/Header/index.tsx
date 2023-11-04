@@ -1,6 +1,8 @@
 import { Configuration } from "../../_interfaces"
 import localizations from "../../_lib/localization"
 import styles from "./styles.module.css"
+import AskguruLogo from "/src/_images/chat/header/askguru-logo.svg?react"
+import RefreshIcon from "/src/_images/chat/header/refresh-icon.svg?react"
 
 export default function Header({
   configuration,
@@ -16,15 +18,7 @@ export default function Header({
   return (
     <div className={styles.header}>
       <div className={styles.heading}>
-        {!configuration.whitelabel && (
-          <img
-            alt=""
-            src="/images/chat/header/askguru-logo.svg"
-            height={36}
-            width={36}
-            style={{ objectFit: "contain" }}
-          />
-        )}
+        {!configuration.whitelabel && <AskguruLogo height={36} width={36} style={{ objectFit: "contain" }} />}
         {configuration.windowHeading}
       </div>
       <div className={styles.buttons}>
@@ -33,7 +27,7 @@ export default function Header({
           onClick={() => onClearButtonClick()}
           aria-label={localizations[configuration.lang].clear}
         >
-          <img alt="" src="/images/chat/header/refresh-icon.svg" height={18} width={18} />
+          <RefreshIcon height={18} width={18} />
           {!isMobile && <div className="tooltip">{localizations[configuration.lang].clear}</div>}
         </button>
         {isMobile && (

@@ -1,5 +1,7 @@
 import { ReactionType } from "../../../_interfaces"
 import styles from "./styles.module.css"
+import LikeIcon from "/src/_images/chat/message/feedback-like.svg?react"
+import DislikeIcon from "/src/_images/chat/message/feedback-like.svg?react"
 import { useState } from "react"
 
 export default function ReactionButton({
@@ -24,12 +26,12 @@ export default function ReactionButton({
     >
       {reaction === "LIKE" ? (
         <>
-          <img alt="" src="/images/chat/message/feedback-like.svg" height={18} width={18} />
+          <LikeIcon height={18} width={18} />
           Like
         </>
       ) : (
         <>
-          <img alt="" src="/images/chat/message/feedback-dislike.svg" height={18} width={18} />
+          <DislikeIcon height={18} width={18} />
           Dislike
         </>
       )}

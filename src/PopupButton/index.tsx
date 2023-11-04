@@ -1,6 +1,8 @@
 import { Configuration } from "../_interfaces"
 import AskguruApi from "../_lib/api"
 import styles from "./styles.module.css"
+import Chevron from "/src/_images/popup/chevron.svg?react"
+import DefaultIcon from "/src/_images/popup/icon-default.svg?react"
 import { useEffect } from "react"
 
 export default function PopupButton({
@@ -40,20 +42,22 @@ export default function PopupButton({
       onClick={() => handleClick()}
     >
       <div className={styles.imageContainer}>
-        <img
-          className={`${styles.fadingImage} ${!isCollapsed && styles.hiddenImage}`}
-          alt=""
-          src={configuration.popupIcon}
-          width={64}
-          height={64}
-        />
-        <img
-          className={`${styles.fadingImage} ${isCollapsed && styles.hiddenImage}`}
-          alt=""
-          src={"/images/popup/chevron.svg"}
-          width={64}
-          height={64}
-        />
+        {configuration.popupIcon ? (
+          <img
+            className={`${styles.fadingImage} ${!isCollapsed && styles.hiddenImage}`}
+            alt=""
+            src={configuration.popupIcon}
+            width={64}
+            height={64}
+          />
+        ) : (
+          <DefaultIcon
+            className={`${styles.fadingImage} ${!isCollapsed && styles.hiddenImage}`}
+            width={64}
+            height={64}
+          />
+        )}
+        <Chevron className={`${styles.fadingImage} ${isCollapsed && styles.hiddenImage}`} width={64} height={64} />
       </div>
       {configuration.addUnreadDot && !hasInteracted && <div className={styles.unreadDot} />}
       {configuration.popupMessage && !hasInteracted && (

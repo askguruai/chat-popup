@@ -3,6 +3,7 @@ import AskguruApi from "../../_lib/api"
 import ReactionButton from "./ReactionButton"
 import TripleDots from "./TripleDots"
 import styles from "./styles.module.css"
+import SubmitTickIcon from "/src/_images/chat/message/feedback-submit-tick.svg?react"
 import { marked } from "marked"
 import { useEffect, useState } from "react"
 
@@ -74,7 +75,7 @@ export default function Message({
               </div>
             ) : (
               <div className={styles.messageFeedbackThanks}>
-                <img alt="" src="/images/chat/message/feedback-submit-tick.svg" width={18} height={18} />
+                <SubmitTickIcon width={18} height={18} />
                 Thanks for submitting your feedback!
               </div>
             )}

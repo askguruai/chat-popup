@@ -3,7 +3,7 @@ import { AskguruConfiguration, Configuration } from "./_interfaces"
 export const defaultConfiguration: Configuration = {
   token: "",
   color: "15BE6C",
-  popupIcon: "/images/popup/askguru.svg",
+  popupIcon: "", // if empty, /images/popup/icon-default.svg will be used
   popupMessage: "Try <b>AI-powered</b> search!",
   addUnreadDot: true,
   whitelabel: false,
