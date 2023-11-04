@@ -50,7 +50,6 @@
       const jsFile = html.match(/href="([^"]+\.js)"/)
       const cssFile = html.match(/href="([^"]+\.css)"/)
 
-      // Create the mount point for the React app
       createAppMountPoint()
 
       // Load the CSS and JS
