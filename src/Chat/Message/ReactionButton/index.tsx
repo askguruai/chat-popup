@@ -1,7 +1,7 @@
 import { ReactionType } from "../../../_interfaces"
 import styles from "./styles.module.css"
+import DislikeIcon from "/src/_images/chat/message/feedback-dislike.svg?react"
 import LikeIcon from "/src/_images/chat/message/feedback-like.svg?react"
-import DislikeIcon from "/src/_images/chat/message/feedback-like.svg?react"
 import { useState } from "react"
 
 export default function ReactionButton({
