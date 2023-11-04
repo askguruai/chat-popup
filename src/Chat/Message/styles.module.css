@@ -23,6 +23,10 @@
   gap: 4px;
 }
 
+.message p {
+  margin: 5px;
+}
+
 .messageRating {
   display: flex;
   flex-direction: row;

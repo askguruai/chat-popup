@@ -2,6 +2,7 @@ import { Configuration } from "../../_interfaces"
 import localizations from "../../_lib/localization"
 import styles from "./styles.module.css"
 import AskguruLogo from "/src/_images/chat/header/askguru-logo.svg?react"
+import CloseIcon from "/src/_images/chat/header/close-icon.svg?react"
 import RefreshIcon from "/src/_images/chat/header/refresh-icon.svg?react"
 
 export default function Header({
@@ -36,7 +37,7 @@ export default function Header({
             onClick={() => onCollapseButtonClick()}
             aria-label={localizations[configuration.lang].collapse}
           >
-            <img alt="" src="/images/chat/header/close-icon.svg" height={18} width={18} />
+            <CloseIcon height={18} width={18} />
             {/* <div className="tooltip">{localizations[configuration.lang].collapse}</div> */}
           </button>
         )}

@@ -44,8 +44,8 @@
   left: 50%;
   transform: translate(-50%, -50%); /* center the image */
   transition: opacity 0.1s ease-in-out;
-  width: 100%; /* ensure the image takes the full width */
-  height: 100%; /* ensure the image takes the full height */
+  width: 100%;
+  height: 100%;
 }
 
 .hiddenImage {
@@ -53,8 +53,8 @@
 }
 
 .unreadDot {
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
   border-radius: 12px;
   background-color: orange;
   border: 3px solid white;

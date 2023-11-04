@@ -1,9 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+#askguru-chat-popup-container {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+}
 .small-btn {
   position: relative;
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
 }
 
 .tooltip {
@@ -21,6 +25,10 @@
   transition: 0.1s;
 }
 
-button:hover .tooltip {
+button:hover:enabled .tooltip {
   opacity: 1;
+}
+
+button:disabled {
+  cursor: not-allowed;
 }
