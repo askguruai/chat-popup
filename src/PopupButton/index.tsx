@@ -38,6 +38,7 @@ export default function PopupButton({
         backgroundColor: "#" + configuration.color,
         bottom: configuration.bottomIndent,
         right: configuration.rightIndent,
+        zIndex: configuration.zIndex,
       }}
       onClick={() => handleClick()}
     >

@@ -163,6 +163,7 @@ export default function Chat({
       style={{
         bottom: isMobile ? 0 : configuration.bottomIndent + 72, // 64 (height of the button) + 8 (indent)
         right: isMobile ? 0 : configuration.rightIndent,
+        zIndex: configuration.zIndex,
       }}
     >
       <Header

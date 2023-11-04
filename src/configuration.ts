@@ -12,6 +12,7 @@ export const defaultConfiguration: Configuration = {
   welcomeMessage: "👋 Hi! Ask me anything...",
   bottomIndent: 24,
   rightIndent: 24,
+  zIndex: 10,
 }
 
 export const defaultAskguruConfiguration: AskguruConfiguration = {

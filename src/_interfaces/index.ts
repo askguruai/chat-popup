@@ -12,6 +12,7 @@ export interface Configuration {
   addUnreadDot: boolean
   bottomIndent: number
   rightIndent: number
+  zIndex: number
 }
 
 export type AskguruApiVersion = "v1" | "v2"

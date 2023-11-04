@@ -14,6 +14,7 @@ function parseSearchParams(params: { [k: string]: string }): Partial<Configurati
   if (params.addUnreadDot !== undefined) parsed.addUnreadDot = params.addUnreadDot.toLowerCase() === "true"
   if (params.bottomIndent !== undefined) parsed.bottomIndent = parseInt(params.bottomIndent)
   if (params.rightIndent !== undefined) parsed.rightIndent = parseInt(params.rightIndent)
+  if (params.zIndex !== undefined) parsed.zIndex = parseInt(params.zIndex)
   return parsed
 }
 
