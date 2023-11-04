@@ -59,9 +59,7 @@
       }
       if (jsFile && jsFile[1]) {
         loadScript(`${baseUrl}/assets/${jsFile[1]}`)
-          .then(() => {
-            console.log("React app script loaded")
-          })
+          .then(() => {})
           .catch((error) => {
             console.error("Error loading React app script:", error)
           })
