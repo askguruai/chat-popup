@@ -24,23 +24,23 @@ export default function Header({
       </div>
       <div className={styles.buttons}>
         <button
-          className={`small-btn`}
+          className="askguru-small-btn"
           onClick={() => onClearButtonClick()}
           aria-label={localizations[configuration.lang].clear}
         >
           <RefreshIcon height={18} width={18} />
           {!isMobile && (
-            <div className={`tooltip ${styles.headerTooltip}`}>{localizations[configuration.lang].clear}</div>
+            <div className={`askguru-tooltip ${styles.headerTooltip}`}>{localizations[configuration.lang].clear}</div>
           )}
         </button>
         {isMobile && (
           <button
-            className={`small-btn`}
+            className="askguru-small-btn"
             onClick={() => onCollapseButtonClick()}
             aria-label={localizations[configuration.lang].collapse}
           >
             <CloseIcon height={18} width={18} />
-            {/* <div className="tooltip">{localizations[configuration.lang].collapse}</div> */}
+            {/* <div className={`askguru-tooltip ${styles.headerTooltip}`}>{localizations[configuration.lang].collapse}</div> */}
           </button>
         )}
       </div>

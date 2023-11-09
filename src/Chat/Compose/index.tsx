@@ -27,12 +27,14 @@ export default function Compose({
       {!isMobile && (
         <button
           aria-label={localizations[configuration.lang].resize}
-          className="small-btn"
+          className="askguru-small-btn"
           onClick={() => onResizeClick()}
         >
           <RecizeIcon width={24} height={24} />
           {!isMobile && (
-            <div className={`tooltip ${styles.composeTooltipLeft}`}>{localizations[configuration.lang].resize}</div>
+            <div className={`askguru-tooltip ${styles.composeTooltipLeft}`}>
+              {localizations[configuration.lang].resize}
+            </div>
           )}
         </button>
       )}
@@ -50,11 +52,13 @@ export default function Compose({
           aria-label={localizations[configuration.lang].send}
           type="submit"
           disabled={isLoading || !composeValue}
-          className="small-btn"
+          className="askguru-small-btn"
         >
           <SendIcon width={28} height={28} />
           {!isMobile && (
-            <div className={`tooltip ${styles.composeTooltipRight}`}>{localizations[configuration.lang].send}</div>
+            <div className={`askguru-tooltip ${styles.composeTooltipRight}`}>
+              {localizations[configuration.lang].send}
+            </div>
           )}
         </button>
       </form>

@@ -4,14 +4,7 @@
   line-height: 1.5;
 }
 
-input,
-textarea,
-select {
-  font-family: inherit;
-  line-height: inherit;
-}
-
-.small-btn {
+.askguru-small-btn {
   position: relative;
   border: none;
   outline: none;
@@ -19,7 +12,11 @@ select {
   cursor: pointer;
 }
 
-.tooltip {
+.askguru-small-btn:disabled {
+  cursor: not-allowed;
+}
+
+.askguru-tooltip {
   background-color: #000;
   color: white;
   font-size: 12px;
@@ -33,10 +30,6 @@ select {
   transition: 0.1s;
 }
 
-button:hover:enabled .tooltip {
+button:hover:enabled .askguru-tooltip {
   opacity: 1;
-}
-
-button:disabled {
-  cursor: not-allowed;
 }
