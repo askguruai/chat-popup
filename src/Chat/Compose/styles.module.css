@@ -28,3 +28,13 @@
 .input::placeholder {
   color: #5b5b5b;
 }
+
+.composeTooltipLeft {
+  left: 10px;
+  bottom: 35px;
+}
+
+.composeTooltipRight {
+  left: -15px;
+  bottom: 40px;
+}

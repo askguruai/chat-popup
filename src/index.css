@@ -1,7 +1,16 @@
 #askguru-chat-popup-container {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
     "Droid Sans", "Helvetica Neue", sans-serif;
+  line-height: 1.5;
 }
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  line-height: inherit;
+}
+
 .small-btn {
   position: relative;
   border: none;
@@ -20,7 +29,6 @@
   opacity: 0;
   display: block;
   position: absolute;
-  left: -15px;
   white-space: nowrap;
   transition: 0.1s;
 }

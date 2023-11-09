@@ -32,9 +32,7 @@ export default function Compose({
         >
           <RecizeIcon width={24} height={24} />
           {!isMobile && (
-            <div className="tooltip" style={{ bottom: 25 }}>
-              {localizations[configuration.lang].resize}
-            </div>
+            <div className={`tooltip ${styles.composeTooltipLeft}`}>{localizations[configuration.lang].resize}</div>
           )}
         </button>
       )}
@@ -56,9 +54,7 @@ export default function Compose({
         >
           <SendIcon width={28} height={28} />
           {!isMobile && (
-            <div className="tooltip" style={{ bottom: 40 }}>
-              {localizations[configuration.lang].send}
-            </div>
+            <div className={`tooltip ${styles.composeTooltipRight}`}>{localizations[configuration.lang].send}</div>
           )}
         </button>
       </form>

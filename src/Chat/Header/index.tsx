@@ -29,7 +29,9 @@ export default function Header({
           aria-label={localizations[configuration.lang].clear}
         >
           <RefreshIcon height={18} width={18} />
-          {!isMobile && <div className="tooltip">{localizations[configuration.lang].clear}</div>}
+          {!isMobile && (
+            <div className={`tooltip ${styles.headerTooltip}`}>{localizations[configuration.lang].clear}</div>
+          )}
         </button>
         {isMobile && (
           <button

@@ -25,3 +25,7 @@
   display: flex;
   gap: 16px;
 }
+
+.headerTooltip {
+  left: -25px;
+}
