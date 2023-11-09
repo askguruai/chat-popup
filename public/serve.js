@@ -37,6 +37,13 @@
   const currentScript = scripts[scripts.length - 1]
   window.askguruQueryParams = getQueryParams(currentScript.src)
 
+  // Disable zooming on text input on iPhones
+  if (navigator.userAgent.indexOf("iPhone") > -1) {
+    document
+      .querySelector("[name=viewport]")
+      .setAttribute("content", "width=device-width, initial-scale=1, maximum-scale=1")
+  }
+
   // Fetch the assets directory
   fetch(`${baseUrl}/assets/`)
     .then((response) => {
