@@ -54,7 +54,7 @@ export default function App() {
   }
 
   useEffect(() => {
-    console.log("AskGuru chat pop-up configuration:", configuration)
+    // console.log("AskGuru chat pop-up configuration:", configuration)
 
     const messagesHistory = localStorage.getItem("askguru-chat-history")
     if (messagesHistory) {
