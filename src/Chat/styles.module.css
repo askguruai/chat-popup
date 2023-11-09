@@ -8,28 +8,6 @@
   flex-direction: column;
 }
 
-.chatDesktop {
-  max-width: calc(100vw - 40px);
-  max-height: calc(100vh - 112px);
-  border-radius: 16px;
-}
-
-.chatDesktopNormal {
-  width: 450px;
-  height: 650px;
-}
-
-.chatDesktopExpanded {
-  width: calc(100vw - 40px);
-  height: calc(100vh - 112px);
-}
-
-.chatMobile {
-  width: 100vw;
-  height: 100vh;
-  height: 100%;
-}
-
 .content {
   flex-grow: 1;
   display: flex;

@@ -8,6 +8,8 @@ import Message from "./Message"
 import styles from "./styles.module.css"
 import { FormEvent, useEffect, useRef } from "react"
 
+const chatScreenIndent = 20
+
 export default function Chat({
   configuration,
   askguruAPI,
@@ -163,7 +165,20 @@ export default function Chat({
       style={{
         bottom: isMobile ? 0 : configuration.bottomIndent + 72, // 64 (height of the button) + 8 (indent)
         right: isMobile ? 0 : configuration.rightIndent,
+        borderRadius: isMobile ? "0px" : "16px",
         zIndex: configuration.zIndex,
+        width: isMobile
+          ? "100%"
+          : isExpanded
+          ? `calc(100vw - ${configuration.rightIndent + chatScreenIndent}px)`
+          : "450px",
+        height: isMobile
+          ? "100%"
+          : isExpanded
+          ? `calc(100vh - ${configuration.bottomIndent + 72 + chatScreenIndent}px)`
+          : "650px",
+        maxWidth: isMobile ? "unset" : `calc(100vw - ${configuration.rightIndent + chatScreenIndent}px)`,
+        maxHeight: isMobile ? "unset" : `calc(100vh - ${configuration.bottomIndent + 72 + chatScreenIndent}px)`,
       }}
     >
       <Header
