@@ -19,6 +19,7 @@ export default function ReactionButton({
       className={styles.messageRatingButton}
       style={{
         backgroundColor: hoverReactionButton ? hoverColor : "",
+        color: hoverReactionButton ? "white" : "rgb(56, 56, 56)",
       }}
       onMouseEnter={() => setHoverReactionButton(true)}
       onMouseLeave={() => setHoverReactionButton(false)}

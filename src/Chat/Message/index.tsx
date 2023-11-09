@@ -41,7 +41,8 @@ export default function Message({
     //   return false
     // }
     tokenizer.lheading = (_src) => undefined
-    renderer.link = (href, _title, text) => `<a target="_blank" href="${href}">${text}</a>`
+    renderer.link = (href, _title, text) =>
+      `<a target="_blank" href="${href}" style="color:${selectedColor};">${text}</a>`
 
     marked.setOptions({
       tokenizer: tokenizer,
