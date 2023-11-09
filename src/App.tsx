@@ -50,20 +50,20 @@ export default function App() {
 
   function handleClearConversation() {
     setMessages(messagesInitialState)
-    localStorage.setItem("askguru-chat-history", JSON.stringify(messagesInitialState))
+    localStorage.setItem(`askguru-chat-history-${configuration.token}`, JSON.stringify(messagesInitialState))
   }
 
   useEffect(() => {
     // console.log("AskGuru chat pop-up configuration:", configuration)
 
-    const messagesHistory = localStorage.getItem("askguru-chat-history")
+    const messagesHistory = localStorage.getItem(`askguru-chat-history-${configuration.token}`)
     if (messagesHistory) {
       setMessages(JSON.parse(messagesHistory))
     } else {
       setMessages(messagesInitialState)
     }
 
-    if (!localStorage.getItem("askguru-has-interacted")) {
+    if (!localStorage.getItem(`askguru-has-interacted-${configuration.token}`)) {
       setHasInteracted(false)
     }
 

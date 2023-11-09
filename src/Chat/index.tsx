@@ -148,7 +148,7 @@ export default function Chat({
       }
       setIsMessageLoading(false)
       answerStream.close()
-      localStorage.setItem("askguru-chat-history", JSON.stringify(newMessages))
+      localStorage.setItem(`askguru-chat-history-${configuration.token}`, JSON.stringify(newMessages))
       setTimeout(() => {
         scrollToBottom()
       }, 25)
