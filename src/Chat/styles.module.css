@@ -1,5 +1,5 @@
 .chat {
-  position: absolute;
+  position: fixed;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
   opacity: 1;
   transition: all 0.25s ease-in-out 0s;

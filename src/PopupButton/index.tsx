@@ -49,7 +49,7 @@ export default function PopupButton({
           width: configuration.buttonSize,
           height: configuration.buttonSize,
           borderRadius: configuration.buttonSize,
-          padding: configuration.buttonSize / 6,
+          padding: configuration.buttonSize / 5,
         }}
         onClick={() => handleClick()}
       >
