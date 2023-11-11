@@ -14,7 +14,7 @@ export const defaultConfiguration: Configuration = {
   welcomeMessage: "👋 Hi! Ask me anything...",
   bottomIndent: 24,
   rightIndent: 24,
-  zIndex: 10,
+  zIndex: 99999,
   buttonSize: 64,
 }
 
