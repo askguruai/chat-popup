@@ -59,6 +59,7 @@
 
 .popupWidget {
   display: flex;
+  cursor: default;
   flex-direction: row;
   gap: 2px;
   padding: 6px 12px;
@@ -68,4 +69,10 @@
   position: absolute;
   white-space: nowrap;
   background-color: white;
+  transition: all 0.25s ease-in-out 0s;
+}
+
+.popupWidget:hover {
+  transform: scale(1.05);
+  transition: transform 0.1s ease-in-out 0s;
 }
