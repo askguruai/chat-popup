@@ -163,7 +163,7 @@ export default function Chat({
           : `${styles.chatDesktop} ${isExpanded ? styles.chatDesktopExpanded : styles.chatDesktopNormal}`
       }`}
       style={{
-        bottom: isMobile ? 0 : configuration.bottomIndent + 72, // 64 (height of the button) + 8 (indent)
+        bottom: isMobile ? 0 : configuration.bottomIndent + configuration.buttonSize + configuration.buttonSize / 8,
         right: isMobile ? 0 : configuration.rightIndent,
         borderRadius: isMobile ? "0px" : "16px",
         zIndex: configuration.zIndex,
@@ -175,10 +175,16 @@ export default function Chat({
         height: isMobile
           ? "100%"
           : isExpanded
-          ? `calc(100vh - ${configuration.bottomIndent + 72 + chatScreenIndent}px)`
+          ? `calc(100vh - ${
+              configuration.bottomIndent + configuration.buttonSize + configuration.buttonSize / 8 + chatScreenIndent
+            }px)`
           : "650px",
         maxWidth: isMobile ? "unset" : `calc(100vw - ${configuration.rightIndent + chatScreenIndent}px)`,
-        maxHeight: isMobile ? "unset" : `calc(100vh - ${configuration.bottomIndent + 72 + chatScreenIndent}px)`,
+        maxHeight: isMobile
+          ? "unset"
+          : `calc(100vh - ${
+              configuration.bottomIndent + configuration.buttonSize + configuration.buttonSize / 8 + chatScreenIndent
+            }px)`,
       }}
     >
       <Header

@@ -1,5 +1,7 @@
 import { AskguruConfiguration, Configuration } from "./_interfaces"
 
+// When adding non-string values, do not forget to
+// parse them in `parseSearchParams` function in `App.tsx`
 export const defaultConfiguration: Configuration = {
   token: "",
   color: "15BE6C",
@@ -13,6 +15,7 @@ export const defaultConfiguration: Configuration = {
   bottomIndent: 24,
   rightIndent: 24,
   zIndex: 10,
+  buttonSize: 64,
 }
 
 export const defaultAskguruConfiguration: AskguruConfiguration = {

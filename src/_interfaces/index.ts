@@ -13,6 +13,7 @@ export interface Configuration {
   bottomIndent: number
   rightIndent: number
   zIndex: number
+  buttonSize: number
 }
 
 export type AskguruApiVersion = "v1" | "v2"

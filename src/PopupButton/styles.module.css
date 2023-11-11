@@ -1,9 +1,5 @@
 .button {
-  width: 64px;
-  height: 64px;
   border: none;
-  border-radius: 64px;
-  padding: 12px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -53,11 +49,9 @@
 }
 
 .unreadDot {
-  width: 12px;
-  height: 12px;
-  border-radius: 12px;
+  border-style: solid;
+  border-color: white;
   background-color: orange;
-  border: 3px solid white;
   position: absolute;
   top: 0px;
   right: 0px;
@@ -72,8 +66,6 @@
   border-radius: 8px;
   font-size: 12px;
   position: absolute;
-  right: 72px;
-  bottom: 20px;
   white-space: nowrap;
   background-color: white;
 }

@@ -39,6 +39,10 @@ export default function PopupButton({
         bottom: configuration.bottomIndent,
         right: configuration.rightIndent,
         zIndex: configuration.zIndex,
+        width: configuration.buttonSize,
+        height: configuration.buttonSize,
+        borderRadius: configuration.buttonSize,
+        padding: configuration.buttonSize / 6,
       }}
       onClick={() => handleClick()}
     >
@@ -48,21 +52,42 @@ export default function PopupButton({
             className={`${styles.fadingImage} ${!isCollapsed && styles.hiddenImage}`}
             alt=""
             src={configuration.popupIcon}
-            width={64}
-            height={64}
+            width={configuration.buttonSize}
+            height={configuration.buttonSize}
           />
         ) : (
           <DefaultIcon
             className={`${styles.fadingImage} ${!isCollapsed && styles.hiddenImage}`}
-            width={64}
-            height={64}
+            width={configuration.buttonSize}
+            height={configuration.buttonSize}
           />
         )}
-        <Chevron className={`${styles.fadingImage} ${isCollapsed && styles.hiddenImage}`} width={64} height={64} />
+        <Chevron
+          className={`${styles.fadingImage} ${isCollapsed && styles.hiddenImage}`}
+          width={configuration.buttonSize}
+          height={configuration.buttonSize}
+        />
       </div>
-      {configuration.addUnreadDot && !hasInteracted && <div className={styles.unreadDot} />}
+      {configuration.addUnreadDot && !hasInteracted && (
+        <div
+          className={styles.unreadDot}
+          style={{
+            width: configuration.buttonSize / 5,
+            height: configuration.buttonSize / 5,
+            borderRadius: configuration.buttonSize / 5,
+            borderWidth: configuration.buttonSize / 20,
+          }}
+        />
+      )}
       {configuration.popupMessage && !hasInteracted && (
-        <p className={styles.popupWidget} dangerouslySetInnerHTML={{ __html: configuration.popupMessage }} />
+        <p
+          className={styles.popupWidget}
+          style={{
+            bottom: configuration.buttonSize / 3,
+            right: configuration.buttonSize + configuration.buttonSize / 8,
+          }}
+          dangerouslySetInnerHTML={{ __html: configuration.popupMessage }}
+        />
       )}
     </button>
   )
