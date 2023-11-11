@@ -52,6 +52,7 @@
   border-style: solid;
   border-color: white;
   background-color: orange;
+  box-sizing: content-box;
   position: absolute;
   top: 0px;
   right: 0px;
