@@ -72,10 +72,10 @@ export default function PopupButton({
         <div
           className={styles.unreadDot}
           style={{
-            width: configuration.buttonSize / 5,
-            height: configuration.buttonSize / 5,
-            borderRadius: configuration.buttonSize / 5,
-            borderWidth: configuration.buttonSize / 20,
+            width: configuration.buttonSize / 5.5,
+            height: configuration.buttonSize / 5.5,
+            borderRadius: configuration.buttonSize / 5.5,
+            borderWidth: configuration.buttonSize / 22,
           }}
         />
       )}
