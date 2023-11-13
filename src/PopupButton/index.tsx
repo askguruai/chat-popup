@@ -93,6 +93,7 @@ export default function PopupButton({
           style={{
             bottom: configuration.bottomIndent + configuration.buttonSize / 3,
             right: configuration.rightIndent + configuration.buttonSize + configuration.buttonSize / 8,
+            zIndex: configuration.zIndex,
           }}
         >
           <p
