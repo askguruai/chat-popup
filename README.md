@@ -4,7 +4,7 @@ A popup that is intended to be embedded within a website to provide answers to q
 
 ## Usage
 
-To start using chat on the website, insert `<script>` with params in `<body>` at the root of the website. You can pass configuration parameters with query URL. List of available parameters and their default values available in `defaultConfiguration` variable in [configuration.ts](./src/configuration.ts). The only mandatory parameter is `token`.
+To start using chat on the website, insert `<script>` with params in `<head>` at the root of the website. You can pass configuration parameters with query URL. List of available parameters and their default values available in `defaultConfiguration` variable in [configuration.ts](./src/configuration.ts). The only mandatory parameter is `token`.
 
 Example insertion of the widget (the same script is used on [askguru.ai](https://askguru.ai) website):
 
