@@ -1,27 +1,29 @@
-# React + TypeScript + Vite
+# Chat Popup AskGuru Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A popup that is intended to be embedded within a website to provide answers to questions with links to the sources based on provided documents. To see it in action, visit [askguru.ai](https://askguru.ai).
 
-Currently, two official plugins are available:
+## Usage
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+To start using chat on the website, insert `<script>` with params in `<body>` at the root of the website. You can pass configuration parameters with query URL. List of available parameters and their default values available in `defaultConfiguration` variable in [configuration.ts](./src/configuration.ts). The only mandatory parameter is `token`.
 
-## Expanding the ESLint configuration
+Example insertion of the widget (the same script is used on [askguru.ai](https://askguru.ai) website):
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+```html
+<script src="https://chat-popup.askguru.ai/serve.js?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZW5kb3IiOiJhc2tndXJ1cHVibGljIiwib3JnYW5pemF0aW9uIjoiYXNrZ3VydSIsInNlY3VyaXR5X2dyb3VwcyI6W119.bR2GxUtV3zeER-s95AsV3UBrssa_ufP7Q1EalkBO5Kw&whitelabel=False&windowHeading=Chat+with+us%21&popupMessage=Check+out+%3Cb%3EAI+chatbot%21%3C%2Fb%3E&welcomeMessage=%F0%9F%91%8B+Hi%21+I+am+AskGuru+AI+Assistant.+Ask+me+anything+about+current+website...&addUnreadDot=True&bottomIndent=24&rightIndent=24&zIndex=99999&buttonSize=64"></script>
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Development
+
+```bash
+npm run dev
+```
+
+## Deployment
+
+Bundle project into single `.js` and `.css` using vite:
+
+```bash
+npm run build
+```
+
+It will result in `./dist/` folder which can be served via any webserver (we are using nginx).
